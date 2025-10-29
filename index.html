@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreshRSS Embeds - Índice</title>
+    <title>🎵 Mi Colección de Bandcamp</title>
     <style>
         * {
             margin: 0;
@@ -21,197 +21,130 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         header {
             text-align: center;
+            color: white;
+            padding: 50px 20px;
             margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 3px solid #667eea;
         }
 
         h1 {
-            font-size: 3em;
-            color: #2d3748;
-            margin-bottom: 10px;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .subtitle {
-            font-size: 1.2em;
-            color: #718096;
-            margin-bottom: 20px;
-        }
-
-        .global-stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .global-stat {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 15px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .global-stat-number {
-            font-size: 2em;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .global-stat-label {
-            font-size: 0.9em;
+            font-size: 1.3em;
             opacity: 0.9;
         }
 
-        .search-box {
-            margin: 30px 0;
-            text-align: center;
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
-        .search-input {
+        .search-box {
             width: 100%;
-            max-width: 600px;
             padding: 15px 25px;
             font-size: 1.1em;
-            border: 2px solid #e2e8f0;
+            border: none;
             border-radius: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             outline: none;
-            transition: all 0.3s;
+            transition: box-shadow 0.3s;
         }
 
-        .search-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .search-box:focus {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .feeds-grid {
+        .genres-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
-            margin-top: 30px;
+            margin-bottom: 40px;
         }
 
-        .feed-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
+        .genre-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
         }
 
-        .feed-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        .genre-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .feed-title {
-            font-size: 1.5em;
-            color: #2d3748;
-            margin-bottom: 15px;
-            word-wrap: break-word;
+        .genre-card.hidden {
+            display: none;
         }
 
-        .feed-stats {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+        .genre-card h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 10px;
         }
 
-        .stat-item {
-            text-align: center;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
+        .genre-count {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
         }
 
-        .stat-icon {
-            font-size: 1.5em;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .stat-number {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #667eea;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.8em;
-            color: #718096;
-            display: block;
-            margin-top: 2px;
-        }
-
-        .feed-date {
-            font-size: 0.9em;
-            color: #718096;
-            margin-bottom: 15px;
-        }
-
-        .feed-link {
+        .genre-link {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 12px 30px;
             border-radius: 25px;
             text-decoration: none;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s;
-            margin-top: auto;
+            font-weight: 500;
+            transition: transform 0.3s;
         }
 
-        .feed-link:hover {
+        .genre-link:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .no-results {
             text-align: center;
-            padding: 60px 20px;
-            color: #718096;
-            font-size: 1.2em;
+            color: white;
+            font-size: 1.3em;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .no-results.visible {
+            display: block;
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid #e2e8f0;
-            color: #718096;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            margin-top: 40px;
         }
 
         @media (max-width: 768px) {
-            .feeds-grid {
-                grid-template-columns: 1fr;
-            }
-
             h1 {
-                font-size: 2em;
+                font-size: 2.5em;
             }
 
-            .container {
-                padding: 20px;
-            }
-
-            .feed-stats {
-                grid-template-columns: repeat(3, 1fr);
+            .genres-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -219,110 +152,107 @@
 <body>
     <div class="container">
         <header>
-            <h1>🎵 FreshRSS Embeds</h1>
-            <p class="subtitle">Colección de música de tus feeds RSS</p>
-
-            <div class="global-stats">
-                <div class="global-stat">
-                    <span class="global-stat-number">1</span>
-                    <span class="global-stat-label">Feeds</span>
-                </div>
-                <div class="global-stat">
-                    <span class="global-stat-number">0</span>
-                    <span class="global-stat-label">Total embeds</span>
-                </div>
-                <div class="global-stat">
-                    <span class="global-stat-number">🎵 0</span>
-                    <span class="global-stat-label">Bandcamp</span>
-                </div>
-                <div class="global-stat">
-                    <span class="global-stat-number">📺 0</span>
-                    <span class="global-stat-label">YouTube</span>
-                </div>
-                <div class="global-stat">
-                    <span class="global-stat-number">🔊 0</span>
-                    <span class="global-stat-label">SoundCloud</span>
-                </div>
-            </div>
+            <h1>🎵 Mi Colección de Bandcamp</h1>
+            <p class="subtitle">Explora tu música por género</p>
         </header>
 
-        <div class="search-box">
-            <input type="text"
-                   id="search"
-                   class="search-input"
-                   placeholder="🔍 Buscar feeds..."
-                   onkeyup="filterFeeds()">
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="🔍 Buscar género..." id="searchInput">
         </div>
 
-        <div class="feeds-grid" id="feeds-grid">
+        <div class="genres-grid" id="genresGrid">
             
-        <div class="feed-card">
-            <h3 class="feed-title">Ban Ban Ton Ton</h3>
-            <div class="feed-stats">
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">Total</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-icon">🎵</span>
-                    <span class="stat-number">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-icon">📺</span>
-                    <span class="stat-number">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-icon">🔊</span>
-                    <span class="stat-number">0</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0</span>
-                    <span class="stat-label">páginas</span>
-                </div>
-            </div>
-            
-            <a href="Ban_Ban_Ton_Ton.html" class="feed-link">Ver embeds →</a>
+        <div class="genre-card" data-genre="ambient">
+            <h2>🎵 Ambient</h2>
+            <p class="genre-count">📀 89 discos</p>
+            <a href="Ambient.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="deep house">
+            <h2>🎵 Deep House</h2>
+            <p class="genre-count">📀 82 discos</p>
+            <a href="Deep_House.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="deep ket">
+            <h2>🎵 Deep ket</h2>
+            <p class="genre-count">📀 9 discos</p>
+            <a href="Deep_ket.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="disco">
+            <h2>🎵 Disco</h2>
+            <p class="genre-count">📀 14 discos</p>
+            <a href="Disco.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="musthave">
+            <h2>🎵 MustHave</h2>
+            <p class="genre-count">📀 4 discos</p>
+            <a href="MustHave.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="musthave sellos">
+            <h2>🎵 MustHave Sellos</h2>
+            <p class="genre-count">📀 33 discos</p>
+            <a href="MustHave_Sellos.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="soul funk">
+            <h2>🎵 Soul Funk</h2>
+            <p class="genre-count">📀 83 discos</p>
+            <a href="Soul_Funk.html" class="genre-link">Ver colección →</a>
+        </div>
+        
+        <div class="genre-card" data-genre="soul funk sellos">
+            <h2>🎵 Soul Funk Sellos</h2>
+            <p class="genre-count">📀 34 discos</p>
+            <a href="Soul_Funk_Sellos.html" class="genre-link">Ver colección →</a>
         </div>
         
         </div>
 
-        <div id="no-results" class="no-results" style="display: none;">
-            No se encontraron feeds que coincidan con tu búsqueda.
+        <div class="no-results" id="noResults">
+            No se encontraron géneros que coincidan con tu búsqueda
         </div>
 
         <footer>
-            <p>Generado el 2025-10-29 21:03:29</p>
-            <p style="margin-top: 10px;">
-                <a href="https://github.com/FreshRSS/FreshRSS" target="_blank" style="color: #667eea; text-decoration: none;">
-                    FreshRSS Embed Generator
-                </a>
+            <p>Generado con ❤️ para los amantes de Bandcamp</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Total de géneros: 8 |
+                Total de discos: 348
             </p>
         </footer>
     </div>
 
     <script>
-        function filterFeeds() {
-            const searchTerm = document.getElementById('search').value.toLowerCase();
-            const feedCards = document.querySelectorAll('.feed-card');
-            const noResults = document.getElementById('no-results');
+        const searchInput = document.getElementById('searchInput');
+        const genreCards = document.querySelectorAll('.genre-card');
+        const noResults = document.getElementById('noResults');
+
+        // Búsqueda en tiempo real
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
             let visibleCount = 0;
 
-            feedCards.forEach(card => {
-                const title = card.querySelector('.feed-title').textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    card.style.display = 'flex';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
+            genreCards.forEach(card => {
+                const genreName = card.dataset.genre;
+                const matches = genreName.includes(searchTerm);
+
+                card.classList.toggle('hidden', !matches);
+                if (matches) visibleCount++;
             });
 
-            if (visibleCount === 0) {
-                noResults.style.display = 'block';
-            } else {
-                noResults.style.display = 'none';
+            noResults.classList.toggle('visible', visibleCount === 0 && searchTerm !== '');
+        });
+
+        // Limpiar búsqueda con ESC
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
             }
-        }
+        });
     </script>
 </body>
 </html>
