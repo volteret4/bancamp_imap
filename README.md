@@ -8,24 +8,13 @@ Convierte tus correos de Bandcamp en una colección web estática y hermosa que 
 
 ## ✨ Características
 
-- 🎨 **Diseño oscuro moderno** con gradientes personalizados
 - 💾 **Persistencia local** usando localStorage
 - 🔄 **Sincronización inteligente** - Elimina escuchados, añade nuevos
-- 🎵 **Auto-stop** - Un solo reproductor sonando a la vez
-- 📱 **Responsive** - Funciona en todos los dispositivos
-- 🆓 **100% gratis** - Hostea en GitHub Pages
 - 🔒 **Privado** - Tus datos nunca salen del navegador
 
 ## 🚀 Inicio Rápido
 
-### 1. Genera una demo
-
-```bash
-python3 generate_demo.py
-# Abre demo-site/index.html en tu navegador
-```
-
-### 2. Usa tus datos reales
+### 1. Usa tus datos reales
 
 ```bash
 # Exporta correos
@@ -39,7 +28,7 @@ python3 bc_static_generator.py --input bandcamp_data.json
 cd docs && python3 -m http.server 8000
 ```
 
-### 3. Publica en GitHub
+### 2. Publica en GitHub
 
 ```bash
 git init
@@ -136,58 +125,3 @@ Crea carpetas en tu correo:
 python3 bc_export_to_json.py --interactive \
   --folders "INBOX/Rock:Rock" "INBOX/Electronic:Electronic"
 ```
-
-## 🎯 Casos de Uso
-
-- **To-Listen List** - Tu colección es tu lista de pendientes
-- **Curación Musical** - Solo muestras álbumes que recomiendas
-- **Limpieza Regular** - Cada mes eliminas escuchados y añades nuevos
-- **Descubrimiento** - Trackeas qué te falta escuchar
-
-## 🔧 Características Técnicas
-
-- **Frontend**: HTML + CSS + JavaScript vanilla
-- **Persistencia**: localStorage (cliente)
-- **Embeds**: iFrames de Bandcamp
-- **Auto-stop**: Detiene reproductores automáticamente
-- **Hosting**: GitHub Pages (gratis)
-- **Backend**: Ninguno (todo estático)
-
-## 📖 Documentación
-
-Incluye documentación detallada:
-
-- `START_HERE.md` - Empieza aquí
-- `SYNC_GUIDE.md` - Guía de sincronización completa
-- `ARCHITECTURE.md` - Cómo funciona todo
-- `LOCALSTORAGE_EXPLAINED.md` - Detalles técnicos
-
-## 🐛 Troubleshooting
-
-**Error de autenticación IMAP**
-
-- Gmail: usa contraseña de aplicación
-- Verifica que IMAP esté activado
-
-**Los escuchados siguen apareciendo**
-
-- Es normal en TU navegador (tienes localStorage)
-- Verifica en otro dispositivo o modo incógnito
-
-**No se detienen los reproductores**
-
-- Actualiza la página
-- Asegúrate de hacer click en el área del embed
-
-## 🤝 Contribuir
-
-¿Ideas para mejorar? ¡Abre un issue o pull request!
-
-## 📄 Licencia
-
-MIT License - Uso libre para proyectos personales
-
-## 🎉 Créditos
-
-- Embeds cortesía de [Bandcamp](https://bandcamp.com)
-- Inspirado en coleccionistas de música de todo el mundo

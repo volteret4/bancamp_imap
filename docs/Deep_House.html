@@ -92,12 +92,13 @@
         }
 
         .embed-item {
+            position: relative;
             background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .embed-item:hover {
@@ -109,10 +110,51 @@
             display: none;
         }
 
+        /* NUEVO: Oscurecer en lugar de ocultar */
         .embed-item.listened {
-            opacity: 0;
-            transform: scale(0.8);
+            filter: brightness(0.4) grayscale(0.8);
+            opacity: 0.5;
+        }
+
+        .embed-item.listened:hover {
+            transform: none;
+        }
+
+        .embed-item.listened .embed-container {
             pointer-events: none;
+        }
+
+        /* Overlay de "Escuchado" */
+        .listened-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .embed-item.listened .listened-overlay {
+            display: flex;
+        }
+
+        .listened-badge {
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .embed-container {
+            position: relative;
         }
 
         .embed-info {
@@ -151,7 +193,7 @@
         }
 
         .listened-btn:disabled {
-            background: #ccc;
+            background: #95d5b2;
             cursor: not-allowed;
             transform: none;
         }
@@ -252,789 +294,1147 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item page-1" data-page="1" id="embed_6352823478332055011" data-embed-id="embed_6352823478332055011">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2974221138/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Fri, 06 Jun 2025 07:08:25 +0000 (UTC)</small>
+        <div class="embed-item page-1" data-page="1" id="embed_1134782483278727365" data-embed-id="embed_1134782483278727365" data-url="https://toytonics.bandcamp.com/album/robot-salsa-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=433790019/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6352823478332055011')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_1527574257478085068" data-embed-id="embed_1527574257478085068">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2537556309/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Tue, 03 Jun 2025 09:04:32 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1527574257478085068')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_1750685610207393804" data-embed-id="embed_1750685610207393804">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2838493358/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Thu, 20 Feb 2025 14:06:55 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1750685610207393804')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_4255669195824566235" data-embed-id="embed_4255669195824566235">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3776980008/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Thu, 20 Feb 2025 09:52:44 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4255669195824566235')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3363475727452816528" data-embed-id="embed_3363475727452816528">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2720953284/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flexi Cuts</strong><br>
-                <small>📅 Tue, 11 Feb 2025 19:20:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3363475727452816528')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_6285631792950471498" data-embed-id="embed_6285631792950471498">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1255605500/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Poji Records, who brought you Dana Weaver I Remember
- Alt Mixes</strong><br>
-                <small>📅 Tue, 11 Feb 2025 03:34:39 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6285631792950471498')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_9096769020503130302" data-embed-id="embed_9096769020503130302">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3735536793/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flevans</strong><br>
-                <small>📅 Fri, 07 Feb 2025 10:33:40 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_9096769020503130302')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_992639549185690649" data-embed-id="embed_992639549185690649">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2678253803/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 07 Feb 2025 06:17:17 +0000 (UTC)</small>
+                <small>📅 Fri, 28 Jun 2024 03:50:15 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/robot-salsa-e...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_992639549185690649')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1134782483278727365')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_5547132607841602913" data-embed-id="embed_5547132607841602913">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2802368221/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from eclectics</strong><br>
-                <small>📅 Sat, 28 Dec 2024 18:35:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5547132607841602913')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_5078632572477722539" data-embed-id="embed_5078632572477722539">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1387598949/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Poji Records, who brought you Dana Weaver I Remember
- Alt Mixes</strong><br>
-                <small>📅 Fri, 20 Dec 2024 16:28:48 +0000 (UTC)</small>
+        <div class="embed-item page-1" data-page="1" id="embed_4913739884102118590" data-embed-id="embed_4913739884102118590" data-url="https://covofficial.bandcamp.com/album/hypnotic">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920400718/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5078632572477722539')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_7701962920333184162" data-embed-id="embed_7701962920333184162">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2901054682/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Mon, 16 Dec 2024 05:08:21 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7701962920333184162')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_4106882882150307495" data-embed-id="embed_4106882882150307495">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2548831661/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flevans</strong><br>
-                <small>📅 Fri, 06 Dec 2024 09:36:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4106882882150307495')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_3181909796482376114" data-embed-id="embed_3181909796482376114">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3764942225/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Fri, 06 Dec 2024 09:16:18 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3181909796482376114')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_7694411461736550747" data-embed-id="embed_7694411461736550747">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1790333009/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 06 Dec 2024 03:23:08 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7694411461736550747')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_3679436285289068703" data-embed-id="embed_3679436285289068703">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1403829691/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from De:tuned</strong><br>
-                <small>📅 Thu, 05 Dec 2024 19:23:52 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3679436285289068703')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_6848551156848674873" data-embed-id="embed_6848551156848674873">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1849321526/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Claremont 56</strong><br>
-                <small>📅 Mon, 02 Dec 2024 20:43:47 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6848551156848674873')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_6396939752873942487" data-embed-id="embed_6396939752873942487">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=938609686/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Mon, 25 Nov 2024 09:29:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6396939752873942487')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_4665238009999273232" data-embed-id="embed_4665238009999273232">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2616747361/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flexi Cuts</strong><br>
-                <small>📅 Fri, 22 Nov 2024 21:19:18 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4665238009999273232')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1642550073454795763" data-embed-id="embed_1642550073454795763">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1881444637/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 22 Nov 2024 09:47:39 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1642550073454795763')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1924273640950255734" data-embed-id="embed_1924273640950255734">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2726708004/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Fri, 22 Nov 2024 08:21:19 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1924273640950255734')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_3339552203105284922" data-embed-id="embed_3339552203105284922">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2734188499/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from hobbesmusic</strong><br>
-                <small>📅 Thu, 21 Nov 2024 16:55:21 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3339552203105284922')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_7947798979618463334" data-embed-id="embed_7947798979618463334">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3280759848/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Mon, 18 Nov 2024 10:08:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7947798979618463334')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_3482497832838133783" data-embed-id="embed_3482497832838133783">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=719809021/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flevans</strong><br>
-                <small>📅 Fri, 15 Nov 2024 09:40:02 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3482497832838133783')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_8949102282817040698" data-embed-id="embed_8949102282817040698">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2061591034/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 08 Nov 2024 08:30:33 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8949102282817040698')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_7547601978858042184" data-embed-id="embed_7547601978858042184">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=245800584/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from De:tuned</strong><br>
-                <small>📅 Thu, 07 Nov 2024 19:17:04 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7547601978858042184')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_1194592379413043667" data-embed-id="embed_1194592379413043667">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1115669601/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Poji Records</strong><br>
-                <small>📅 Fri, 01 Nov 2024 19:24:32 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1194592379413043667')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_6362359011047754720" data-embed-id="embed_6362359011047754720">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=330649466/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from hobbesmusic</strong><br>
-                <small>📅 Fri, 01 Nov 2024 15:46:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6362359011047754720')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_998607900323666145" data-embed-id="embed_998607900323666145">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3110044334/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Raz &amp; Afla</strong><br>
-                <small>📅 Fri, 25 Oct 2024 06:49:16 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_998607900323666145')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_6302944510899439284" data-embed-id="embed_6302944510899439284">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3330564971/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Mon, 21 Oct 2024 08:25:50 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6302944510899439284')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_1617922485917489134" data-embed-id="embed_1617922485917489134">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2959774438/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from De:tuned</strong><br>
-                <small>📅 Thu, 10 Oct 2024 17:46:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1617922485917489134')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_2548929172830275216" data-embed-id="embed_2548929172830275216">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1872443276/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Mon, 07 Oct 2024 07:17:05 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2548929172830275216')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_1308973340410791136" data-embed-id="embed_1308973340410791136">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3931687287/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Fri, 04 Oct 2024 07:38:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1308973340410791136')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_2386562731538548214" data-embed-id="embed_2386562731538548214">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1831252194/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Thu, 03 Oct 2024 21:58:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2386562731538548214')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_6380977148099831279" data-embed-id="embed_6380977148099831279">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4145329975/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New from Rhythm Section International: CLBELLIC, Limited Edition 12&quot;
- Test Pressing by Clbrks &amp; NickyDiesel</strong><br>
-                <small>📅 Thu, 03 Oct 2024 16:35:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6380977148099831279')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_5486206001999744922" data-embed-id="embed_5486206001999744922">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3764942225/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New from Rhythm Section International: Dalston Tapes Vol.1, Limited
- Test Pressing 12&quot; Vinyl by Neue Grafik</strong><br>
-                <small>📅 Mon, 30 Sep 2024 16:12:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5486206001999744922')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_5174634999405641754" data-embed-id="embed_5174634999405641754">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1675582815/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flexi Cuts</strong><br>
-                <small>📅 Sun, 29 Sep 2024 20:38:05 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5174634999405641754')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_1075497574462982965" data-embed-id="embed_1075497574462982965">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4067774493/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Mon, 23 Sep 2024 08:10:31 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1075497574462982965')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_2239159525012263646" data-embed-id="embed_2239159525012263646">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=824251246/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Mon, 23 Sep 2024 07:59:39 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2239159525012263646')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_3787631398817370206" data-embed-id="embed_3787631398817370206">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=180572648/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Kirk Degiorgio</strong><br>
-                <small>📅 Fri, 20 Sep 2024 07:52:53 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3787631398817370206')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_10911748375878414" data-embed-id="embed_10911748375878414">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2118124996/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 20 Sep 2024 06:46:22 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_10911748375878414')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_4377389094434274870" data-embed-id="embed_4377389094434274870">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3324104382/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Citizens Of Vice</strong><br>
-                <small>📅 Sat, 07 Sep 2024 07:10:24 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4377389094434274870')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_8119262492828806957" data-embed-id="embed_8119262492828806957">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2654147777/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 06 Sep 2024 05:51:19 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8119262492828806957')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_8079336677799581789" data-embed-id="embed_8079336677799581789">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3674910287/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Thu, 05 Sep 2024 07:13:14 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8079336677799581789')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_6299428500683430309" data-embed-id="embed_6299428500683430309">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=248696367/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Claremont 56</strong><br>
-                <small>📅 Fri, 30 Aug 2024 09:30:05 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6299428500683430309')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_4247957057062478241" data-embed-id="embed_4247957057062478241">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3893614910/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Higher Love Recordings</strong><br>
-                <small>📅 Fri, 30 Aug 2024 07:36:48 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4247957057062478241')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_3694479294574472214" data-embed-id="embed_3694479294574472214">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2858388202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 16 Aug 2024 07:38:39 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3694479294574472214')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_1404802621962855681" data-embed-id="embed_1404802621962855681">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4115351140/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Chris Coco  Micko Roche</strong><br>
-                <small>📅 Fri, 02 Aug 2024 08:13:09 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1404802621962855681')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_2531013208985664563" data-embed-id="embed_2531013208985664563">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3509053856/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Thu, 01 Aug 2024 22:13:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2531013208985664563')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_5374609964876791408" data-embed-id="embed_5374609964876791408">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3608900389/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Claremont 56</strong><br>
-                <small>📅 Sat, 27 Jul 2024 11:46:57 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5374609964876791408')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_6629169636629909748" data-embed-id="embed_6629169636629909748">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=473693780/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Citizens Of Vice, who brought you Lanowa - Seven
  Seas</strong><br>
-                <small>📅 Fri, 26 Jul 2024 05:54:51 +0000 (UTC)</small>
+                <small>📅 Fri, 28 Jun 2024 06:55:08 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://covofficial.bandcamp.com/album/hypnotic</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6629169636629909748')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4913739884102118590')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_4506811336277177391" data-embed-id="embed_4506811336277177391">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1090727693/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Coyote</strong><br>
-                <small>📅 Fri, 19 Jul 2024 08:28:44 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4506811336277177391')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-6" data-page="6" id="embed_526107488904226902" data-embed-id="embed_526107488904226902">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1124643230/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Flexi Cuts</strong><br>
-                <small>📅 Fri, 19 Jul 2024 06:22:31 +0000 (UTC)</small>
+        <div class="embed-item page-1" data-page="1" id="embed_3736441264272185647" data-embed-id="embed_3736441264272185647" data-url="https://lumberjacksinhell.bandcamp.com/album/hot-molten-lava">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2959699194/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_526107488904226902')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_5249435865313965860" data-embed-id="embed_5249435865313965860">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3370387755/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Chris Coco  George Solar</strong><br>
-                <small>📅 Fri, 12 Jul 2024 07:46:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5249435865313965860')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_8095960611066953842" data-embed-id="embed_8095960611066953842">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=959945097/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 12 Jul 2024 06:08:53 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8095960611066953842')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_4205941428675423598" data-embed-id="embed_4205941428675423598">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=358004895/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Tue, 09 Jul 2024 15:12:33 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4205941428675423598')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_3507754580647383452" data-embed-id="embed_3507754580647383452">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2993971226/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Fri, 05 Jul 2024 07:41:12 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3507754580647383452')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_4272670952182696407" data-embed-id="embed_4272670952182696407">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=789713883/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rhythm Section International</strong><br>
-                <small>📅 Thu, 04 Jul 2024 14:28:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4272670952182696407')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_2213786568863929136" data-embed-id="embed_2213786568863929136">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2959699194/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Lumberjacks In Hell, who brought you Sunrise</strong><br>
-                <small>📅 Mon, 01 Jul 2024 11:17:42 +0000 (UTC)</small>
+                <small>📅 Mon, 01 Jul 2024 11:17:42 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://lumberjacksinhell.bandcamp.com/album/hot-m...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2213786568863929136')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3736441264272185647')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
         </div>
         
-        <div class="embed-item page-6" data-page="6" id="embed_5384052794163403640" data-embed-id="embed_5384052794163403640">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920400718/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="embed_9073936143187776606" data-embed-id="embed_9073936143187776606" data-url="https://toytonics.bandcamp.com/album/mixed-signals-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2858388202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Wed, 03 Jul 2024 07:37:26 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/mixed-signals...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_9073936143187776606')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_4682723190251218449" data-embed-id="embed_4682723190251218449" data-url="https://wearerhythmsection.bandcamp.com/album/moods-vol-v-wind-down">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=789713883/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Thu, 04 Jul 2024 14:28:54 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/mood...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4682723190251218449')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_2662528232483443456" data-embed-id="embed_2662528232483443456" data-url="https://wearerhythmsection.bandcamp.com/album/memories-youve-memorised">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2993971226/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Fri, 05 Jul 2024 07:41:12 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/memo...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2662528232483443456')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_8491200402505378722" data-embed-id="embed_8491200402505378722" data-url="https://wearerhythmsection.bandcamp.com/album/moods-vol-v-room-2">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=358004895/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Tue, 09 Jul 2024 15:12:33 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/mood...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8491200402505378722')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_6572781206088544274" data-embed-id="embed_6572781206088544274" data-url="https://toytonics.bandcamp.com/album/reborn-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=959945097/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Fri, 12 Jul 2024 06:08:53 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/reborn-ep</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6572781206088544274')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_6051319322584058446" data-embed-id="embed_6051319322584058446" data-url="https://chriscoco.bandcamp.com/album/holy-sun-holy-ambient">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3370387755/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Chris Coco  George Solar</strong><br>
+                <small>📅 Fri, 12 Jul 2024 07:46:15 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://chriscoco.bandcamp.com/album/holy-sun-holy...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6051319322584058446')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_7615534312764422953" data-embed-id="embed_7615534312764422953" data-url="https://coeo.bandcamp.com/album/eternal-waves">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2654147777/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 15 Jul 2024 06:19:51 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://coeo.bandcamp.com/album/eternal-waves</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7615534312764422953')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_3918153840692594605" data-embed-id="embed_3918153840692594605" data-url="https://wearerhythmsection.bandcamp.com/album/clbellic">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4145329975/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Thu, 18 Jul 2024 08:12:33 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/clbe...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3918153840692594605')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_4979306607898339121" data-embed-id="embed_4979306607898339121" data-url="https://flexi-cuts.bandcamp.com/album/sole">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1124643230/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flexi Cuts</strong><br>
+                <small>📅 Fri, 19 Jul 2024 06:22:31 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flexi-cuts.bandcamp.com/album/sole</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4979306607898339121')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_3016369650905648588" data-embed-id="embed_3016369650905648588" data-url="https://coyoteiib.bandcamp.com/album/habitual-illusions-embrace-it">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1090727693/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Coyote</strong><br>
+                <small>📅 Fri, 19 Jul 2024 08:28:44 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://coyoteiib.bandcamp.com/album/habitual-illu...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3016369650905648588')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_5862625814809663644" data-embed-id="embed_5862625814809663644" data-url="https://covofficial.bandcamp.com/album/flying-1992">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=473693780/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
                 <strong>New release from Citizens Of Vice, who brought you Lanowa - Seven
  Seas</strong><br>
-                <small>📅 Fri, 28 Jun 2024 06:55:08 +0000 (UTC)</small>
+                <small>📅 Fri, 26 Jul 2024 05:54:51 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://covofficial.bandcamp.com/album/flying-1992</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5384052794163403640')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5862625814809663644')">
                     🎧 Marcar como escuchado
                 </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-6" data-page="6" id="embed_1034857127506251572" data-embed-id="embed_1034857127506251572">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=433790019/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-2" data-page="2" id="embed_7029308362866770167" data-embed-id="embed_7029308362866770167" data-url="https://claremont56.bandcamp.com/album/the-claremont-56-versions">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3608900389/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
-                <strong>New release from Toy Tonics</strong><br>
-                <small>📅 Fri, 28 Jun 2024 03:50:15 +0000 (UTC)</small>
+                <strong>New release from Claremont 56</strong><br>
+                <small>📅 Sat, 27 Jul 2024 11:46:57 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://claremont56.bandcamp.com/album/the-claremo...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1034857127506251572')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7029308362866770167')">
                     🎧 Marcar como escuchado
                 </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_5315383064681090500" data-embed-id="embed_5315383064681090500" data-url="https://toytonics.bandcamp.com/album/top-tracks-vol-12">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3509053856/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Thu, 01 Aug 2024 22:13:43 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/top-tracks-vo...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5315383064681090500')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_4680955368407496364" data-embed-id="embed_4680955368407496364" data-url="https://chriscoco.bandcamp.com/album/la-guitarra">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4115351140/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Chris Coco  Micko Roche</strong><br>
+                <small>📅 Fri, 02 Aug 2024 08:13:09 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://chriscoco.bandcamp.com/album/la-guitarra</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4680955368407496364')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_8897959955516742555" data-embed-id="embed_8897959955516742555" data-url="https://higherloverec.bandcamp.com/album/pass-a-wish">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3893614910/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Fri, 02 Aug 2024 22:04:32 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/pass-a-wi...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8897959955516742555')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_8933010413619195425" data-embed-id="embed_8933010413619195425" data-url="https://toytonics.bandcamp.com/album/everybody-knows-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1831252194/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 26 Aug 2024 06:12:10 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/everybody-kno...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8933010413619195425')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_735262246823112606" data-embed-id="embed_735262246823112606" data-url="https://mudd56.bandcamp.com/album/eighty-three-conrad-idjut-remixes">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=248696367/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Claremont 56</strong><br>
+                <small>📅 Fri, 30 Aug 2024 09:30:05 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://mudd56.bandcamp.com/album/eighty-three-con...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_735262246823112606')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_8753625753815008511" data-embed-id="embed_8753625753815008511" data-url="https://higherloverec.bandcamp.com/album/hey-you">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3674910287/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Thu, 05 Sep 2024 07:13:14 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/hey-you</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8753625753815008511')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_6432896965338605171" data-embed-id="embed_6432896965338605171" data-url="https://covofficial.bandcamp.com/album/ramboiage-x-c4stro">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3324104382/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Citizens Of Vice</strong><br>
+                <small>📅 Sat, 07 Sep 2024 07:10:24 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://covofficial.bandcamp.com/album/ramboiage-x...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6432896965338605171')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_1615533828094654501" data-embed-id="embed_1615533828094654501" data-url="https://toytonics.bandcamp.com/album/memoir-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2061591034/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 09 Sep 2024 08:11:01 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/memoir-ep</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1615533828094654501')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_6412802326799687769" data-embed-id="embed_6412802326799687769" data-url="https://higherloverec.bandcamp.com/album/revolvalution">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=824251246/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Mon, 09 Sep 2024 19:51:04 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/revolvalu...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6412802326799687769')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_9156790969490218028" data-embed-id="embed_9156790969490218028" data-url="https://higherloverec.bandcamp.com/album/lagos">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1872443276/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Tue, 17 Sep 2024 09:15:38 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/lagos</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_9156790969490218028')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_2109783503157764084" data-embed-id="embed_2109783503157764084" data-url="https://kirkdegiorgio.bandcamp.com/album/the-statement">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=180572648/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Kirk Degiorgio</strong><br>
+                <small>📅 Mon, 02 Sep 2024 09:47:50 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kirkdegiorgio.bandcamp.com/album/the-state...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2109783503157764084')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_7990619470745246386" data-embed-id="embed_7990619470745246386" data-url="https://razandafla.bandcamp.com/album/echoes-of-resistance">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3110044334/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Raz &amp; Afla</strong><br>
+                <small>📅 Fri, 30 Aug 2024 06:39:28 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://razandafla.bandcamp.com/album/echoes-of-re...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7990619470745246386')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_5311431082774214658" data-embed-id="embed_5311431082774214658" data-url="https://detunedrecords.bandcamp.com/album/dat-tapes-vol-02">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2959774438/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from De:tuned</strong><br>
+                <small>📅 Mon, 02 Sep 2024 16:54:29 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://detunedrecords.bandcamp.com/album/dat-tape...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5311431082774214658')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_5721583934526798120" data-embed-id="embed_5721583934526798120" data-url="https://toytonics.bandcamp.com/album/kapote-presents-italomania-vol-2">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2118124996/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Fri, 20 Sep 2024 06:46:22 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/kapote-presen...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5721583934526798120')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_6679628502437847034" data-embed-id="embed_6679628502437847034" data-url="https://kapote.bandcamp.com/album/spaceship">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4067774493/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 23 Sep 2024 08:10:31 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kapote.bandcamp.com/album/spaceship</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6679628502437847034')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_2559945833010571415" data-embed-id="embed_2559945833010571415" data-url="https://detunedrecords.bandcamp.com/album/analog-days">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=245800584/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from De:tuned</strong><br>
+                <small>📅 Mon, 23 Sep 2024 16:16:01 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://detunedrecords.bandcamp.com/album/analog-d...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2559945833010571415')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_4287504086790162128" data-embed-id="embed_4287504086790162128" data-url="https://neuegrafik.bandcamp.com/album/dalston-tapes-vol-1">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3764942225/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Thu, 26 Sep 2024 07:31:24 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://neuegrafik.bandcamp.com/album/dalston-tape...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4287504086790162128')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_5089716974743420282" data-embed-id="embed_5089716974743420282" data-url="https://flexi-cuts.bandcamp.com/album/musica-solida-sampler-1">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1675582815/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flexi Cuts</strong><br>
+                <small>📅 Sun, 29 Sep 2024 20:38:05 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flexi-cuts.bandcamp.com/album/musica-solid...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5089716974743420282')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_3734056334393103006" data-embed-id="embed_3734056334393103006" data-url="https://wearerhythmsection.bandcamp.com/album/moods-vol-vii-a-roland-love-affair">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3931687287/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Fri, 04 Oct 2024 07:38:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/mood...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3734056334393103006')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_7390515880481145868" data-embed-id="embed_7390515880481145868" data-url="https://wearerhythmsection.bandcamp.com/album/10-years-of-rhythm-section-international-2">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2726708004/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Tue, 08 Oct 2024 07:40:48 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wearerhythmsection.bandcamp.com/album/10-y...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7390515880481145868')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_3139853461941925295" data-embed-id="embed_3139853461941925295" data-url="https://codycurrie.bandcamp.com/album/touch-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1881444637/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 14 Oct 2024 07:48:12 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://codycurrie.bandcamp.com/album/touch-ep</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3139853461941925295')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_3633797359876546507" data-embed-id="embed_3633797359876546507" data-url="https://flexi-cuts.bandcamp.com/album/funk-area-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2616747361/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flexi Cuts</strong><br>
+                <small>📅 Fri, 18 Oct 2024 07:33:32 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flexi-cuts.bandcamp.com/album/funk-area-ep</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3633797359876546507')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_9171277036623593121" data-embed-id="embed_9171277036623593121" data-url="https://kapote.bandcamp.com/album/prana-passione">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3330564971/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 21 Oct 2024 08:25:50 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kapote.bandcamp.com/album/prana-passione</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_9171277036623593121')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_2167353583140393788" data-embed-id="embed_2167353583140393788" data-url="https://mudd56.bandcamp.com/album/spielplatz-quiet-village-remixes">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1849321526/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Claremont 56</strong><br>
+                <small>📅 Wed, 23 Oct 2024 15:22:26 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://mudd56.bandcamp.com/album/spielplatz-quiet...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2167353583140393788')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_2688693163723603147" data-embed-id="embed_2688693163723603147" data-url="https://toytonics.bandcamp.com/album/gomma-dancefloor-gems-vol-3">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1790333009/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 28 Oct 2024 10:00:52 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/gomma-dancefl...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2688693163723603147')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_1943244544262479676" data-embed-id="embed_1943244544262479676" data-url="https://hobbesmusicon.bandcamp.com/album/holocene-hm027lp-electronic-techno-experimental">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=330649466/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from hobbesmusic</strong><br>
+                <small>📅 Fri, 01 Nov 2024 15:46:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hobbesmusicon.bandcamp.com/album/holocene-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1943244544262479676')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_4555301114673941910" data-embed-id="embed_4555301114673941910" data-url="https://pojirecords.bandcamp.com/track/drift-a-dj-oji-aka-original-man-rework">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1115669601/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Poji Records</strong><br>
+                <small>📅 Fri, 01 Nov 2024 19:24:32 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://pojirecords.bandcamp.com/track/drift-a-dj-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4555301114673941910')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_5669159007966151725" data-embed-id="embed_5669159007966151725" data-url="https://flevansofficial.bandcamp.com/album/untrue">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=719809021/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flevans</strong><br>
+                <small>📅 Fri, 15 Nov 2024 09:40:02 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flevansofficial.bandcamp.com/album/untrue</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5669159007966151725')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_4160689135726480704" data-embed-id="embed_4160689135726480704" data-url="https://kapote.bandcamp.com/album/berlin-boogie-town">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3280759848/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 18 Nov 2024 10:08:43 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kapote.bandcamp.com/album/berlin-boogie-to...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4160689135726480704')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_387488119671039367" data-embed-id="embed_387488119671039367" data-url="https://hobbesmusicon.bandcamp.com/album/dust-tears-remixes-hm028ep-dream-pop-electro-balearic">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2734188499/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from hobbesmusic</strong><br>
+                <small>📅 Thu, 21 Nov 2024 16:55:21 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hobbesmusicon.bandcamp.com/album/dust-tear...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_387488119671039367')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_7212667451585831300" data-embed-id="embed_7212667451585831300" data-url="https://toytonics.bandcamp.com/album/disco-music-remixes">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=938609686/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 25 Nov 2024 09:29:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/disco-music-r...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7212667451585831300')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_7024167170782437428" data-embed-id="embed_7024167170782437428" data-url="https://detunedrecords.bandcamp.com/album/requiem">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1403829691/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from De:tuned</strong><br>
+                <small>📅 Thu, 05 Dec 2024 19:23:52 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://detunedrecords.bandcamp.com/album/requiem</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7024167170782437428')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_8227986903416798463" data-embed-id="embed_8227986903416798463" data-url="https://neuegrafik.bandcamp.com/album/dalston-tape-vol-1">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3764942225/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Fri, 06 Dec 2024 09:16:18 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://neuegrafik.bandcamp.com/album/dalston-tape...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8227986903416798463')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_5703649266661129588" data-embed-id="embed_5703649266661129588" data-url="https://flevansofficial.bandcamp.com/track/bbng-sleeper-unofficial-flevans-remix">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2548831661/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flevans</strong><br>
+                <small>📅 Fri, 06 Dec 2024 09:36:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flevansofficial.bandcamp.com/track/bbng-sl...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5703649266661129588')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_4794437883679533265" data-embed-id="embed_4794437883679533265" data-url="https://toytonics.bandcamp.com/album/new-transition-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2678253803/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 09 Dec 2024 02:19:43 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://toytonics.bandcamp.com/album/new-transitio...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4794437883679533265')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_7152544106733902772" data-embed-id="embed_7152544106733902772" data-url="https://kapote.bandcamp.com/album/selfish-gods">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2901054682/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Toy Tonics</strong><br>
+                <small>📅 Mon, 16 Dec 2024 05:08:21 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kapote.bandcamp.com/album/selfish-gods</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7152544106733902772')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_4278430400260276487" data-embed-id="embed_4278430400260276487" data-url="https://flexi-cuts.bandcamp.com/album/musica-solida-sampler-2">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2720953284/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flexi Cuts</strong><br>
+                <small>📅 Wed, 18 Dec 2024 22:30:59 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flexi-cuts.bandcamp.com/album/musica-solid...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4278430400260276487')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_8038221231420057686" data-embed-id="embed_8038221231420057686" data-url="https://pojirecords.bandcamp.com/track/christmas-time-is-here">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1387598949/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Poji Records, who brought you Dana Weaver I Remember
+ Alt Mixes</strong><br>
+                <small>📅 Fri, 20 Dec 2024 16:28:48 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://pojirecords.bandcamp.com/track/christmas-t...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8038221231420057686')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_1607875139382955039" data-embed-id="embed_1607875139382955039" data-url="https://eclectics.bandcamp.com/album/resident-rockers">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2802368221/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from eclectics</strong><br>
+                <small>📅 Sat, 28 Dec 2024 18:35:00 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://eclectics.bandcamp.com/album/resident-rock...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1607875139382955039')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_2977381301417857411" data-embed-id="embed_2977381301417857411" data-url="https://flevansofficial.bandcamp.com/album/forever">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3735536793/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Flevans</strong><br>
+                <small>📅 Fri, 07 Feb 2025 10:33:40 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://flevansofficial.bandcamp.com/album/forever</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2977381301417857411')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_5333605247675532541" data-embed-id="embed_5333605247675532541" data-url="https://pojirecords.bandcamp.com/album/ed-ramsey-love-shaker-ep">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1255605500/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Poji Records, who brought you Dana Weaver I Remember
+ Alt Mixes</strong><br>
+                <small>📅 Tue, 11 Feb 2025 03:34:39 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://pojirecords.bandcamp.com/album/ed-ramsey-l...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5333605247675532541')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_6069997596206485963" data-embed-id="embed_6069997596206485963" data-url="https://cousinkula.bandcamp.com/album/after-sun">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3776980008/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Thu, 20 Feb 2025 09:52:44 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://cousinkula.bandcamp.com/album/after-sun</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6069997596206485963')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_4608715168951358881" data-embed-id="embed_4608715168951358881" data-url="https://higherloverec.bandcamp.com/album/field-of-dreams">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2838493358/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Thu, 20 Feb 2025 14:06:55 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/field-of-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4608715168951358881')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_4940314900277115137" data-embed-id="embed_4940314900277115137" data-url="https://higherloverec.bandcamp.com/album/black-stick">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2537556309/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Higher Love Recordings</strong><br>
+                <small>📅 Tue, 03 Jun 2025 09:04:32 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://higherloverec.bandcamp.com/album/black-sti...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4940314900277115137')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_949429433489596394" data-embed-id="embed_949429433489596394" data-url="https://dreamcastmoe.bandcamp.com/album/the-lost-tape-vol-3">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2974221138/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rhythm Section International</strong><br>
+                <small>📅 Fri, 06 Jun 2025 07:08:25 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://dreamcastmoe.bandcamp.com/album/the-lost-t...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_949429433489596394')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
@@ -1048,24 +1448,28 @@
     <script>
         const STORAGE_KEY = 'bandcamp_listened_Deep_House';
         const TOTAL_ITEMS = 60;
+        let currentPlayingIframe = null;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
+            let listenedCount = 0;
 
             listened.forEach(embedId => {
                 const element = document.querySelector(`[data-embed-id="${embedId}"]`);
                 if (element) {
                     element.classList.add('listened');
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                    hiddenCount++;
+                    const button = element.querySelector('.listened-btn');
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = '✓ Escuchado';
+                    }
+                    listenedCount++;
                 }
             });
 
-            updateStats(hiddenCount);
+            updateStats(listenedCount);
+            console.log(`📊 Cargados ${listenedCount} álbumes escuchados`);
         }
 
         // Actualizar estadísticas
@@ -1073,33 +1477,32 @@
             const pending = TOTAL_ITEMS - listenedCount;
             document.getElementById('listened-count').textContent = listenedCount;
             document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = pending;
+            document.getElementById('visible-count').textContent = TOTAL_ITEMS;
         }
 
         // Marcar como escuchado
         function markAsListened(embedId) {
             const element = document.getElementById(embedId);
+            if (!element) return;
+
             const button = element.querySelector('.listened-btn');
 
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✓ Escuchado';
-
-            // Guardar en localStorage
+            // Guardar en localStorage PRIMERO
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
+                console.log(`💾 Guardado en localStorage:`, embedId);
             }
 
-            // Animar desaparición
+            // Actualizar UI
+            button.disabled = true;
+            button.textContent = '✓ Escuchado';
+
+            // Oscurecer el embed
             element.classList.add('listened');
 
-            setTimeout(() => {
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }, 500);
-
+            updateStats(listened.length);
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
@@ -1110,14 +1513,16 @@
             }
 
             localStorage.removeItem(STORAGE_KEY);
+            console.log(`🗑️ localStorage limpiado`);
 
             // Mostrar todos los elementos
             document.querySelectorAll('.embed-item').forEach(item => {
                 item.classList.remove('listened');
-                item.style.display = '';
                 const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = '🎧 Marcar como escuchado';
+                }
             });
 
             updateStats(0);
@@ -1136,11 +1541,6 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
-                    // No mostrar si está escuchado
-                    if (item.classList.contains('listened')) {
-                        return;
-                    }
-
                     if (item.dataset.page === page) {
                         item.classList.remove('hidden');
                     } else {
@@ -1155,7 +1555,7 @@
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {
             embedItems.forEach(item => {
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
+                if (item.dataset.page !== '1') {
                     item.classList.add('hidden');
                 }
             });
@@ -1172,65 +1572,108 @@
             }, 3000);
         }
 
-        // Cargar estado al iniciar la página
-        loadListenedState();
+        // ========== MEJORADO: DETECCIÓN DE REPRODUCCIÓN ==========
 
-        console.log('💾 Los datos se guardan localmente en tu navegador');
-        console.log('🔑 Storage key:', STORAGE_KEY);
+        // Función mejorada para pausar otros reproductores
+        function pauseOtherPlayers(currentIframe) {
+            if (!currentIframe) return;
 
-        // Función para detener otros reproductores de Bandcamp
-        function stopOtherPlayers(currentIframe) {
             const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            let pausedCount = 0;
+
             allIframes.forEach(iframe => {
                 if (iframe !== currentIframe) {
-                    // Recargar el iframe para detener la reproducción
+                    // Método 1: Recargar iframe (más efectivo)
                     const src = iframe.src;
                     iframe.src = '';
-                    iframe.src = src;
+                    // Pequeño delay antes de recargar
+                    setTimeout(() => {
+                        iframe.src = src;
+                    }, 50);
+                    pausedCount++;
                 }
+            });
+
+            if (pausedCount > 0) {
+                console.log(`⏸️ Pausados ${pausedCount} reproductores`);
+            }
+
+            currentPlayingIframe = currentIframe;
+        }
+
+        // Detectar clicks en los embeds con mejor timing
+        function setupPlaybackDetection() {
+            document.querySelectorAll('.embed-item').forEach(embedItem => {
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+
+                if (!iframe) return;
+
+                // Detectar mousedown (antes del click)
+                embedItem.addEventListener('mousedown', (e) => {
+                    // Solo si no es el botón de acción
+                    if (!e.target.classList.contains('action-btn')) {
+                        // Pausar inmediatamente
+                        pauseOtherPlayers(iframe);
+                    }
+                });
+
+                // También detectar clicks directamente
+                embedItem.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('action-btn')) {
+                        // Delay corto para asegurar que se ejecute después del click
+                        setTimeout(() => {
+                            pauseOtherPlayers(iframe);
+                        }, 150);
+                    }
+                });
+
+                // Detectar cuando el iframe está en foco
+                iframe.addEventListener('mouseenter', () => {
+                    iframe.dataset.hovered = 'true';
+                });
+
+                iframe.addEventListener('mouseleave', () => {
+                    iframe.dataset.hovered = 'false';
+                });
+            });
+
+            console.log('🎵 Detección de reproducción configurada');
+        }
+
+        // Prevenir múltiples reproductores al cargar
+        function preventAutoplay() {
+            // Esperar a que todos los iframes carguen
+            const iframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            let loadedCount = 0;
+
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', () => {
+                    loadedCount++;
+                    // Cuando todos hayan cargado, asegurar que solo uno pueda reproducir
+                    if (loadedCount === iframes.length) {
+                        console.log(`✅ ${iframes.length} embeds cargados y listos`);
+                    }
+                });
             });
         }
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('iframe[src*="bandcamp.com"]').forEach(iframe => {
-            iframe.addEventListener('load', () => {
-                // Escuchar eventos de reproducción (esto es limitado por CORS,
-                // pero el reload funciona como fallback)
-                try {
-                    iframe.contentWindow.addEventListener('play', () => {
-                        stopOtherPlayers(iframe);
-                    });
-                } catch(e) {
-                    // CORS bloqueado, usar método alternativo
-                    // Detectar click en el iframe
-                    iframe.addEventListener('mouseenter', () => {
-                        iframe.dataset.hovered = 'true';
-                    });
+        // Inicializar todo
+        function init() {
+            loadListenedState();
+            setupPlaybackDetection();
+            preventAutoplay();
 
-                    iframe.addEventListener('mouseleave', () => {
-                        iframe.dataset.hovered = 'false';
-                    });
-                }
-            });
+            console.log('💾 Storage key:', STORAGE_KEY);
+            console.log('📦 Total embeds:', TOTAL_ITEMS);
+            console.log('✅ Sistema de reproducción inicializado');
+        }
 
-            // Detectar clicks en el iframe (funciona mejor)
-            iframe.addEventListener('click', () => {
-                stopOtherPlayers(iframe);
-            });
-        });
-
-        // Alternativa: detener al hacer click en cualquier embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {
-            embedItem.addEventListener('click', (e) => {
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {
-                    // Pequeño delay para que se ejecute después del click en play
-                    setTimeout(() => {
-                        stopOtherPlayers(iframe);
-                    }, 100);
-                }
-            });
-        });
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>

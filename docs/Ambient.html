@@ -92,12 +92,13 @@
         }
 
         .embed-item {
+            position: relative;
             background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .embed-item:hover {
@@ -109,10 +110,51 @@
             display: none;
         }
 
+        /* NUEVO: Oscurecer en lugar de ocultar */
         .embed-item.listened {
-            opacity: 0;
-            transform: scale(0.8);
+            filter: brightness(0.4) grayscale(0.8);
+            opacity: 0.5;
+        }
+
+        .embed-item.listened:hover {
+            transform: none;
+        }
+
+        .embed-item.listened .embed-container {
             pointer-events: none;
+        }
+
+        /* Overlay de "Escuchado" */
+        .listened-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .embed-item.listened .listened-overlay {
+            display: flex;
+        }
+
+        .listened-badge {
+            background: rgba(76, 175, 80, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .embed-container {
+            position: relative;
         }
 
         .embed-info {
@@ -151,7 +193,7 @@
         }
 
         .listened-btn:disabled {
-            background: #ccc;
+            background: #95d5b2;
             cursor: not-allowed;
             transform: none;
         }
@@ -252,796 +294,1162 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item page-1" data-page="1" id="embed_5300260390699683174" data-embed-id="embed_5300260390699683174">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2500161449/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="embed_7353089220794013351" data-embed-id="embed_7353089220794013351" data-url="https://astrangelyisolatedplace.bandcamp.com/album/iris">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=734948215/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
                 <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 20 Dec 2024 16:15:22 +0000 (UTC)</small>
+                <small>📅 Fri, 10 Nov 2023 05:16:59 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5300260390699683174')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7353089220794013351')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_5632680437045072032" data-embed-id="embed_5632680437045072032">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=561867497/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 18 Dec 2024 06:35:08 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5632680437045072032')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_7121458056872068157" data-embed-id="embed_7121458056872068157">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3416869588/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Byrd Out</strong><br>
-                <small>📅 Fri, 06 Dec 2024 08:08:07 +0000 (UTC)</small>
+        <div class="embed-item page-1" data-page="1" id="embed_1021307758562202009" data-embed-id="embed_1021307758562202009" data-url="https://niecyblues.bandcamp.com/album/exit-simulation">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2548103727/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7121458056872068157')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3795911170164484679" data-embed-id="embed_3795911170164484679">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4097453253/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Tue, 26 Nov 2024 16:42:57 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3795911170164484679')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3193154248413303926" data-embed-id="embed_3193154248413303926">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4242120783/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 22 Nov 2024 13:53:38 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3193154248413303926')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3160735203244039269" data-embed-id="embed_3160735203244039269">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1275824629/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Fri, 22 Nov 2024 10:47:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3160735203244039269')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_501918246784549522" data-embed-id="embed_501918246784549522">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=735548444/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Wed, 20 Nov 2024 12:49:51 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_501918246784549522')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3001781575107487425" data-embed-id="embed_3001781575107487425">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=964259928/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from kranky</strong><br>
-                <small>📅 Fri, 15 Nov 2024 14:57:23 +0000 (UTC)</small>
+                <small>📅 Fri, 10 Nov 2023 08:36:37 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://niecyblues.bandcamp.com/album/exit-simulat...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3001781575107487425')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1021307758562202009')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_7410541878469188195" data-embed-id="embed_7410541878469188195">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1172113501/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Tue, 12 Nov 2024 23:12:12 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7410541878469188195')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_6999602102401815405" data-embed-id="embed_6999602102401815405">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1598118627/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
-                <small>📅 Thu, 24 Oct 2024 22:56:06 +0000 (UTC)</small>
+        <div class="embed-item page-1" data-page="1" id="embed_2447559056322342770" data-embed-id="embed_2447559056322342770" data-url="https://andreasgerthandcarloesterhelt.bandcamp.com/album/music-for-unknown-rituals">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1019656832/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6999602102401815405')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_7994067053724268256" data-embed-id="embed_7994067053724268256">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4203387016/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
-                <small>📅 Thu, 24 Oct 2024 22:55:28 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7994067053724268256')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_2505117354994196406" data-embed-id="embed_2505117354994196406">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=644858136/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 09 Oct 2024 20:40:13 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2505117354994196406')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_2294059197485680042" data-embed-id="embed_2294059197485680042">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2189428345/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from kranky</strong><br>
-                <small>📅 Fri, 20 Sep 2024 15:03:57 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2294059197485680042')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_3122819189886947335" data-embed-id="embed_3122819189886947335">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1095114887/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
-                <small>📅 Fri, 20 Sep 2024 03:48:09 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3122819189886947335')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_5103490494383497771" data-embed-id="embed_5103490494383497771">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=454625462/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from David Cordero</strong><br>
-                <small>📅 Thu, 19 Sep 2024 22:30:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5103490494383497771')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1547161355380145151" data-embed-id="embed_1547161355380145151">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2731160613/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Umor Rex</strong><br>
-                <small>📅 Thu, 05 Sep 2024 16:14:19 +0000 (UTC)</small>
+                <small>📅 Thu, 16 Nov 2023 12:57:46 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://andreasgerthandcarloesterhelt.bandcamp.com...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1547161355380145151')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2447559056322342770')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="embed_3918281765134738709" data-embed-id="embed_3918281765134738709">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4275360019/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="embed_964397749679514252" data-embed-id="embed_964397749679514252" data-url="https://redsnapper.bandcamp.com/album/suckerpunch-live-moist-remix">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3382789045/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 08 Dec 2023 09:02:01 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://redsnapper.bandcamp.com/album/suckerpunch-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_964397749679514252')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_7711057599330411271" data-embed-id="embed_7711057599330411271" data-url="https://bdrmm.bandcamp.com/track/be-careful-fila-brazillia-remix">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3583725968/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rock Action Records</strong><br>
+                <small>📅 Wed, 13 Dec 2023 11:56:15 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bdrmm.bandcamp.com/track/be-careful-fila-b...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7711057599330411271')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_774032208241453849" data-embed-id="embed_774032208241453849" data-url="https://redsnapper.bandcamp.com/album/space-sickness-live-spectral-karaoke-mixes">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4072330931/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 15 Dec 2023 14:44:26 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://redsnapper.bandcamp.com/album/space-sickne...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_774032208241453849')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_3447315963626131331" data-embed-id="embed_3447315963626131331" data-url="https://davidcordero.bandcamp.com/track/live-at-microclima">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3856279582/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from David Cordero</strong><br>
+                <small>📅 Wed, 20 Dec 2023 09:27:01 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://davidcordero.bandcamp.com/track/live-at-mi...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3447315963626131331')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="embed_7557526541509396486" data-embed-id="embed_7557526541509396486" data-url="https://astrangelyisolatedplace.bandcamp.com/album/-">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2762223764/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
                 <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Wed, 04 Sep 2024 13:48:54 +0000 (UTC)</small>
+                <small>📅 Mon, 08 Jan 2024 15:33:07 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3918281765134738709')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7557526541509396486')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="embed_7213985422301460320" data-embed-id="embed_7213985422301460320">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2793477141/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="embed_191001087386066822" data-embed-id="embed_191001087386066822" data-url="https://hushhushrecords.bandcamp.com/album/golla-gorroppu">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2581138972/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 04 Sep 2024 06:45:24 +0000 (UTC)</small>
+                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
+                <small>📅 Thu, 11 Jan 2024 05:33:03 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hushhushrecords.bandcamp.com/album/golla-g...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7213985422301460320')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_191001087386066822')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="embed_1509820723070333753" data-embed-id="embed_1509820723070333753">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2516633408/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="embed_8327045480168904401" data-embed-id="embed_8327045480168904401" data-url="https://kathrynjoseph.bandcamp.com/album/for-you-who-are-the-wronged-lomond-campbell-remixes">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1945307957/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rock Action Records</strong><br>
+                <small>📅 Fri, 19 Jan 2024 09:23:54 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kathrynjoseph.bandcamp.com/album/for-you-w...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8327045480168904401')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_2548930036973396928" data-embed-id="embed_2548930036973396928" data-url="https://arabstrapband.bandcamp.com/album/im-totally-fine-with-it-dont-give-a-fuck-anymore">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2463747736/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rock Action Records</strong><br>
+                <small>📅 Tue, 23 Jan 2024 17:15:30 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://arabstrapband.bandcamp.com/album/im-totall...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2548930036973396928')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_4391339988187501906" data-embed-id="embed_4391339988187501906" data-url="https://opuntia-cdl.bandcamp.com/album/mercurio">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2371056788/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Umor Rex</strong><br>
+                <small>📅 Thu, 01 Feb 2024 13:28:40 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://opuntia-cdl.bandcamp.com/album/mercurio</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4391339988187501906')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_2655341542967428117" data-embed-id="embed_2655341542967428117" data-url="https://astrangelyisolatedplace.bandcamp.com/album/merrin-karras-live">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2284648954/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Fri, 02 Feb 2024 05:16:37 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2655341542967428117')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_6934597746481678078" data-embed-id="embed_6934597746481678078" data-url="https://irisarri.bandcamp.com/album/midnight-colours-remastered-edition">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2852557260/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
                 <strong>New release from Rafael Anton Irisarri</strong><br>
-                <small>📅 Wed, 04 Sep 2024 04:17:31 +0000 (UTC)</small>
+                <small>📅 Fri, 09 Feb 2024 12:12:12 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://irisarri.bandcamp.com/album/midnight-colou...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1509820723070333753')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6934597746481678078')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1398153869904058528" data-embed-id="embed_1398153869904058528">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2788661354/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 30 Aug 2024 02:43:11 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1398153869904058528')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_5654082672985726582" data-embed-id="embed_5654082672985726582">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2463589814/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
-                <small>📅 Fri, 23 Aug 2024 04:20:07 +0000 (UTC)</small>
+        <div class="embed-item page-2" data-page="2" id="embed_1019846942877285040" data-embed-id="embed_1019846942877285040" data-url="https://bdrmm.bandcamp.com/album/standard-tuning">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3297700829/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5654082672985726582')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_965139042528932261" data-embed-id="embed_965139042528932261">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1205089558/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Mon, 19 Aug 2024 15:00:12 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_965139042528932261')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_4176529788660784901" data-embed-id="embed_4176529788660784901">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2735293196/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from kranky</strong><br>
-                <small>📅 Fri, 09 Aug 2024 15:16:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4176529788660784901')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_3215964145336765902" data-embed-id="embed_3215964145336765902">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1829683731/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 31 Jul 2024 06:28:13 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3215964145336765902')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_4335994455099612797" data-embed-id="embed_4335994455099612797">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3257551732/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 12 Jul 2024 09:16:27 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4335994455099612797')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_2778445946707423116" data-embed-id="embed_2778445946707423116">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1288804724/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from David Cordero</strong><br>
-                <small>📅 Thu, 27 Jun 2024 09:11:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2778445946707423116')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_4912073250783634300" data-embed-id="embed_4912073250783634300">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3324550301/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 26 Jun 2024 06:52:23 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4912073250783634300')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_5318219857295907673" data-embed-id="embed_5318219857295907673">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3093041793/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Thu, 20 Jun 2024 05:15:57 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5318219857295907673')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_1698898070342848247" data-embed-id="embed_1698898070342848247">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=666620202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Byrd Out</strong><br>
-                <small>📅 Fri, 14 Jun 2024 09:53:03 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1698898070342848247')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="embed_6387583588862292980" data-embed-id="embed_6387583588862292980">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2613368400/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 14 Jun 2024 09:09:49 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6387583588862292980')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_7956605589077877342" data-embed-id="embed_7956605589077877342">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=926831825/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 07 Jun 2024 07:56:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7956605589077877342')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_7756329071978669067" data-embed-id="embed_7756329071978669067">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2559148594/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 05 Jun 2024 07:37:10 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7756329071978669067')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_3317144112442752245" data-embed-id="embed_3317144112442752245">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2038430086/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 24 May 2024 14:04:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3317144112442752245')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_1052900117220476856" data-embed-id="embed_1052900117220476856">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=33775748/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 24 May 2024 06:31:59 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1052900117220476856')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_5922953678928564457" data-embed-id="embed_5922953678928564457">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2230667703/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Quiet Love Records</strong><br>
-                <small>📅 Wed, 22 May 2024 05:58:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5922953678928564457')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_3996747536880158920" data-embed-id="embed_3996747536880158920">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2463747736/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Fri, 10 May 2024 08:00:28 +0000 (UTC)</small>
+                <small>📅 Mon, 12 Feb 2024 09:28:48 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bdrmm.bandcamp.com/album/standard-tuning</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3996747536880158920')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1019846942877285040')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
         </div>
         
-        <div class="embed-item page-4" data-page="4" id="embed_2436765633396818295" data-embed-id="embed_2436765633396818295">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2484196811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-2" data-page="2" id="embed_4472203353408863110" data-embed-id="embed_4472203353408863110" data-url="https://astrangelyisolatedplace.bandcamp.com/album/socha">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=890012165/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Mon, 12 Feb 2024 15:31:33 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4472203353408863110')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="embed_8100663465542269311" data-embed-id="embed_8100663465542269311" data-url="https://davidcordero.bandcamp.com/album/restless-nature">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920831889/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
                 <strong>New release from David Cordero</strong><br>
-                <small>📅 Thu, 09 May 2024 10:34:06 +0000 (UTC)</small>
+                <small>📅 Thu, 15 Feb 2024 08:58:22 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://davidcordero.bandcamp.com/album/restless-n...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2436765633396818295')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8100663465542269311')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_8895968997096511242" data-embed-id="embed_8895968997096511242">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=109702567/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 03 May 2024 05:35:04 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8895968997096511242')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-4" data-page="4" id="embed_7327542023321349544" data-embed-id="embed_7327542023321349544">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3019558036/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Byrd Out</strong><br>
-                <small>📅 Fri, 03 May 2024 04:57:11 +0000 (UTC)</small>
+        <div class="embed-item page-2" data-page="2" id="embed_3527446185842585429" data-embed-id="embed_3527446185842585429" data-url="https://rosaanschuetz.bandcamp.com/album/interior">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=666631998/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7327542023321349544')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="embed_7243903053576275845" data-embed-id="embed_7243903053576275845">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3846087980/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Umor Rex</strong><br>
-                <small>📅 Thu, 02 May 2024 14:46:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7243903053576275845')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_9061692511282906085" data-embed-id="embed_9061692511282906085">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3399105789/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 12 Apr 2024 13:31:02 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_9061692511282906085')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_9152938474479041451" data-embed-id="embed_9152938474479041451">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1820175166/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from kranky</strong><br>
-                <small>📅 Fri, 05 Apr 2024 07:08:26 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_9152938474479041451')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_7811324061123915384" data-embed-id="embed_7811324061123915384">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4022185277/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 29 Mar 2024 11:03:53 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7811324061123915384')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_6191261484438389146" data-embed-id="embed_6191261484438389146">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2581138972/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
-                <small>📅 Fri, 22 Mar 2024 03:40:40 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6191261484438389146')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_189861455303780282" data-embed-id="embed_189861455303780282">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2371056788/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Umor Rex</strong><br>
-                <small>📅 Wed, 06 Mar 2024 15:12:34 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_189861455303780282')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_610384042400705131" data-embed-id="embed_610384042400705131">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3012979482/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Byrd Out</strong><br>
-                <small>📅 Fri, 01 Mar 2024 07:28:38 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_610384042400705131')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_5104992303447338782" data-embed-id="embed_5104992303447338782">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=890012165/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Sat, 24 Feb 2024 05:26:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5104992303447338782')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_344703332159208720" data-embed-id="embed_344703332159208720">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=666631998/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Rosa Anschütz</strong><br>
-                <small>📅 Fri, 23 Feb 2024 01:23:53 +0000 (UTC)</small>
+                <small>📅 Fri, 23 Feb 2024 01:23:53 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://rosaanschuetz.bandcamp.com/album/interior</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_344703332159208720')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3527446185842585429')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="embed_3237432157335313153" data-embed-id="embed_3237432157335313153">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920831889/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from David Cordero</strong><br>
-                <small>📅 Thu, 15 Feb 2024 08:58:22 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3237432157335313153')">
-                    🎧 Marcar como escuchado
-                </button>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-5" data-page="5" id="embed_3453571778768977708" data-embed-id="embed_3453571778768977708">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3297700829/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Mon, 12 Feb 2024 09:28:48 +0000 (UTC)</small>
+        <div class="embed-item page-2" data-page="2" id="embed_550317078406297475" data-embed-id="embed_550317078406297475" data-url="https://adamwiltzie.bandcamp.com/album/eleven-fugues-for-sodium-pentothal">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1820175166/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3453571778768977708')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_5010863049947986477" data-embed-id="embed_5010863049947986477">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2852557260/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rafael Anton Irisarri</strong><br>
-                <small>📅 Fri, 09 Feb 2024 12:12:12 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5010863049947986477')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_3792299230522048996" data-embed-id="embed_3792299230522048996">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2284648954/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 02 Feb 2024 05:16:37 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3792299230522048996')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_2010204371306427298" data-embed-id="embed_2010204371306427298">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2762223764/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 26 Jan 2024 04:02:32 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2010204371306427298')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_6867008031946751593" data-embed-id="embed_6867008031946751593">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1945307957/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Fri, 19 Jan 2024 09:23:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6867008031946751593')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_854421903958270864" data-embed-id="embed_854421903958270864">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3856279582/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from David Cordero</strong><br>
-                <small>📅 Wed, 20 Dec 2023 09:27:01 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_854421903958270864')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_8444452997464164800" data-embed-id="embed_8444452997464164800">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4072330931/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 15 Dec 2023 14:44:26 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8444452997464164800')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_1013825794792230774" data-embed-id="embed_1013825794792230774">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3583725968/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Rock Action Records</strong><br>
-                <small>📅 Wed, 13 Dec 2023 11:56:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1013825794792230774')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_5858515079866489743" data-embed-id="embed_5858515079866489743">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3382789045/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lo Recordings</strong><br>
-                <small>📅 Fri, 08 Dec 2023 09:02:01 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5858515079866489743')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_3123398378048202782" data-embed-id="embed_3123398378048202782">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1019656832/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Umor Rex</strong><br>
-                <small>📅 Thu, 16 Nov 2023 12:57:46 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3123398378048202782')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-6" data-page="6" id="embed_7457616443402754290" data-embed-id="embed_7457616443402754290">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2548103727/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from kranky</strong><br>
-                <small>📅 Fri, 10 Nov 2023 08:36:37 +0000 (UTC)</small>
+                <small>📅 Tue, 27 Feb 2024 13:16:18 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://adamwiltzie.bandcamp.com/album/eleven-fugu...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7457616443402754290')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_550317078406297475')">
                     🎧 Marcar como escuchado
                 </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-7" data-page="7" id="embed_1916160164098540804" data-embed-id="embed_1916160164098540804">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=734948215/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-2" data-page="2" id="embed_1272845589823379537" data-embed-id="embed_1272845589823379537" data-url="https://roska.bandcamp.com/album/windbreaker-riddim-warming">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3012979482/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
             <div class="embed-info">
-                <strong>New release from A Strangely Isolated Place</strong><br>
-                <small>📅 Fri, 10 Nov 2023 05:16:59 +0000 (UTC)</small>
+                <strong>New release from Byrd Out</strong><br>
+                <small>📅 Fri, 01 Mar 2024 07:28:38 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://roska.bandcamp.com/album/windbreaker-riddi...</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1916160164098540804')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1272845589823379537')">
                     🎧 Marcar como escuchado
                 </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_6059750835911490366" data-embed-id="embed_6059750835911490366" data-url="https://driftmachine.bandcamp.com/album/sonic-behaviour">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3846087980/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Umor Rex</strong><br>
+                <small>📅 Thu, 14 Mar 2024 14:40:58 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://driftmachine.bandcamp.com/album/sonic-beha...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6059750835911490366')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_4813922956318144727" data-embed-id="embed_4813922956318144727" data-url="https://dmxkrew.bandcamp.com/album/unlikely-seeming">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3019558036/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Byrd Out</strong><br>
+                <small>📅 Wed, 20 Mar 2024 06:59:23 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://dmxkrew.bandcamp.com/album/unlikely-seemin...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4813922956318144727')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_3835298246889476835" data-embed-id="embed_3835298246889476835" data-url="https://millionsquare.bandcamp.com/album/arcade">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4022185277/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 29 Mar 2024 11:03:53 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://millionsquare.bandcamp.com/album/arcade</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3835298246889476835')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_2436330255082360395" data-embed-id="embed_2436330255082360395" data-url="https://astrangelyisolatedplace.bandcamp.com/album/hypatia">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3399105789/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Wed, 03 Apr 2024 15:36:10 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2436330255082360395')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_6975849203055590650" data-embed-id="embed_6975849203055590650" data-url="https://janwagner.bandcamp.com/album/energie-braucht-zeit">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2559148594/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 10 Apr 2024 11:07:29 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://janwagner.bandcamp.com/album/energie-brauc...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6975849203055590650')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_7317578268765254340" data-embed-id="embed_7317578268765254340" data-url="https://astrangelyisolatedplace.bandcamp.com/album/sun-smoke">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2038430086/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Thu, 02 May 2024 14:47:19 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7317578268765254340')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_365636821550740423" data-embed-id="embed_365636821550740423" data-url="https://galecstasy.bandcamp.com/album/stone-flute">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=109702567/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 03 May 2024 05:35:04 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://galecstasy.bandcamp.com/album/stone-flute</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_365636821550740423')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_3733874311928390503" data-embed-id="embed_3733874311928390503" data-url="https://ecovillage.bandcamp.com/album/crescendo">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=926831825/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 03 May 2024 07:42:21 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://ecovillage.bandcamp.com/album/crescendo</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3733874311928390503')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_4397139449822080315" data-embed-id="embed_4397139449822080315" data-url="https://davidcordero.bandcamp.com/album/abstract-lights">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2484196811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from David Cordero</strong><br>
+                <small>📅 Thu, 09 May 2024 10:34:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://davidcordero.bandcamp.com/album/abstract-l...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4397139449822080315')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="embed_1331572927191460116" data-embed-id="embed_1331572927191460116" data-url="https://belong.bandcamp.com/album/realistic-ix">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2735293196/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from kranky</strong><br>
+                <small>📅 Tue, 14 May 2024 10:02:14 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://belong.bandcamp.com/album/realistic-ix</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1331572927191460116')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_1089488888131670441" data-embed-id="embed_1089488888131670441" data-url="https://astrangelyisolatedplace.bandcamp.com/album/earth-prism">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3093041793/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Fri, 17 May 2024 04:28:55 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1089488888131670441')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_7014671586691968098" data-embed-id="embed_7014671586691968098" data-url="https://holmisanisland.bandcamp.com/track/behind-curtains">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2230667703/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 22 May 2024 05:58:54 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/behind-c...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7014671586691968098')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_220346047037355473" data-embed-id="embed_220346047037355473" data-url="https://bethanyley.bandcamp.com/album/sundial">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=33775748/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 24 May 2024 06:31:59 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bethanyley.bandcamp.com/album/sundial</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_220346047037355473')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_5588822225909518282" data-embed-id="embed_5588822225909518282" data-url="https://floatingworldpictures.bandcamp.com/album/floating-world-pictures-with-ocean-moon">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2613368400/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 31 May 2024 08:51:07 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://floatingworldpictures.bandcamp.com/album/f...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5588822225909518282')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_1217378123820047242" data-embed-id="embed_1217378123820047242" data-url="https://byrdout.bandcamp.com/album/i-am-curious-indigo">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=666620202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Byrd Out</strong><br>
+                <small>📅 Fri, 14 Jun 2024 09:53:03 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://byrdout.bandcamp.com/album/i-am-curious-in...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1217378123820047242')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_2495579594312194261" data-embed-id="embed_2495579594312194261" data-url="https://holmisanisland.bandcamp.com/track/long-rides">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3324550301/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 26 Jun 2024 06:52:23 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/long-rid...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2495579594312194261')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_6020150622810992224" data-embed-id="embed_6020150622810992224" data-url="https://davidcordero.bandcamp.com/album/important-small-details">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1288804724/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from David Cordero</strong><br>
+                <small>📅 Thu, 27 Jun 2024 09:11:00 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://davidcordero.bandcamp.com/album/important-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6020150622810992224')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_4802478024762404491" data-embed-id="embed_4802478024762404491" data-url="https://agebjorn.bandcamp.com/album/dynamic-movements-music-for-exercise-relaxation">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3257551732/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Lo Recordings</strong><br>
+                <small>📅 Fri, 12 Jul 2024 09:16:27 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://agebjorn.bandcamp.com/album/dynamic-moveme...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4802478024762404491')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_4927005145928631494" data-embed-id="embed_4927005145928631494" data-url="https://clinicstars.bandcamp.com/album/only-hinting">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2189428345/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from kranky</strong><br>
+                <small>📅 Tue, 16 Jul 2024 11:12:02 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://clinicstars.bandcamp.com/album/only-hintin...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4927005145928631494')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="embed_4918954439620729022" data-embed-id="embed_4918954439620729022" data-url="https://hushhushrecords.bandcamp.com/album/time-is-but-the-drawing-of-a-sword">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2463589814/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
+                <small>📅 Tue, 23 Jul 2024 06:35:06 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hushhushrecords.bandcamp.com/album/time-is...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4918954439620729022')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_6110551742745204055" data-embed-id="embed_6110551742745204055" data-url="https://holmisanisland.bandcamp.com/track/cracked-asphalt">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1829683731/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 31 Jul 2024 06:28:13 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/cracked-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6110551742745204055')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_8691394703109306852" data-embed-id="embed_8691394703109306852" data-url="https://astrangelyisolatedplace.bandcamp.com/album/kontrapunkt">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2788661354/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Thu, 01 Aug 2024 03:41:00 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8691394703109306852')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_6752841161628555664" data-embed-id="embed_6752841161628555664" data-url="https://gabobarranco.bandcamp.com/album/x-scroll-era">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2731160613/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Umor Rex</strong><br>
+                <small>📅 Thu, 01 Aug 2024 14:20:47 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://gabobarranco.bandcamp.com/album/x-scroll-e...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6752841161628555664')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_3475783378848384605" data-embed-id="embed_3475783378848384605" data-url="https://hushhushrecords.bandcamp.com/album/worlds-apart">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1095114887/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
+                <small>📅 Fri, 16 Aug 2024 04:23:14 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hushhushrecords.bandcamp.com/album/worlds-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3475783378848384605')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_6474712610287595909" data-embed-id="embed_6474712610287595909" data-url="https://astrangelyisolatedplace.bandcamp.com/album/trilogy-mix">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1205089558/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Mon, 19 Aug 2024 15:00:12 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6474712610287595909')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_1910156341303132117" data-embed-id="embed_1910156341303132117" data-url="https://irisarri.bandcamp.com/album/fa-adisms">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2516633408/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rafael Anton Irisarri</strong><br>
+                <small>📅 Wed, 04 Sep 2024 04:17:31 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://irisarri.bandcamp.com/album/fa-adisms</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1910156341303132117')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_7052966560880207012" data-embed-id="embed_7052966560880207012" data-url="https://holmisanisland.bandcamp.com/track/wanderlust">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2793477141/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 04 Sep 2024 06:45:24 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/wanderlu...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7052966560880207012')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_4565988849741727355" data-embed-id="embed_4565988849741727355" data-url="https://astrangelyisolatedplace.bandcamp.com/album/la-gran-corriente">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4275360019/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Wed, 04 Sep 2024 13:48:54 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_4565988849741727355')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_2470862336118688670" data-embed-id="embed_2470862336118688670" data-url="https://davidcordero.bandcamp.com/album/melod-as-susurradas">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=454625462/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from David Cordero</strong><br>
+                <small>📅 Tue, 10 Sep 2024 06:46:13 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://davidcordero.bandcamp.com/album/melod-as-s...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2470862336118688670')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-5" data-page="5" id="embed_9221415711471572918" data-embed-id="embed_9221415711471572918" data-url="https://earthensea.bandcamp.com/album/recollection">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=964259928/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from kranky</strong><br>
+                <small>📅 Tue, 24 Sep 2024 08:54:22 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://earthensea.bandcamp.com/album/recollection</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_9221415711471572918')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_7619848922782098157" data-embed-id="embed_7619848922782098157" data-url="https://hushhushrecords.bandcamp.com/album/unfurl-refurl">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1598118627/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
+                <small>📅 Thu, 03 Oct 2024 21:34:37 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hushhushrecords.bandcamp.com/album/unfurl-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7619848922782098157')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_3951698158132707613" data-embed-id="embed_3951698158132707613" data-url="https://hushhushrecords.bandcamp.com/album/refurl">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4203387016/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Hush Hush Records, who brought you Pratunam</strong><br>
+                <small>📅 Thu, 03 Oct 2024 21:35:05 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://hushhushrecords.bandcamp.com/album/refurl</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_3951698158132707613')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_1437475709007603562" data-embed-id="embed_1437475709007603562" data-url="https://holmisanisland.bandcamp.com/track/sunlit-afternoons">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=644858136/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 09 Oct 2024 20:40:13 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/sunlit-a...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1437475709007603562')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_2010095670516744188" data-embed-id="embed_2010095670516744188" data-url="https://holmisanisland.bandcamp.com/track/faint-outlines">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1172113501/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Tue, 12 Nov 2024 23:12:12 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/faint-ou...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2010095670516744188')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_620506437005901930" data-embed-id="embed_620506437005901930" data-url="https://sacredpaws.bandcamp.com/album/another-day-2">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=735548444/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rock Action Records</strong><br>
+                <small>📅 Wed, 20 Nov 2024 12:49:51 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://sacredpaws.bandcamp.com/album/another-day-...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_620506437005901930')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_7229831768001351971" data-embed-id="embed_7229831768001351971" data-url="https://playmob.bandcamp.com/track/sto-ol-live">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1275824629/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Fri, 22 Nov 2024 10:47:54 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://playmob.bandcamp.com/track/sto-ol-live</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_7229831768001351971')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_1848044421069983144" data-embed-id="embed_1848044421069983144" data-url="https://astrangelyisolatedplace.bandcamp.com/album/mirror">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4242120783/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Fri, 22 Nov 2024 13:53:38 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1848044421069983144')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_1998469278394214615" data-embed-id="embed_1998469278394214615" data-url="https://cloth-music.bandcamp.com/album/polaroid">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4097453253/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Rock Action Records</strong><br>
+                <small>📅 Tue, 26 Nov 2024 16:42:57 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://cloth-music.bandcamp.com/album/polaroid</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_1998469278394214615')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_5815054553836715643" data-embed-id="embed_5815054553836715643" data-url="https://danalogue.bandcamp.com/album/sonic-balms-for-soothing-souls">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3416869588/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Byrd Out</strong><br>
+                <small>📅 Fri, 06 Dec 2024 08:08:07 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://danalogue.bandcamp.com/album/sonic-balms-f...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_5815054553836715643')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-6" data-page="6" id="embed_8758436920254549377" data-embed-id="embed_8758436920254549377" data-url="https://astrangelyisolatedplace.bandcamp.com/album/2024-label-compilation-mixed-by-todos">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2500161449/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from A Strangely Isolated Place</strong><br>
+                <small>📅 Mon, 16 Dec 2024 18:39:26 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://astrangelyisolatedplace.bandcamp.com/album...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8758436920254549377')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
+            </div>
+        </div>
+        
+        <div class="embed-item page-7" data-page="7" id="embed_8973341426021585130" data-embed-id="embed_8973341426021585130" data-url="https://holmisanisland.bandcamp.com/track/like-currents">
+            <div class="embed-container">
+                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=561867497/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            </div>
+            <div class="embed-info">
+                <strong>New release from Quiet Love Records</strong><br>
+                <small>📅 Wed, 18 Dec 2024 06:35:08 +0000 (UTC)</small><br>
+                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://holmisanisland.bandcamp.com/track/like-cur...</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_8973341426021585130')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+            <div class="listened-overlay">
+                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
@@ -1055,24 +1463,28 @@
     <script>
         const STORAGE_KEY = 'bandcamp_listened_Ambient';
         const TOTAL_ITEMS = 61;
+        let currentPlayingIframe = null;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
+            let listenedCount = 0;
 
             listened.forEach(embedId => {
                 const element = document.querySelector(`[data-embed-id="${embedId}"]`);
                 if (element) {
                     element.classList.add('listened');
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                    hiddenCount++;
+                    const button = element.querySelector('.listened-btn');
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = '✓ Escuchado';
+                    }
+                    listenedCount++;
                 }
             });
 
-            updateStats(hiddenCount);
+            updateStats(listenedCount);
+            console.log(`📊 Cargados ${listenedCount} álbumes escuchados`);
         }
 
         // Actualizar estadísticas
@@ -1080,33 +1492,32 @@
             const pending = TOTAL_ITEMS - listenedCount;
             document.getElementById('listened-count').textContent = listenedCount;
             document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = pending;
+            document.getElementById('visible-count').textContent = TOTAL_ITEMS;
         }
 
         // Marcar como escuchado
         function markAsListened(embedId) {
             const element = document.getElementById(embedId);
+            if (!element) return;
+
             const button = element.querySelector('.listened-btn');
 
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✓ Escuchado';
-
-            // Guardar en localStorage
+            // Guardar en localStorage PRIMERO
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
+                console.log(`💾 Guardado en localStorage:`, embedId);
             }
 
-            // Animar desaparición
+            // Actualizar UI
+            button.disabled = true;
+            button.textContent = '✓ Escuchado';
+
+            // Oscurecer el embed
             element.classList.add('listened');
 
-            setTimeout(() => {
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }, 500);
-
+            updateStats(listened.length);
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
@@ -1117,14 +1528,16 @@
             }
 
             localStorage.removeItem(STORAGE_KEY);
+            console.log(`🗑️ localStorage limpiado`);
 
             // Mostrar todos los elementos
             document.querySelectorAll('.embed-item').forEach(item => {
                 item.classList.remove('listened');
-                item.style.display = '';
                 const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = '🎧 Marcar como escuchado';
+                }
             });
 
             updateStats(0);
@@ -1143,11 +1556,6 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
-                    // No mostrar si está escuchado
-                    if (item.classList.contains('listened')) {
-                        return;
-                    }
-
                     if (item.dataset.page === page) {
                         item.classList.remove('hidden');
                     } else {
@@ -1162,7 +1570,7 @@
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {
             embedItems.forEach(item => {
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
+                if (item.dataset.page !== '1') {
                     item.classList.add('hidden');
                 }
             });
@@ -1179,65 +1587,108 @@
             }, 3000);
         }
 
-        // Cargar estado al iniciar la página
-        loadListenedState();
+        // ========== MEJORADO: DETECCIÓN DE REPRODUCCIÓN ==========
 
-        console.log('💾 Los datos se guardan localmente en tu navegador');
-        console.log('🔑 Storage key:', STORAGE_KEY);
+        // Función mejorada para pausar otros reproductores
+        function pauseOtherPlayers(currentIframe) {
+            if (!currentIframe) return;
 
-        // Función para detener otros reproductores de Bandcamp
-        function stopOtherPlayers(currentIframe) {
             const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            let pausedCount = 0;
+
             allIframes.forEach(iframe => {
                 if (iframe !== currentIframe) {
-                    // Recargar el iframe para detener la reproducción
+                    // Método 1: Recargar iframe (más efectivo)
                     const src = iframe.src;
                     iframe.src = '';
-                    iframe.src = src;
+                    // Pequeño delay antes de recargar
+                    setTimeout(() => {
+                        iframe.src = src;
+                    }, 50);
+                    pausedCount++;
                 }
+            });
+
+            if (pausedCount > 0) {
+                console.log(`⏸️ Pausados ${pausedCount} reproductores`);
+            }
+
+            currentPlayingIframe = currentIframe;
+        }
+
+        // Detectar clicks en los embeds con mejor timing
+        function setupPlaybackDetection() {
+            document.querySelectorAll('.embed-item').forEach(embedItem => {
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+
+                if (!iframe) return;
+
+                // Detectar mousedown (antes del click)
+                embedItem.addEventListener('mousedown', (e) => {
+                    // Solo si no es el botón de acción
+                    if (!e.target.classList.contains('action-btn')) {
+                        // Pausar inmediatamente
+                        pauseOtherPlayers(iframe);
+                    }
+                });
+
+                // También detectar clicks directamente
+                embedItem.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('action-btn')) {
+                        // Delay corto para asegurar que se ejecute después del click
+                        setTimeout(() => {
+                            pauseOtherPlayers(iframe);
+                        }, 150);
+                    }
+                });
+
+                // Detectar cuando el iframe está en foco
+                iframe.addEventListener('mouseenter', () => {
+                    iframe.dataset.hovered = 'true';
+                });
+
+                iframe.addEventListener('mouseleave', () => {
+                    iframe.dataset.hovered = 'false';
+                });
+            });
+
+            console.log('🎵 Detección de reproducción configurada');
+        }
+
+        // Prevenir múltiples reproductores al cargar
+        function preventAutoplay() {
+            // Esperar a que todos los iframes carguen
+            const iframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            let loadedCount = 0;
+
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', () => {
+                    loadedCount++;
+                    // Cuando todos hayan cargado, asegurar que solo uno pueda reproducir
+                    if (loadedCount === iframes.length) {
+                        console.log(`✅ ${iframes.length} embeds cargados y listos`);
+                    }
+                });
             });
         }
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('iframe[src*="bandcamp.com"]').forEach(iframe => {
-            iframe.addEventListener('load', () => {
-                // Escuchar eventos de reproducción (esto es limitado por CORS,
-                // pero el reload funciona como fallback)
-                try {
-                    iframe.contentWindow.addEventListener('play', () => {
-                        stopOtherPlayers(iframe);
-                    });
-                } catch(e) {
-                    // CORS bloqueado, usar método alternativo
-                    // Detectar click en el iframe
-                    iframe.addEventListener('mouseenter', () => {
-                        iframe.dataset.hovered = 'true';
-                    });
+        // Inicializar todo
+        function init() {
+            loadListenedState();
+            setupPlaybackDetection();
+            preventAutoplay();
 
-                    iframe.addEventListener('mouseleave', () => {
-                        iframe.dataset.hovered = 'false';
-                    });
-                }
-            });
+            console.log('💾 Storage key:', STORAGE_KEY);
+            console.log('📦 Total embeds:', TOTAL_ITEMS);
+            console.log('✅ Sistema de reproducción inicializado');
+        }
 
-            // Detectar clicks en el iframe (funciona mejor)
-            iframe.addEventListener('click', () => {
-                stopOtherPlayers(iframe);
-            });
-        });
-
-        // Alternativa: detener al hacer click en cualquier embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {
-            embedItem.addEventListener('click', (e) => {
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {
-                    // Pequeño delay para que se ejecute después del click en play
-                    setTimeout(() => {
-                        stopOtherPlayers(iframe);
-                    }, 100);
-                }
-            });
-        });
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
