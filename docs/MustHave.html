@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,7 +24,7 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -33,13 +33,13 @@
         }
 
         h1 {
-            color: #333;
+            color: #e0e0e0;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.1em;
             margin-bottom: 15px;
         }
@@ -47,7 +47,7 @@
         .back-link {
             display: inline-block;
             margin-top: 15px;
-            color: #667eea;
+            color: #9d7dff;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -81,7 +81,7 @@
             padding: 15px;
             background: rgba(102, 126, 234, 0.1);
             border-radius: 10px;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .embeds-grid {
@@ -92,7 +92,7 @@
         }
 
         .embed-item {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
@@ -117,7 +117,7 @@
 
         .embed-info {
             margin-top: 15px;
-            color: #555;
+            color: #c0c0c0;
             font-size: 0.9em;
         }
 
@@ -165,9 +165,9 @@
         }
 
         .page-btn {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             border: 2px solid #667eea;
-            color: #667eea;
+            color: #9d7dff;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -236,12 +236,12 @@
     <div class="container">
         <header>
             <h1>🎵 MustHave</h1>
-            <p class="subtitle">💿 <span id="visible-count">3</span> de 3 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">4</span> de 4 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✓ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">3</span>
+                    👂 Pendientes: <span id="pending-count">4</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -252,33 +252,46 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item " data-page="1" id="embed_5687399471842146584" data-embed-id="embed_5687399471842146584">
+        <div class="embed-item " data-page="1" id="embed_775366730012150250" data-embed-id="embed_775366730012150250">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3926031817/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Filmmaker</strong><br>
                 <small>📅 Sun, 08 Dec 2024 01:47:08 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5687399471842146584')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_775366730012150250')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
         </div>
         
-        <div class="embed-item " data-page="1" id="embed_2042569337312436555" data-embed-id="embed_2042569337312436555">
+        <div class="embed-item " data-page="1" id="embed_2316667724768568848" data-embed-id="embed_2316667724768568848">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1946322237/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New from Music From Memory: Distorted Clamor, 2xLP by SusoSáiz</strong><br>
                 <small>📅 Fri, 06 Dec 2024 08:26:58 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2042569337312436555')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2316667724768568848')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
         </div>
         
-        <div class="embed-item " data-page="1" id="embed_1740262105191914777" data-embed-id="embed_1740262105191914777">
+        <div class="embed-item " data-page="1" id="embed_2316667724768568848" data-embed-id="embed_2316667724768568848">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1946322237/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Music From Memory</strong><br>
+                <small>📅 Fri, 06 Dec 2024 08:11:42 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_2316667724768568848')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item " data-page="1" id="embed_6505188178636805711" data-embed-id="embed_6505188178636805711">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=52876698/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Soundway Records, who brought you Accuse
@@ -286,7 +299,7 @@
                 <small>📅 Tue, 10 Sep 2024 06:12:05 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1740262105191914777')">
+                <button class="action-btn listened-btn" onclick="markAsListened('embed_6505188178636805711')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
@@ -301,7 +314,7 @@
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_MustHave';
-        const TOTAL_ITEMS = 3;
+        const TOTAL_ITEMS = 4;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
@@ -431,6 +444,60 @@
 
         console.log('💾 Los datos se guardan localmente en tu navegador');
         console.log('🔑 Storage key:', STORAGE_KEY);
+
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {
+            const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            allIframes.forEach(iframe => {
+                if (iframe !== currentIframe) {
+                    // Recargar el iframe para detener la reproducción
+                    const src = iframe.src;
+                    iframe.src = '';
+                    iframe.src = src;
+                }
+            });
+        }
+
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('iframe[src*="bandcamp.com"]').forEach(iframe => {
+            iframe.addEventListener('load', () => {
+                // Escuchar eventos de reproducción (esto es limitado por CORS,
+                // pero el reload funciona como fallback)
+                try {
+                    iframe.contentWindow.addEventListener('play', () => {
+                        stopOtherPlayers(iframe);
+                    });
+                } catch(e) {
+                    // CORS bloqueado, usar método alternativo
+                    // Detectar click en el iframe
+                    iframe.addEventListener('mouseenter', () => {
+                        iframe.dataset.hovered = 'true';
+                    });
+
+                    iframe.addEventListener('mouseleave', () => {
+                        iframe.dataset.hovered = 'false';
+                    });
+                }
+            });
+
+            // Detectar clicks en el iframe (funciona mejor)
+            iframe.addEventListener('click', () => {
+                stopOtherPlayers(iframe);
+            });
+        });
+
+        // Alternativa: detener al hacer click en cualquier embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {
+            embedItem.addEventListener('click', (e) => {
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+                if (iframe && !e.target.classList.contains('action-btn')) {
+                    // Pequeño delay para que se ejecute después del click en play
+                    setTimeout(() => {
+                        stopOtherPlayers(iframe);
+                    }, 100);
+                }
+            });
+        });
     </script>
 </body>
 </html>
