@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """
-Script para exportar embeds de Bandcamp desde IMAP a JSON
-VERSIÓN MEJORADA con sistema de caché
-- Evita procesar correos duplicados
-- Soporta múltiples cuentas y carpetas
-- Mucho más rápido en ejecuciones subsecuentes
+Script CORREGIDO para exportar embeds de Bandcamp desde IMAP a JSON
+CON SISTEMA DE CACHÉ INTEGRADO para evitar descargar correos repetidos
 """
 
 import json
@@ -12,30 +9,49 @@ import sys
 import os
 from datetime import datetime
 
-# Importar sistema de caché
-from bc_cache_system import EmailCache, SyncTracker, get_embed_id
-
 # Importar funciones del script original
 sys.path.insert(0, os.path.dirname(__file__))
 from bc_imap_generator import (
     IMAPConfig,
     IMAPSessionManager,
     interactive_setup,
-    decode_mime_header,
     get_email_body,
+    decode_mime_header,
     extract_bandcamp_link,
     get_bandcamp_embed
 )
+from bc_cache_system import EmailCache, get_embed_id
+
 import argparse
 import getpass
+import email
 from email.utils import parsedate_to_datetime
 
 
-def process_imap_folder_cached(mail, folder_name, genre, config, cache, tracker,
-                                mark_as_read=True, include_read=False):
+def datetime_serializer(obj):
+    """Serializador personalizado para objetos datetime"""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
+
+
+def process_imap_folder_with_cache(mail, folder_name, genre, cache, mark_as_read=True,
+                                   include_read=False, config=None):
     """
-    Versión mejorada de process_imap_folder que usa caché.
-    Solo procesa correos que no están en caché.
+    Procesa una carpeta IMAP buscando enlaces de Bandcamp.
+    USA CACHÉ para evitar descargar correos ya procesados.
+
+    Args:
+        mail: Conexión IMAP activa
+        folder_name: Nombre de la carpeta a procesar
+        genre: Género musical para clasificar
+        cache: Instancia de EmailCache
+        mark_as_read: Si True, marca los correos como leídos después de procesarlos
+        include_read: Si True, incluye correos ya leídos
+        config: IMAPConfig para el caché
+
+    Returns:
+        Lista de embeds de Bandcamp encontrados
     """
     embeds = []
 
@@ -59,10 +75,10 @@ def process_imap_folder_cached(mail, folder_name, genre, config, cache, tracker,
             print("ℹ️  Carpeta vacía")
             return embeds
 
-        # Buscar correos según parámetro
+        # Buscar correos según el parámetro include_read
         if include_read:
             status, messages = mail.search(None, 'ALL')
-            print(f"🔍 Buscando TODOS los correos...")
+            print(f"🔍 Buscando TODOS los correos (leídos y no leídos)...")
         else:
             status, messages = mail.search(None, 'UNSEEN')
             print(f"🔍 Buscando solo correos NO LEÍDOS...")
@@ -72,69 +88,55 @@ def process_imap_folder_cached(mail, folder_name, genre, config, cache, tracker,
             return embeds
 
         email_ids = messages[0].split()
-        print(f"📨 Encontrados {len(email_ids)} correos candidatos")
+        print(f"📬 Procesando {len(email_ids)} correos...\n")
 
         if len(email_ids) == 0:
-            print("ℹ️  No hay correos que procesar")
+            print("ℹ️  No hay correos que procesar con los criterios especificados")
             return embeds
 
-        # Contadores para estadísticas
+        # Contadores de caché
         cached_count = 0
         processed_count = 0
-        failed_count = 0
 
         for i, email_id in enumerate(email_ids, 1):
             try:
-                # Obtener headers primero (más rápido)
-                status, msg_data = mail.fetch(email_id, '(BODY.PEEK[HEADER])')
+                # Obtener el correo
+                status, msg_data = mail.fetch(email_id, '(RFC822)')
 
                 if status != 'OK':
                     continue
 
-                # Parsear headers
-                import email
-                header_data = msg_data[0][1]
-                msg_headers = email.message_from_bytes(header_data)
+                # Parsear el correo
+                email_body = msg_data[0][1]
+                msg = email.message_from_bytes(email_body)
 
-                message_id = msg_headers.get('Message-ID', '')
-                subject = decode_mime_header(msg_headers.get('Subject', ''))
-                sender = decode_mime_header(msg_headers.get('From', ''))
-                date = msg_headers.get('Date', '')
+                # Obtener información del correo
+                subject = decode_mime_header(msg.get('Subject', ''))
+                sender = decode_mime_header(msg.get('From', ''))
+                date = msg.get('Date', '')
+                message_id = msg.get('Message-ID', '')
 
-                if not message_id:
-                    # Sin Message-ID, generar uno basado en subject+date
-                    message_id = f"generated_{abs(hash(subject + date))}"
+                print(f"  [{i}/{len(email_ids)}] De: {sender[:50]}")
+                print(f"       Asunto: {subject[:70]}")
 
                 # VERIFICAR CACHÉ
-                cache_key_parts = (config.server, config.email, folder_name, message_id)
-
-                if cache.has(*cache_key_parts):
-                    cached_entry = cache.get(*cache_key_parts)
-
-                    print(f"  [{i}/{len(email_ids)}] ⚡ CACHÉ: {subject[:50]}")
+                if cache.has(config.server, config.email, folder_name, message_id):
+                    cached_data = cache.get(config.server, config.email, folder_name, message_id)
 
                     # Usar datos del caché
-                    embeds.append(cached_entry)
+                    embeds.append(cached_data)
                     cached_count += 1
 
-                    # Marcar como leído si se solicita
+                    print(f"       ✅ Usando CACHÉ ({cached_count} cached)")
+
+                    # Marcar como leído si es necesario
                     if mark_as_read:
                         mail.store(email_id, '+FLAGS', '\\Seen')
 
                     continue
 
                 # NO ESTÁ EN CACHÉ - Procesar normalmente
-                print(f"  [{i}/{len(email_ids)}] 🆕 NUEVO: {subject[:50]}")
-
-                # Obtener cuerpo completo
-                status, msg_data = mail.fetch(email_id, '(RFC822)')
-
-                if status != 'OK':
-                    failed_count += 1
-                    continue
-
-                email_body = msg_data[0][1]
-                msg = email.message_from_bytes(email_body)
+                processed_count += 1
 
                 # Parsear fecha para ordenamiento
                 try:
@@ -142,80 +144,69 @@ def process_imap_folder_cached(mail, folder_name, genre, config, cache, tracker,
                 except:
                     date_obj = None
 
-                # Extraer contenido
+                # Extraer el cuerpo del correo
                 email_content = get_email_body(msg)
 
                 if not email_content:
                     print("       ⚠️  Sin contenido")
-                    failed_count += 1
                     continue
 
                 # Buscar enlace de Bandcamp
                 bandcamp_link = extract_bandcamp_link(email_content)
 
-                if not bandcamp_link:
+                if bandcamp_link:
+                    print(f"       ✅ Enlace encontrado!")
+                    print(f"       🔗 URL completa: {bandcamp_link}")
+
+                    # Obtener el embed
+                    embed_code = get_bandcamp_embed(bandcamp_link)
+
+                    if embed_code:
+                        email_id_str = email_id.decode() if isinstance(email_id, bytes) else str(email_id)
+
+                        embed_data = {
+                            'url': bandcamp_link,
+                            'embed': embed_code,
+                            'subject': subject,
+                            'date': date,
+                            'date_obj': date_obj,
+                            'sender': sender,
+                            'email_id': email_id_str,
+                            'message_id': message_id,
+                            'folder': folder_name,
+                            'genre': genre
+                        }
+
+                        embeds.append(embed_data)
+
+                        # GUARDAR EN CACHÉ
+                        cache.add(config.server, config.email, folder_name,
+                                message_id, embed_data)
+
+                        print(f"       ✅ Embed obtenido y guardado en caché ({len(embeds)} total)")
+
+                        # Marcar como leído
+                        if mark_as_read:
+                            mail.store(email_id, '+FLAGS', '\\Seen')
+                            print(f"       📖 Marcado como leído")
+                    else:
+                        print(f"       ⚠️  No se pudo obtener el embed")
+                else:
                     print("       • Sin enlaces de Bandcamp")
-                    failed_count += 1
-                    continue
-
-                print(f"       ✓ Enlace encontrado!")
-
-                # Obtener embed
-                embed_code = get_bandcamp_embed(bandcamp_link)
-
-                if not embed_code:
-                    print(f"       ⚠️  No se pudo obtener el embed")
-                    failed_count += 1
-                    continue
-
-                email_id_str = email_id.decode() if isinstance(email_id, bytes) else str(email_id)
-
-                embed_data = {
-                    'url': bandcamp_link,
-                    'embed': embed_code,
-                    'subject': subject,
-                    'date': date,
-                    'date_obj': date_obj,
-                    'sender': sender,
-                    'email_id': email_id_str,
-                    'message_id': message_id,
-                    'folder': folder_name,
-                    'genre': genre
-                }
-
-                embeds.append(embed_data)
-                processed_count += 1
-
-                # AGREGAR AL CACHÉ
-                cache.add(*cache_key_parts, embed_data)
-
-                # AGREGAR AL TRACKER
-                embed_id = get_embed_id(bandcamp_link)
-                tracker.mark_as_added(genre, embed_id, bandcamp_link)
-
-                print(f"       ✓ Embed procesado y cacheado")
-
-                # Marcar como leído si se encontró un enlace
-                if mark_as_read:
-                    mail.store(email_id, '+FLAGS', '\\Seen')
-                    print(f"       📖 Marcado como leído")
 
             except Exception as e:
                 print(f"       ❌ Error procesando correo: {e}")
-                failed_count += 1
                 continue
 
-        # Guardar caché y tracker
-        cache.save()
-        tracker.save()
+        # Guardar caché después de procesar la carpeta
+        if processed_count > 0:
+            cache.save()
+            print(f"\n💾 Caché guardado ({processed_count} nuevos, {cached_count} reutilizados)")
 
         print(f"\n{'='*80}")
-        print(f"📊 ESTADÍSTICAS DE PROCESAMIENTO")
-        print(f"{'='*80}")
-        print(f"  ⚡ Desde caché:  {cached_count}")
-        print(f"  🆕 Procesados:   {processed_count}")
-        print(f"  ❌ Fallidos:     {failed_count}")
-        print(f"  ✅ Total:        {len(embeds)} embeds")
+        print(f"✅ Procesamiento completado: {len(embeds)} embeds encontrados")
+        print(f"   📦 Del caché: {cached_count}")
+        print(f"   🆕 Procesados: {processed_count}")
         print(f"{'='*80}\n")
 
         # Ordenar por fecha (más reciente primero)
@@ -228,32 +219,54 @@ def process_imap_folder_cached(mail, folder_name, genre, config, cache, tracker,
 
 
 def export_to_json(embeds_by_genre, output_file):
-    """Exporta los embeds a un archivo JSON"""
+    """
+    Exporta los embeds a un archivo JSON.
+    VERSIÓN CORREGIDA: Maneja datetime correctamente
+    """
+    print(f"\n💾 Exportando a JSON...")
+
+    # Preparar datos para JSON
     export_data = {}
 
     for genre, embeds in embeds_by_genre.items():
         export_data[genre] = []
+
         for embed in embeds:
-            embed_copy = embed.copy()
+            # Crear copia limpia
+            embed_copy = {}
 
-            # Convertir datetime a string para JSON
-            if 'date_obj' in embed_copy:
-                if isinstance(embed_copy['date_obj'], datetime):
-                    embed_copy['date_obj'] = embed_copy['date_obj'].isoformat()
+            for key, value in embed.items():
+                # Convertir datetime a string
+                if isinstance(value, datetime):
+                    embed_copy[key] = value.isoformat()
+                # Mantener None y otros tipos serializables
+                elif value is None or isinstance(value, (str, int, float, bool, list, dict)):
+                    embed_copy[key] = value
+                # Convertir todo lo demás a string
                 else:
-                    embed_copy['date_obj'] = None
-
-            # Limpiar campos internos de caché
-            embed_copy.pop('processed_at', None)
-            embed_copy.pop('cache_key', None)
+                    embed_copy[key] = str(value)
 
             export_data[genre].append(embed_copy)
 
-    # Guardar a JSON
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(export_data, f, ensure_ascii=False, indent=2)
+    # Guardar a JSON con manejo de errores
+    try:
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(export_data, f, ensure_ascii=False, indent=2, default=datetime_serializer)
 
-    print(f"✅ Datos exportados a: {output_file}")
+        # Verificar que el archivo se creó
+        if os.path.exists(output_file):
+            file_size = os.path.getsize(output_file)
+            print(f"✅ Archivo creado: {output_file}")
+            print(f"   Tamaño: {file_size:,} bytes")
+            print(f"   Géneros: {len(export_data)}")
+            print(f"   Total embeds: {sum(len(e) for e in export_data.values())}")
+        else:
+            print(f"❌ ERROR: El archivo no se creó")
+
+    except Exception as e:
+        print(f"❌ ERROR al guardar JSON: {e}")
+        print(f"   Tipo de error: {type(e).__name__}")
+        raise
 
 
 def main():
@@ -264,70 +277,75 @@ def main():
     # Opciones de conexión
     parser.add_argument('--interactive', action='store_true',
                        help='Modo interactivo para configurar la conexión')
-    parser.add_argument('--server', help='Servidor IMAP')
-    parser.add_argument('--port', type=int, default=993)
+    parser.add_argument('--server', help='Servidor IMAP (ej: imap.gmail.com)')
+    parser.add_argument('--port', type=int, default=993, help='Puerto IMAP (default: 993)')
     parser.add_argument('--email', help='Dirección de email')
-    parser.add_argument('--password', help='Contraseña')
+    parser.add_argument('--password', help='Contraseña (no recomendado, usa --interactive)')
 
     # Opciones de operación
     parser.add_argument('--folders', nargs='+', required=True,
-                       help='Carpetas en formato "ruta:género"')
+                       help='Carpetas en formato "ruta:género" (ej: "INBOX/Rock:Rock")')
     parser.add_argument('--no-mark-read', action='store_true',
-                       help='NO marcar los correos como leídos')
+                       help='NO marcar los correos como leídos después de procesarlos')
     parser.add_argument('--include-read', action='store_true',
-                       help='Incluir correos ya leídos')
-
-    # Opciones de caché
-    parser.add_argument('--no-cache', action='store_true',
-                       help='NO usar caché (procesar todo desde cero)')
-    parser.add_argument('--cache-file', default='.bandcamp_cache.json',
-                       help='Archivo de caché (default: .bandcamp_cache.json)')
-    parser.add_argument('--clean-cache', type=int, metavar='DAYS',
-                       help='Limpiar entradas de caché más antiguas de N días')
-    parser.add_argument('--show-cache-stats', action='store_true',
-                       help='Mostrar estadísticas del caché y salir')
+                       help='Incluir correos ya leídos (por defecto solo procesa no leídos)')
 
     # Opciones de salida
     parser.add_argument('--output', default='bandcamp_data.json',
-                       help='Archivo JSON de salida')
+                       help='Archivo JSON de salida (default: bandcamp_data.json)')
+
+    # Opciones de caché
+    parser.add_argument('--cache-file', default='.bandcamp_cache.json',
+                       help='Archivo de caché (default: .bandcamp_cache.json)')
+    parser.add_argument('--no-cache', action='store_true',
+                       help='Desactivar sistema de caché (forzar procesamiento completo)')
+    parser.add_argument('--clear-cache', action='store_true',
+                       help='Limpiar caché antes de empezar')
+    parser.add_argument('--cache-stats', action='store_true',
+                       help='Mostrar estadísticas del caché y salir')
 
     args = parser.parse_args()
 
-    # Inicializar caché y tracker
-    cache = EmailCache(args.cache_file) if not args.no_cache else None
-    tracker = SyncTracker()
+    # Inicializar caché
+    cache = EmailCache(args.cache_file)
 
-    # Mostrar stats de caché si se solicita
-    if args.show_cache_stats:
-        if cache:
-            stats = cache.get_stats()
-            print("\n📊 ESTADÍSTICAS DEL CACHÉ")
-            print("="*50)
-            print(f"  Total correos cacheados: {stats['total_emails']}")
-            print(f"  Servidores diferentes:   {stats['servers']}")
-            print(f"  Cuentas diferentes:      {stats['accounts']}")
-            print(f"  Carpetas diferentes:     {stats['folders']}")
-            print("="*50)
-        else:
-            print("ℹ️  Caché deshabilitado (usa sin --no-cache)")
+    # Mostrar estadísticas del caché si se solicita
+    if args.cache_stats:
+        stats = cache.get_stats()
+        print("\n" + "="*70)
+        print("📊 ESTADÍSTICAS DEL CACHÉ")
+        print("="*70)
+        print(f"   Total correos en caché: {stats['total_emails']}")
+        print(f"   Servidores: {stats['servers']}")
+        print(f"   Cuentas: {stats['accounts']}")
+        print(f"   Carpetas: {stats['folders']}")
+        print(f"\n   Archivo: {args.cache_file}")
+        if os.path.exists(args.cache_file):
+            size = os.path.getsize(args.cache_file)
+            print(f"   Tamaño: {size:,} bytes")
+        print()
         return
 
     # Limpiar caché si se solicita
-    if args.clean_cache and cache:
-        print(f"\n🗑️  Limpiando entradas de caché > {args.clean_cache} días...")
-        removed = cache.clean_old_entries(args.clean_cache)
-        if removed == 0:
-            print("  ℹ️  No hay entradas antiguas para limpiar")
-        return
+    if args.clear_cache:
+        if os.path.exists(args.cache_file):
+            os.remove(args.cache_file)
+            print(f"🗑️  Caché limpiado: {args.cache_file}")
+            cache = EmailCache(args.cache_file)
+        else:
+            print(f"ℹ️  No hay caché para limpiar")
 
     # Configurar conexión IMAP
     if args.interactive:
         config = interactive_setup()
     elif args.server and args.email:
-        password = args.password or getpass.getpass(f"Contraseña para {args.email}: ")
+        password = args.password
+        if not password:
+            password = getpass.getpass(f"Contraseña para {args.email}: ")
         config = IMAPConfig(args.server, args.port, args.email, password)
     else:
         print("❌ Debes usar --interactive o proporcionar --server y --email")
+        print("Usa --help para ver ejemplos de uso")
         return
 
     # Conectar al servidor IMAP
@@ -345,16 +363,18 @@ def main():
         include_read = args.include_read
 
         print(f"\n{'='*80}")
-        print(f"📧 EXPORTANDO CORREOS A JSON {'(CON CACHÉ)' if cache else '(SIN CACHÉ)'}")
+        print(f"📧 EXPORTANDO CORREOS A JSON (CON CACHÉ)")
         print(f"{'='*80}")
         print(f"Servidor: {config.server}")
         print(f"Email: {config.email}")
         print(f"Marcar como leídos: {'Sí' if mark_as_read else 'No'}")
         print(f"Incluir ya leídos: {'Sí' if include_read else 'No'}")
-        if cache:
-            stats = cache.get_stats()
-            print(f"Correos en caché: {stats['total_emails']}")
+        print(f"Caché: {'Desactivado' if args.no_cache else 'Activado'}")
         print(f"{'='*80}\n")
+
+        # Si no se quiere caché, usar uno temporal
+        if args.no_cache:
+            cache = EmailCache(':memory:')  # Esto fallará, pero el punto es no guardarlo
 
         for folder_spec in args.folders:
             if ':' in folder_spec:
@@ -363,61 +383,85 @@ def main():
                 folder_name = folder_spec
                 genre = folder_name.split('/')[-1]
 
-            if cache:
-                embeds = process_imap_folder_cached(
-                    mail, folder_name, genre, config, cache, tracker,
-                    mark_as_read=mark_as_read,
-                    include_read=include_read
-                )
-            else:
-                # Usar método original sin caché
-                from bc_imap_generator import process_imap_folder
-                embeds = process_imap_folder(
-                    mail, folder_name, genre,
+            try:
+                print(f"\n{'='*80}")
+                print(f"📂 Procesando: {folder_name} → {genre}")
+                print(f"{'='*80}\n")
+
+                embeds = process_imap_folder_with_cache(
+                    mail, folder_name, genre, cache,
                     mark_as_read=mark_as_read,
                     include_read=include_read,
-                    delete_after=False,
                     config=config
                 )
 
-            if genre not in embeds_by_genre:
-                embeds_by_genre[genre] = []
-            embeds_by_genre[genre].extend(embeds)
+                if genre not in embeds_by_genre:
+                    embeds_by_genre[genre] = []
+                embeds_by_genre[genre].extend(embeds)
+
+                print(f"\n✅ {genre}: {len(embeds)} embeds encontrados")
+
+            except Exception as e:
+                print(f"\n❌ Error al procesar carpeta {folder_name}: {e}")
+                print(f"   Tipo de error: {type(e).__name__}")
+                print(f"   Continuando con siguiente carpeta...")
+                continue
 
         # Exportar a JSON
         total_embeds = sum(len(embeds) for embeds in embeds_by_genre.values())
 
         print(f"\n{'='*80}")
-        print(f"📊 RESUMEN FINAL")
+        print(f"📊 RESUMEN")
         print(f"{'='*80}")
         print(f"Total de embeds encontrados: {total_embeds}")
         print(f"Géneros: {len(embeds_by_genre)}")
 
+        for genre, embeds in embeds_by_genre.items():
+            print(f"  • {genre}: {len(embeds)} embeds")
+
         if total_embeds > 0:
-            export_to_json(embeds_by_genre, args.output)
+            try:
+                export_to_json(embeds_by_genre, args.output)
 
-            print(f"\n{'='*80}")
-            print(f"✅ EXPORTACIÓN COMPLETADA")
-            print(f"{'='*80}\n")
-            print(f"📁 PRÓXIMOS PASOS:")
-            print(f"   1. Genera el sitio estático:")
-            print(f"      python3 bc_static_generator.py --input {args.output}")
-            print(f"   2. Sube el directorio 'docs' a GitHub")
-            print(f"   3. Activa GitHub Pages")
+                # Mostrar estadísticas del caché
+                cache_stats = cache.get_stats()
+                print(f"\n📦 Estadísticas del caché:")
+                print(f"   Total en caché: {cache_stats['total_emails']}")
 
-            if cache:
-                stats = cache.get_stats()
-                print(f"\n💾 CACHÉ ACTUALIZADO:")
-                print(f"   Total correos: {stats['total_emails']}")
-                print(f"   Archivo: {args.cache_file}")
-            print()
+                print(f"\n{'='*80}")
+                print(f"✅ EXPORTACIÓN COMPLETADA")
+                print(f"{'='*80}\n")
+                print(f"📝 PRÓXIMOS PASOS:")
+                print(f"   1. Verifica el archivo:")
+                print(f"      cat {args.output}")
+                print(f"   2. Genera el sitio estático:")
+                print(f"      python3 bc_static_generator.py --input {args.output}")
+                print(f"   3. Sube el directorio 'docs' a GitHub")
+                print(f"   4. Activa GitHub Pages")
+                print()
+
+            except Exception as e:
+                print(f"\n❌ ERROR CRÍTICO al exportar:")
+                print(f"   {e}")
+                import traceback
+                traceback.print_exc()
         else:
             print("\n⚠️  No se encontraron embeds de Bandcamp en los correos")
+            print("   Verifica que:")
+            print("   1. Las carpetas existen")
+            print("   2. Hay correos con enlaces de Bandcamp")
+            print("   3. Los enlaces son válidos (album o track)")
+
+    except Exception as e:
+        print(f"\n❌ ERROR GENERAL: {e}")
+        print(f"   Tipo: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
 
     finally:
         # Cerrar sesión
         session.disconnect()
-        print("\n✓ Sesión IMAP cerrada")
+        print("\n✅ Sesión IMAP cerrada")
 
 
 if __name__ == '__main__':

@@ -92,13 +92,12 @@
         }
 
         .embed-item {
-            position: relative;
             background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
         }
 
         .embed-item:hover {
@@ -110,51 +109,10 @@
             display: none;
         }
 
-        /* NUEVO: Oscurecer en lugar de ocultar */
         .embed-item.listened {
-            filter: brightness(0.4) grayscale(0.8);
-            opacity: 0.5;
-        }
-
-        .embed-item.listened:hover {
-            transform: none;
-        }
-
-        .embed-item.listened .embed-container {
+            opacity: 0;
+            transform: scale(0.8);
             pointer-events: none;
-        }
-
-        /* Overlay de "Escuchado" */
-        .listened-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            border-radius: 15px;
-        }
-
-        .embed-item.listened .listened-overlay {
-            display: flex;
-        }
-
-        .listened-badge {
-            background: rgba(76, 175, 80, 0.95);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .embed-container {
-            position: relative;
         }
 
         .embed-info {
@@ -193,7 +151,7 @@
         }
 
         .listened-btn:disabled {
-            background: #95d5b2;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
         }
@@ -278,12 +236,12 @@
     <div class="container">
         <header>
             <h1>🎵 Soul Funk Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">19</span> de 19 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">34</span> de 34 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
-                    ✓ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">19</span>
+                    ✅ Escuchados: <span id="listened-count">0</span> |
+                    👂 Pendientes: <span id="pending-count">34</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -294,399 +252,478 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item page-1" data-page="1" id="embed_3104626238038153304" data-embed-id="embed_3104626238038153304" data-url="https://monsalveylosforajidos.bandcamp.com/album/sol">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2181817229/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="album_1918568811" data-embed-id="album_1918568811">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1918568811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 15 Oct 2025 05:35:48 +0000 (UTC)</small>
             </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1918568811')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_664023848" data-embed-id="album_664023848">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=664023848/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Thu, 09 Oct 2025 18:25:39 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_664023848')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_2051265283" data-embed-id="album_2051265283">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2051265283/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Matasuna Records</strong><br>
+                <small>📅 Thu, 09 Oct 2025 10:55:11 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2051265283')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_2620341259" data-embed-id="album_2620341259">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2620341259/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Thu, 02 Oct 2025 11:04:31 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2620341259')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_3246615876" data-embed-id="album_3246615876">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3246615876/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 01 Oct 2025 18:30:02 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3246615876')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_1536040709" data-embed-id="album_1536040709">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1536040709/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 17 Sep 2025 19:59:43 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1536040709')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_3246615876" data-embed-id="album_3246615876">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3246615876/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Thu, 04 Sep 2025 09:40:30 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3246615876')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_2826905574" data-embed-id="album_2826905574">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2826905574/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 03 Sep 2025 18:22:35 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2826905574')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_2620341259" data-embed-id="album_2620341259">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2620341259/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Mon, 01 Sep 2025 11:45:59 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2620341259')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_664023848" data-embed-id="album_664023848">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=664023848/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Sun, 31 Aug 2025 07:10:52 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_664023848')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_1536040709" data-embed-id="album_1536040709">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1536040709/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Sat, 30 Aug 2025 15:43:07 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1536040709')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_1294545851" data-embed-id="album_1294545851">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1294545851/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 20 Aug 2025 18:26:35 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1294545851')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_1691429712" data-embed-id="album_1691429712">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1691429712/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Fri, 15 Aug 2025 05:45:22 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1691429712')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_115205544" data-embed-id="album_115205544">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=115205544/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Thu, 31 Jul 2025 08:54:50 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_115205544')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_3500908738" data-embed-id="album_3500908738">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3500908738/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Tue, 29 Jul 2025 18:19:46 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3500908738')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_2826905574" data-embed-id="album_2826905574">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2826905574/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Mon, 28 Jul 2025 06:43:55 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2826905574')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_3818193695" data-embed-id="album_3818193695">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3818193695/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Matasuna Records</strong><br>
+                <small>📅 Thu, 17 Jul 2025 22:16:17 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3818193695')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_3981163017" data-embed-id="album_3981163017">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3981163017/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Fri, 11 Jul 2025 08:31:50 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3981163017')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_3818193695" data-embed-id="album_3818193695">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3818193695/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Matasuna Records</strong><br>
+                <small>📅 Thu, 10 Jul 2025 11:02:07 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3818193695')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_878982115" data-embed-id="album_878982115">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=878982115/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 09 Jul 2025 19:41:09 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_878982115')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_1294545851" data-embed-id="album_1294545851">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1294545851/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Tue, 08 Jul 2025 12:15:27 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1294545851')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_3500908738" data-embed-id="album_3500908738">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3500908738/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Sun, 22 Jun 2025 10:24:27 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3500908738')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_1691429712" data-embed-id="album_1691429712">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1691429712/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Sun, 22 Jun 2025 10:21:07 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1691429712')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_3981163017" data-embed-id="album_3981163017">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3981163017/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Tue, 03 Jun 2025 11:40:37 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3981163017')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_1084668735" data-embed-id="album_1084668735">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1084668735/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Fri, 30 May 2025 06:36:00 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1084668735')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_878982115" data-embed-id="album_878982115">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=878982115/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Sun, 11 May 2025 11:25:29 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_878982115')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_942216623" data-embed-id="album_942216623">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=942216623/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Wed, 23 Apr 2025 18:26:31 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_942216623')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_2816861562" data-embed-id="album_2816861562">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2816861562/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Fri, 28 Mar 2025 11:01:43 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2816861562')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_2181817229" data-embed-id="album_2181817229">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2181817229/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Olindo Records</strong><br>
-                <small>📅 Fri, 17 Jan 2025 08:51:29 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://monsalveylosforajidos.bandcamp.com/album/s...</small>
+                <small>📅 Fri, 21 Mar 2025 09:47:08 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3104626238038153304')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2181817229')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_1084668735" data-embed-id="album_1084668735">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1084668735/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Tue, 18 Mar 2025 14:37:38 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1084668735')">
+                    🎧 Marcar como escuchado
+                </button>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_590763832485594996" data-embed-id="embed_590763832485594996" data-url="https://matasunarecords.bandcamp.com/album/no-es-por-ti-qu-m-s-te-da">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3950029959/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-4" data-page="4" id="album_942216623" data-embed-id="album_942216623">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=942216623/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from NuNorthern Soul</strong><br>
+                <small>📅 Tue, 11 Mar 2025 08:40:20 +0000 (UTC)</small>
             </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_942216623')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="album_2816861562" data-embed-id="album_2816861562">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2816861562/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Favorite Recordings</strong><br>
+                <small>📅 Mon, 24 Feb 2025 13:21:11 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2816861562')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="album_3950029959" data-embed-id="album_3950029959">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3950029959/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Matasuna Records</strong><br>
-                <small>📅 Tue, 21 Jan 2025 22:00:11 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://matasunarecords.bandcamp.com/album/no-es-p...</small>
+                <small>📅 Tue, 21 Jan 2025 22:00:11 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_590763832485594996')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3950029959')">
                     🎧 Marcar como escuchado
                 </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_3662397723612114345" data-embed-id="embed_3662397723612114345" data-url="https://favoriterecordings.bandcamp.com/album/hangin-on-to-you-flyin-to-santa-barbara">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2816861562/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-4" data-page="4" id="album_2181817229" data-embed-id="album_2181817229">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2181817229/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Mon, 24 Feb 2025 13:21:11 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://favoriterecordings.bandcamp.com/album/hang...</small>
+                <strong>New release from Olindo Records</strong><br>
+                <small>📅 Fri, 17 Jan 2025 08:51:29 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3662397723612114345')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2181817229')">
                     🎧 Marcar como escuchado
                 </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_1709325595004535673" data-embed-id="embed_1709325595004535673" data-url="https://balaphonic.bandcamp.com/album/resolution-revolutions">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=942216623/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Tue, 11 Mar 2025 08:40:20 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://balaphonic.bandcamp.com/album/resolution-r...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1709325595004535673')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_1029643826350828766" data-embed-id="embed_1029643826350828766" data-url="https://favoriterecordings.bandcamp.com/album/trois">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1084668735/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Tue, 18 Mar 2025 14:37:38 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://favoriterecordings.bandcamp.com/album/troi...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1029643826350828766')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_5850169196605614908" data-embed-id="embed_5850169196605614908" data-url="https://visions-of-light.bandcamp.com/album/the-mandala-vortex">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=878982115/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Sun, 11 May 2025 11:25:29 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://visions-of-light.bandcamp.com/album/the-ma...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5850169196605614908')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3656390403927654898" data-embed-id="embed_3656390403927654898" data-url="https://favoriterecordings.bandcamp.com/album/disco-reggae-vol-6">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3981163017/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Tue, 03 Jun 2025 11:40:37 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://favoriterecordings.bandcamp.com/album/disc...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3656390403927654898')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3992369407872626705" data-embed-id="embed_3992369407872626705" data-url="https://georgekoutalierismusic.bandcamp.com/album/seasons">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1691429712/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Sun, 22 Jun 2025 10:21:07 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://georgekoutalierismusic.bandcamp.com/album/...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3992369407872626705')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_8741481484782526807" data-embed-id="embed_8741481484782526807" data-url="https://rootsartefact.bandcamp.com/album/different-perspective-ep">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3500908738/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Sun, 22 Jun 2025 10:24:27 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://rootsartefact.bandcamp.com/album/different...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8741481484782526807')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_3463055072128331645" data-embed-id="embed_3463055072128331645" data-url="https://tamboresenbenirras.bandcamp.com/album/ondas-horizontales-remixes-one">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1294545851/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Tue, 08 Jul 2025 12:15:27 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://tamboresenbenirras.bandcamp.com/album/onda...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3463055072128331645')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_3925294546435290983" data-embed-id="embed_3925294546435290983" data-url="https://matasunarecords.bandcamp.com/album/miami-original-edit">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3818193695/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Matasuna Records</strong><br>
-                <small>📅 Thu, 10 Jul 2025 11:02:07 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://matasunarecords.bandcamp.com/album/miami-o...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3925294546435290983')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1132081009074404764" data-embed-id="embed_1132081009074404764" data-url="https://jilo-france.bandcamp.com/album/mirages-colours">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2826905574/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Mon, 28 Jul 2025 06:43:55 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://jilo-france.bandcamp.com/album/mirages-col...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1132081009074404764')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_324972734457735904" data-embed-id="embed_324972734457735904" data-url="https://bj-smith.bandcamp.com/album/dedications-to-the-greats-four-dont-be-cruel-featuring-joe-harvey-whyte-2">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=115205544/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Thu, 31 Jul 2025 08:54:50 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bj-smith.bandcamp.com/album/dedications-to...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_324972734457735904')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_7887330833961436894" data-embed-id="embed_7887330833961436894" data-url="https://jameseburton.bandcamp.com/album/the-quiet-rush">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1536040709/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Sat, 30 Aug 2025 15:43:07 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://jameseburton.bandcamp.com/album/the-quiet-...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7887330833961436894')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1324051391822625686" data-embed-id="embed_1324051391822625686" data-url="https://tamboresenbenirras.bandcamp.com/album/ondas-horizontales-remixes-two">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=664023848/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Sun, 31 Aug 2025 07:10:52 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://tamboresenbenirras.bandcamp.com/album/onda...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1324051391822625686')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_2577331485680146321" data-embed-id="embed_2577331485680146321" data-url="https://favoriterecordings.bandcamp.com/album/pretty-close">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2620341259/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Mon, 01 Sep 2025 11:45:59 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://favoriterecordings.bandcamp.com/album/pret...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2577331485680146321')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_3339900882684265617" data-embed-id="embed_3339900882684265617" data-url="https://nightdubbing.bandcamp.com/album/favouritism-remixes">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3246615876/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Thu, 04 Sep 2025 09:40:30 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://nightdubbing.bandcamp.com/album/favouritis...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3339900882684265617')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_149572274364918442" data-embed-id="embed_149572274364918442" data-url="https://matasunarecords.bandcamp.com/album/la-inflacion-de-ofelia">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2051265283/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Matasuna Records</strong><br>
-                <small>📅 Thu, 09 Oct 2025 10:55:11 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://matasunarecords.bandcamp.com/album/la-infl...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_149572274364918442')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_6565933291677083921" data-embed-id="embed_6565933291677083921" data-url="https://perthlewis.bandcamp.com/album/moments-in-time">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1918568811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Wed, 15 Oct 2025 05:35:48 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://perthlewis.bandcamp.com/album/moments-in-t...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6565933291677083921')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
         </div>
 
-        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button></div>
+        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button><button class="page-btn " data-page="3">Página 3</button><button class="page-btn " data-page="4">Página 4</button></div>
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_Soul_Funk_Sellos';
-        const TOTAL_ITEMS = 19;
-        let currentPlayingIframe = null;
+        const TOTAL_ITEMS = 34;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let listenedCount = 0;
+            let hiddenCount = 0;
 
             listened.forEach(embedId => {
                 const element = document.querySelector(`[data-embed-id="${embedId}"]`);
                 if (element) {
                     element.classList.add('listened');
-                    const button = element.querySelector('.listened-btn');
-                    if (button) {
-                        button.disabled = true;
-                        button.textContent = '✓ Escuchado';
-                    }
-                    listenedCount++;
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                    }, 500);
+                    hiddenCount++;
                 }
             });
 
-            updateStats(listenedCount);
-            console.log(`📊 Cargados ${listenedCount} álbumes escuchados`);
+            updateStats(hiddenCount);
+
+            console.log('💾 Loaded listened:', listened);
         }
 
         // Actualizar estadísticas
@@ -694,32 +731,34 @@
             const pending = TOTAL_ITEMS - listenedCount;
             document.getElementById('listened-count').textContent = listenedCount;
             document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = TOTAL_ITEMS;
+            document.getElementById('visible-count').textContent = pending;
         }
 
         // Marcar como escuchado
         function markAsListened(embedId) {
             const element = document.getElementById(embedId);
-            if (!element) return;
-
             const button = element.querySelector('.listened-btn');
 
-            // Guardar en localStorage PRIMERO
+            // Deshabilitar botón
+            button.disabled = true;
+            button.textContent = '✅ Escuchado';
+
+            // Guardar en localStorage
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log(`💾 Guardado en localStorage:`, embedId);
+                console.log('✅ Marked as listened:', embedId);
             }
 
-            // Actualizar UI
-            button.disabled = true;
-            button.textContent = '✓ Escuchado';
-
-            // Oscurecer el embed
+            // Animar desaparición
             element.classList.add('listened');
 
-            updateStats(listened.length);
+            setTimeout(() => {
+                element.style.display = 'none';
+                updateStats(listened.length);
+            }, 500);
+
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
@@ -730,16 +769,14 @@
             }
 
             localStorage.removeItem(STORAGE_KEY);
-            console.log(`🗑️ localStorage limpiado`);
 
             // Mostrar todos los elementos
             document.querySelectorAll('.embed-item').forEach(item => {
                 item.classList.remove('listened');
+                item.style.display = '';
                 const button = item.querySelector('.listened-btn');
-                if (button) {
-                    button.disabled = false;
-                    button.textContent = '🎧 Marcar como escuchado';
-                }
+                button.disabled = false;
+                button.textContent = '🎧 Marcar como escuchado';
             });
 
             updateStats(0);
@@ -758,6 +795,10 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
+                    if (item.classList.contains('listened')) {
+                        return;
+                    }
+
                     if (item.dataset.page === page) {
                         item.classList.remove('hidden');
                     } else {
@@ -772,7 +813,7 @@
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {
             embedItems.forEach(item => {
-                if (item.dataset.page !== '1') {
+                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
                     item.classList.add('hidden');
                 }
             });
@@ -789,108 +830,35 @@
             }, 3000);
         }
 
-        // ========== MEJORADO: DETECCIÓN DE REPRODUCCIÓN ==========
+        // Cargar estado al iniciar la página
+        loadListenedState();
 
-        // Función mejorada para pausar otros reproductores
-        function pauseOtherPlayers(currentIframe) {
-            if (!currentIframe) return;
+        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
+        console.log('💾 Storage key:', STORAGE_KEY);
 
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {
             const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let pausedCount = 0;
-
             allIframes.forEach(iframe => {
                 if (iframe !== currentIframe) {
-                    // Método 1: Recargar iframe (más efectivo)
                     const src = iframe.src;
                     iframe.src = '';
-                    // Pequeño delay antes de recargar
-                    setTimeout(() => {
-                        iframe.src = src;
-                    }, 50);
-                    pausedCount++;
+                    iframe.src = src;
                 }
             });
-
-            if (pausedCount > 0) {
-                console.log(`⏸️ Pausados ${pausedCount} reproductores`);
-            }
-
-            currentPlayingIframe = currentIframe;
         }
 
-        // Detectar clicks en los embeds con mejor timing
-        function setupPlaybackDetection() {
-            document.querySelectorAll('.embed-item').forEach(embedItem => {
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {
+            embedItem.addEventListener('click', (e) => {
                 const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-
-                if (!iframe) return;
-
-                // Detectar mousedown (antes del click)
-                embedItem.addEventListener('mousedown', (e) => {
-                    // Solo si no es el botón de acción
-                    if (!e.target.classList.contains('action-btn')) {
-                        // Pausar inmediatamente
-                        pauseOtherPlayers(iframe);
-                    }
-                });
-
-                // También detectar clicks directamente
-                embedItem.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('action-btn')) {
-                        // Delay corto para asegurar que se ejecute después del click
-                        setTimeout(() => {
-                            pauseOtherPlayers(iframe);
-                        }, 150);
-                    }
-                });
-
-                // Detectar cuando el iframe está en foco
-                iframe.addEventListener('mouseenter', () => {
-                    iframe.dataset.hovered = 'true';
-                });
-
-                iframe.addEventListener('mouseleave', () => {
-                    iframe.dataset.hovered = 'false';
-                });
+                if (iframe && !e.target.classList.contains('action-btn')) {
+                    setTimeout(() => {
+                        stopOtherPlayers(iframe);
+                    }, 100);
+                }
             });
-
-            console.log('🎵 Detección de reproducción configurada');
-        }
-
-        // Prevenir múltiples reproductores al cargar
-        function preventAutoplay() {
-            // Esperar a que todos los iframes carguen
-            const iframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let loadedCount = 0;
-
-            iframes.forEach(iframe => {
-                iframe.addEventListener('load', () => {
-                    loadedCount++;
-                    // Cuando todos hayan cargado, asegurar que solo uno pueda reproducir
-                    if (loadedCount === iframes.length) {
-                        console.log(`✅ ${iframes.length} embeds cargados y listos`);
-                    }
-                });
-            });
-        }
-
-        // Inicializar todo
-        function init() {
-            loadListenedState();
-            setupPlaybackDetection();
-            preventAutoplay();
-
-            console.log('💾 Storage key:', STORAGE_KEY);
-            console.log('📦 Total embeds:', TOTAL_ITEMS);
-            console.log('✅ Sistema de reproducción inicializado');
-        }
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        });
     </script>
 </body>
 </html>

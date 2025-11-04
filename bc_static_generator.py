@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 """
-Script para generar HTML estático con embeds de Bandcamp organizados por género
-Versión mejorada con correcciones:
-1. Oscurece embeds en lugar de eliminarlos (más confiable)
-2. Mejor detección de reproducción para pausar otros embeds
-3. Filtrado de duplicados por URL
-
-Perfecto para GitHub Pages
+Script CORRECTO para generar HTML estático con embeds de Bandcamp
+USA EL ALBUM_ID/TRACK_ID DE BANDCAMP (ej: album_1212060845)
+Esto es lo que Bandcamp usa internamente y es 100% único
 """
 
 import os
@@ -19,27 +15,31 @@ import argparse
 from datetime import datetime
 
 
-def deduplicate_embeds(embeds):
+def extract_bandcamp_id(embed_code):
     """
-    Elimina embeds duplicados basándose en la URL.
-    Mantiene el primero (más reciente si están ordenados).
+    Extrae el album_id o track_id del código embed de Bandcamp.
+    Ejemplo: album=1212060845 → "album_1212060845"
     """
-    seen_urls = set()
-    unique_embeds = []
+    if not embed_code:
+        return None
 
-    for embed in embeds:
-        url = embed.get('url', '')
-        if url and url not in seen_urls:
-            seen_urls.add(url)
-            unique_embeds.append(embed)
+    # Buscar album=XXXXXXXX
+    album_match = re.search(r'album=(\d+)', embed_code)
+    if album_match:
+        return f"album_{album_match.group(1)}"
 
-    return unique_embeds
+    # Buscar track=XXXXXXXX
+    track_match = re.search(r'track=(\d+)', embed_code)
+    if track_match:
+        return f"track_{track_match.group(1)}"
+
+    return None
 
 
 def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     """
     Genera un archivo HTML estático para un género específico.
-    Los embeds se oscurecen al marcarlos como escuchados usando localStorage.
+    USA ALBUM_ID DE BANDCAMP como identificador único.
     """
     # Ordenar embeds por fecha (más reciente primero)
     embeds_sorted = sorted(
@@ -47,9 +47,6 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         key=lambda x: x.get('date_obj') or datetime.min,
         reverse=True
     )
-
-    # FILTRAR DUPLICADOS
-    embeds_sorted = deduplicate_embeds(embeds_sorted)
 
     # Sanitizar el nombre del archivo
     safe_genre = re.sub(r'[^\w\s-]', '', genre).strip().replace(' ', '_')
@@ -64,29 +61,25 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         page_num = (i // items_per_page) + 1
         page_class = f"page-{page_num}" if total_pages > 1 else ""
 
-        # Crear identificador único basado en la URL
-        embed_id = f"embed_{abs(hash(embed_data['url']))}"
+        # CRÍTICO: Usar album_id de Bandcamp
+        embed_id = extract_bandcamp_id(embed_data['embed'])
 
-        # URL limpia para mostrar
-        url_display = embed_data['url'][:50] + "..." if len(embed_data['url']) > 50 else embed_data['url']
+        if not embed_id:
+            # Fallback: usar índice si no se encuentra ID
+            embed_id = f"embed_{i}"
+            print(f"  ⚠️  No se encontró album_id para: {embed_data.get('subject', 'Sin título')[:50]}")
 
         embeds_html += f"""
-        <div class="embed-item {page_class}" data-page="{page_num}" id="{embed_id}" data-embed-id="{embed_id}" data-url="{escape(embed_data['url'])}">
-            <div class="embed-container">
-                {embed_data['embed']}
-            </div>
+        <div class="embed-item {page_class}" data-page="{page_num}" id="{embed_id}" data-embed-id="{embed_id}">
+            {embed_data['embed']}
             <div class="embed-info">
                 <strong>{escape(embed_data.get('subject', 'Sin título'))}</strong><br>
-                <small>📅 {escape(embed_data.get('date', 'Fecha desconocida'))}</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 {escape(url_display)}</small>
+                <small>📅 {escape(embed_data.get('date', 'Fecha desconocida'))}</small>
             </div>
             <div class="embed-actions">
                 <button class="action-btn listened-btn" onclick="markAsListened('{embed_id}')">
                     🎧 Marcar como escuchado
                 </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         """
@@ -100,7 +93,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             pagination_html += f'<button class="page-btn {active}" data-page="{page}">Página {page}</button>'
         pagination_html += '</div>'
 
-    # HTML completo con localStorage
+    # HTML completo con localStorage usando album_id de Bandcamp
     html = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -195,13 +188,12 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .embed-item {{
-            position: relative;
             background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
         }}
 
         .embed-item:hover {{
@@ -213,51 +205,10 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             display: none;
         }}
 
-        /* NUEVO: Oscurecer en lugar de ocultar */
         .embed-item.listened {{
-            filter: brightness(0.4) grayscale(0.8);
-            opacity: 0.5;
-        }}
-
-        .embed-item.listened:hover {{
-            transform: none;
-        }}
-
-        .embed-item.listened .embed-container {{
+            opacity: 0;
+            transform: scale(0.8);
             pointer-events: none;
-        }}
-
-        /* Overlay de "Escuchado" */
-        .listened-overlay {{
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            border-radius: 15px;
-        }}
-
-        .embed-item.listened .listened-overlay {{
-            display: flex;
-        }}
-
-        .listened-badge {{
-            background: rgba(76, 175, 80, 0.95);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }}
-
-        .embed-container {{
-            position: relative;
         }}
 
         .embed-info {{
@@ -296,7 +247,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .listened-btn:disabled {{
-            background: #95d5b2;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
         }}
@@ -385,7 +336,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
-                    ✓ Escuchados: <span id="listened-count">0</span> |
+                    ✅ Escuchados: <span id="listened-count">0</span> |
                     👂 Pendientes: <span id="pending-count">{total_items}</span>
                 </div>
             </div>
@@ -407,28 +358,26 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     <script>
         const STORAGE_KEY = 'bandcamp_listened_{safe_genre}';
         const TOTAL_ITEMS = {total_items};
-        let currentPlayingIframe = null;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {{
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let listenedCount = 0;
+            let hiddenCount = 0;
 
             listened.forEach(embedId => {{
                 const element = document.querySelector(`[data-embed-id="${{embedId}}"]`);
                 if (element) {{
                     element.classList.add('listened');
-                    const button = element.querySelector('.listened-btn');
-                    if (button) {{
-                        button.disabled = true;
-                        button.textContent = '✓ Escuchado';
-                    }}
-                    listenedCount++;
+                    setTimeout(() => {{
+                        element.style.display = 'none';
+                    }}, 500);
+                    hiddenCount++;
                 }}
             }});
 
-            updateStats(listenedCount);
-            console.log(`📊 Cargados ${{listenedCount}} álbumes escuchados`);
+            updateStats(hiddenCount);
+
+            console.log('💾 Loaded listened:', listened);
         }}
 
         // Actualizar estadísticas
@@ -436,32 +385,34 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             const pending = TOTAL_ITEMS - listenedCount;
             document.getElementById('listened-count').textContent = listenedCount;
             document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = TOTAL_ITEMS;
+            document.getElementById('visible-count').textContent = pending;
         }}
 
         // Marcar como escuchado
         function markAsListened(embedId) {{
             const element = document.getElementById(embedId);
-            if (!element) return;
-
             const button = element.querySelector('.listened-btn');
 
-            // Guardar en localStorage PRIMERO
+            // Deshabilitar botón
+            button.disabled = true;
+            button.textContent = '✅ Escuchado';
+
+            // Guardar en localStorage
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {{
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log(`💾 Guardado en localStorage:`, embedId);
+                console.log('✅ Marked as listened:', embedId);
             }}
 
-            // Actualizar UI
-            button.disabled = true;
-            button.textContent = '✓ Escuchado';
-
-            // Oscurecer el embed
+            // Animar desaparición
             element.classList.add('listened');
 
-            updateStats(listened.length);
+            setTimeout(() => {{
+                element.style.display = 'none';
+                updateStats(listened.length);
+            }}, 500);
+
             showNotification('¡Marcado como escuchado!', 'success');
         }}
 
@@ -472,16 +423,14 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             }}
 
             localStorage.removeItem(STORAGE_KEY);
-            console.log(`🗑️ localStorage limpiado`);
 
             // Mostrar todos los elementos
             document.querySelectorAll('.embed-item').forEach(item => {{
                 item.classList.remove('listened');
+                item.style.display = '';
                 const button = item.querySelector('.listened-btn');
-                if (button) {{
-                    button.disabled = false;
-                    button.textContent = '🎧 Marcar como escuchado';
-                }}
+                button.disabled = false;
+                button.textContent = '🎧 Marcar como escuchado';
             }});
 
             updateStats(0);
@@ -500,6 +449,10 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
                 button.classList.add('active');
 
                 embedItems.forEach(item => {{
+                    if (item.classList.contains('listened')) {{
+                        return;
+                    }}
+
                     if (item.dataset.page === page) {{
                         item.classList.remove('hidden');
                     }} else {{
@@ -514,7 +467,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {{
             embedItems.forEach(item => {{
-                if (item.dataset.page !== '1') {{
+                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {{
                     item.classList.add('hidden');
                 }}
             }});
@@ -531,108 +484,35 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             }}, 3000);
         }}
 
-        // ========== MEJORADO: DETECCIÓN DE REPRODUCCIÓN ==========
+        // Cargar estado al iniciar la página
+        loadListenedState();
 
-        // Función mejorada para pausar otros reproductores
-        function pauseOtherPlayers(currentIframe) {{
-            if (!currentIframe) return;
+        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
+        console.log('💾 Storage key:', STORAGE_KEY);
 
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {{
             const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let pausedCount = 0;
-
             allIframes.forEach(iframe => {{
                 if (iframe !== currentIframe) {{
-                    // Método 1: Recargar iframe (más efectivo)
                     const src = iframe.src;
                     iframe.src = '';
-                    // Pequeño delay antes de recargar
-                    setTimeout(() => {{
-                        iframe.src = src;
-                    }}, 50);
-                    pausedCount++;
+                    iframe.src = src;
                 }}
             }});
-
-            if (pausedCount > 0) {{
-                console.log(`⏸️ Pausados ${{pausedCount}} reproductores`);
-            }}
-
-            currentPlayingIframe = currentIframe;
         }}
 
-        // Detectar clicks en los embeds con mejor timing
-        function setupPlaybackDetection() {{
-            document.querySelectorAll('.embed-item').forEach(embedItem => {{
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {{
+            embedItem.addEventListener('click', (e) => {{
                 const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-
-                if (!iframe) return;
-
-                // Detectar mousedown (antes del click)
-                embedItem.addEventListener('mousedown', (e) => {{
-                    // Solo si no es el botón de acción
-                    if (!e.target.classList.contains('action-btn')) {{
-                        // Pausar inmediatamente
-                        pauseOtherPlayers(iframe);
-                    }}
-                }});
-
-                // También detectar clicks directamente
-                embedItem.addEventListener('click', (e) => {{
-                    if (!e.target.classList.contains('action-btn')) {{
-                        // Delay corto para asegurar que se ejecute después del click
-                        setTimeout(() => {{
-                            pauseOtherPlayers(iframe);
-                        }}, 150);
-                    }}
-                }});
-
-                // Detectar cuando el iframe está en foco
-                iframe.addEventListener('mouseenter', () => {{
-                    iframe.dataset.hovered = 'true';
-                }});
-
-                iframe.addEventListener('mouseleave', () => {{
-                    iframe.dataset.hovered = 'false';
-                }});
+                if (iframe && !e.target.classList.contains('action-btn')) {{
+                    setTimeout(() => {{
+                        stopOtherPlayers(iframe);
+                    }}, 100);
+                }}
             }});
-
-            console.log('🎵 Detección de reproducción configurada');
-        }}
-
-        // Prevenir múltiples reproductores al cargar
-        function preventAutoplay() {{
-            // Esperar a que todos los iframes carguen
-            const iframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let loadedCount = 0;
-
-            iframes.forEach(iframe => {{
-                iframe.addEventListener('load', () => {{
-                    loadedCount++;
-                    // Cuando todos hayan cargado, asegurar que solo uno pueda reproducir
-                    if (loadedCount === iframes.length) {{
-                        console.log(`✅ ${{iframes.length}} embeds cargados y listos`);
-                    }}
-                }});
-            }});
-        }}
-
-        // Inicializar todo
-        function init() {{
-            loadListenedState();
-            setupPlaybackDetection();
-            preventAutoplay();
-
-            console.log('💾 Storage key:', STORAGE_KEY);
-            console.log('📦 Total embeds:', TOTAL_ITEMS);
-            console.log('✅ Sistema de reproducción inicializado');
-        }}
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {{
-            document.addEventListener('DOMContentLoaded', init);
-        }} else {{
-            init();
-        }}
+        }});
     </script>
 </body>
 </html>
@@ -799,10 +679,7 @@ def generate_index_html(genres_data, output_dir):
         <footer>
             <p>Generado con 💜 para disfrutar la música</p>
             <p style="margin-top: 10px; font-size: 0.85em;">
-                Los álbumes escuchados se oscurecen pero siguen visibles
-            </p>
-            <p style="margin-top: 5px; font-size: 0.85em; opacity: 0.7;">
-                ✨ Versión mejorada: sin duplicados, auto-pause, oscurecimiento confiable
+                Usando album_id de Bandcamp como identificador único
             </p>
         </footer>
     </div>
@@ -819,7 +696,7 @@ def generate_index_html(genres_data, output_dir):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Genera HTML estático con embeds de Bandcamp desde archivo JSON (versión mejorada)'
+        description='Genera HTML estático con embeds de Bandcamp (USA ALBUM_ID DE BANDCAMP)'
     )
 
     parser.add_argument('--input', required=True,
@@ -847,18 +724,12 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     print("\n" + "="*80)
-    print("🎵 GENERADOR DE COLECCIÓN ESTÁTICA DE BANDCAMP (VERSIÓN MEJORADA)")
+    print("🎵 GENERADOR DE COLECCIÓN ESTÁTICA DE BANDCAMP")
     print("="*80 + "\n")
-    print("✨ Mejoras aplicadas:")
-    print("   • Filtrado de duplicados por URL")
-    print("   • Oscurecimiento en lugar de eliminación (más confiable)")
-    print("   • Mejor detección de reproducción para auto-pause")
-    print()
+    print("🔑 Usando album_id/track_id de Bandcamp como identificador único")
 
     # Organizar por género
     embeds_by_genre = {}
-    total_duplicates = 0
-
     for genre, embeds in data.items():
         # Convertir fechas string a objetos datetime para ordenar
         for embed in embeds:
@@ -873,25 +744,13 @@ def main():
             else:
                 embed['date_obj'] = datetime.min
 
-        original_count = len(embeds)
-        embeds = deduplicate_embeds(embeds)
-        duplicates = original_count - len(embeds)
-
-        if duplicates > 0:
-            print(f"  📦 {genre}: Eliminados {duplicates} duplicado(s)")
-            total_duplicates += duplicates
-
         embeds_by_genre[genre] = embeds
-
-    if total_duplicates > 0:
-        print(f"\n  ✅ Total de duplicados eliminados: {total_duplicates}")
-        print()
 
     # Generar HTMLs por género
     genres_data = {}
     total_embeds = sum(len(embeds) for embeds in embeds_by_genre.values())
 
-    print(f"📊 Total de embeds únicos: {total_embeds}")
+    print(f"📊 Total de embeds: {total_embeds}")
     print(f"🎸 Géneros: {len(embeds_by_genre)}\n")
 
     for genre, embeds in sorted(embeds_by_genre.items()):
@@ -923,16 +782,17 @@ def main():
     print("\n" + "="*80)
     print(f"✅ Sitio generado en: {args.output_dir}")
     print("="*80 + "\n")
-    print("🔍 PRÓXIMOS PASOS PARA GITHUB PAGES:")
+    print("🔑 IMPORTANTE:")
+    print("   • Usando album_id de Bandcamp (ej: album_1212060845)")
+    print("   • Este ID es único y estable para cada álbum")
+    print("   • No requiere hashing ni cálculos adicionales")
+    print("\n📝 PRÓXIMOS PASOS:")
     print("   1. Sube el directorio a tu repositorio de GitHub")
     print("   2. Ve a Settings → Pages")
     print("   3. Selecciona la rama y la carpeta /docs")
-    print("   4. ¡Tu colección estará online!\n")
-    print("💾 CAMBIOS EN ESTE VERSIÓN:")
-    print("   • Los álbumes escuchados se OSCURECEN (no desaparecen)")
-    print("   • Mejor persistencia en localStorage")
-    print("   • Auto-pause al reproducir otros embeds")
-    print("   • Sin duplicados")
+    print("   4. ¡Tu colección estará online!")
+    print("\n💾 Los álbumes escuchados se guardan en localStorage")
+    print("🔄 Sincroniza con bc_sync.py para eliminar los escuchados")
     print()
 
 

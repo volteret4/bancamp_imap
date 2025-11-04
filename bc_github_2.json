@@ -1,5 +1,4 @@
 {
-  "Metal": [],
   "MustHave": [
     {
       "url": "https://filmmaker.bandcamp.com/album/the-great-tribulations",
@@ -50,8 +49,6 @@
       "genre": "MustHave"
     }
   ],
-  "IDM": [],
-  "Disco Sellos": [],
   "Disco": [
     {
       "url": "https://futuredisco.bandcamp.com/album/paris-in-the-sky-ep",
@@ -2042,9 +2039,6 @@
       "genre": "Metal Sellos"
     }
   ],
-  "IDM Sellos": [],
-  "Experimental Sellos": [],
-  "Experimental": [],
   "Deep ket": [
     {
       "url": "https://lumierenoirerecords.bandcamp.com/album/flash-vol-2",
@@ -4174,6 +4168,5 @@
       "folder": "Musica.Ambient",
       "genre": "Ambient"
     }
-  ],
-  "Ambient Sellos": []
+  ]
 }

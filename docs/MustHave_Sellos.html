@@ -92,13 +92,12 @@
         }
 
         .embed-item {
-            position: relative;
             background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
         }
 
         .embed-item:hover {
@@ -110,51 +109,10 @@
             display: none;
         }
 
-        /* NUEVO: Oscurecer en lugar de ocultar */
         .embed-item.listened {
-            filter: brightness(0.4) grayscale(0.8);
-            opacity: 0.5;
-        }
-
-        .embed-item.listened:hover {
-            transform: none;
-        }
-
-        .embed-item.listened .embed-container {
+            opacity: 0;
+            transform: scale(0.8);
             pointer-events: none;
-        }
-
-        /* Overlay de "Escuchado" */
-        .listened-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            border-radius: 15px;
-        }
-
-        .embed-item.listened .listened-overlay {
-            display: flex;
-        }
-
-        .listened-badge {
-            background: rgba(76, 175, 80, 0.95);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .embed-container {
-            position: relative;
         }
 
         .embed-info {
@@ -193,7 +151,7 @@
         }
 
         .listened-btn:disabled {
-            background: #95d5b2;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
         }
@@ -278,12 +236,12 @@
     <div class="container">
         <header>
             <h1>🎵 MustHave Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">26</span> de 26 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">34</span> de 34 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
-                    ✓ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">26</span>
+                    ✅ Escuchados: <span id="listened-count">0</span> |
+                    👂 Pendientes: <span id="pending-count">34</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -294,532 +252,478 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item page-1" data-page="1" id="embed_7446181021689767335" data-embed-id="embed_7446181021689767335" data-url="https://wrongwayup.bandcamp.com/album/totally-right">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2868506619/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Wed, 15 Jan 2025 14:04:07 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://wrongwayup.bandcamp.com/album/totally-righ...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7446181021689767335')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_6257712802587757414" data-embed-id="embed_6257712802587757414" data-url="https://lesyeuxorange.bandcamp.com/track/alban-luna-les-yeux-orange-instrumental-edit">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1702551335/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-1" data-page="1" id="track_2690847199" data-embed-id="track_2690847199">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2690847199/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Les Yeux Orange</strong><br>
-                <small>📅 Sat, 18 Jan 2025 11:10:38 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://lesyeuxorange.bandcamp.com/track/alban-lun...</small>
+                <small>📅 Fri, 31 Oct 2025 16:07:03 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_6257712802587757414')">
+                <button class="action-btn listened-btn" onclick="markAsListened('track_2690847199')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_3864786926708943091" data-embed-id="embed_3864786926708943091" data-url="https://filmmaker.bandcamp.com/album/bloodbound">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2659880965/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-1" data-page="1" id="album_39153990" data-embed-id="album_39153990">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=39153990/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Filmmaker</strong><br>
-                <small>📅 Fri, 14 Feb 2025 05:32:20 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/bloodbound</small>
+                <small>📅 Thu, 23 Oct 2025 23:43:06 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_3864786926708943091')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_39153990')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_1354907841715511687" data-embed-id="embed_1354907841715511687" data-url="https://filmmaker.bandcamp.com/album/various-iv">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1622948422/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Filmmaker</strong><br>
-                <small>📅 Thu, 06 Mar 2025 04:40:21 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/various-iv</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1354907841715511687')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_1307179169642068585" data-embed-id="embed_1307179169642068585" data-url="https://kwashibu.bandcamp.com/album/love-warrior-s-anthem">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=526864440/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Thu, 06 Mar 2025 08:41:49 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://kwashibu.bandcamp.com/album/love-warrior-s...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1307179169642068585')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_620863220763719838" data-embed-id="embed_620863220763719838" data-url="https://bicep.bandcamp.com/album/chroma-009">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2045783063/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-1" data-page="1" id="album_4195161359" data-embed-id="album_4195161359">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4195161359/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Bicep</strong><br>
-                <small>📅 Tue, 15 Apr 2025 10:38:09 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bicep.bandcamp.com/album/chroma-009</small>
+                <small>📅 Mon, 20 Oct 2025 16:12:35 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_620863220763719838')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_4195161359')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_2140308470" data-embed-id="album_2140308470">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2140308470/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 10 Oct 2025 08:52:27 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2140308470')">
+                    🎧 Marcar como escuchado
+                </button>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_8104016779616290104" data-embed-id="embed_8104016779616290104" data-url="https://chifactory.bandcamp.com/album/we-carry-eden-feat-omar-ka">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2731969585/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-1" data-page="1" id="album_147918327" data-embed-id="album_147918327">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=147918327/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 10 Oct 2025 07:17:43 +0000 (UTC)</small>
             </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_147918327')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_733722816" data-embed-id="album_733722816">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=733722816/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Filmmaker</strong><br>
+                <small>📅 Fri, 03 Oct 2025 05:22:46 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_733722816')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_1944570706" data-embed-id="album_1944570706">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1944570706/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 26 Sep 2025 06:32:29 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1944570706')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_1844457768" data-embed-id="album_1844457768">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1844457768/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 26 Sep 2025 06:31:57 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1844457768')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_4139075821" data-embed-id="album_4139075821">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4139075821/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Four Tet</strong><br>
+                <small>📅 Fri, 19 Sep 2025 04:11:21 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_4139075821')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-1" data-page="1" id="album_3330134202" data-embed-id="album_3330134202">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3330134202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Music From Memory</strong><br>
-                <small>📅 Fri, 16 May 2025 08:01:12 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://chifactory.bandcamp.com/album/we-carry-ede...</small>
+                <small>📅 Thu, 18 Sep 2025 08:22:44 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8104016779616290104')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3330134202')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="embed_593981642305806828" data-embed-id="embed_593981642305806828" data-url="https://fourtet.bandcamp.com/album/41-longfield-street-late-80s">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4139075821/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Four Tet</strong><br>
-                <small>📅 Wed, 21 May 2025 14:05:38 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://fourtet.bandcamp.com/album/41-longfield-st...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_593981642305806828')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_2566104297229834230" data-embed-id="embed_2566104297229834230" data-url="https://boyharsher.bandcamp.com/album/cutting-the-stone">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=181024544/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Boy Harsher</strong><br>
-                <small>📅 Wed, 28 May 2025 15:05:37 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://boyharsher.bandcamp.com/album/cutting-the-...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2566104297229834230')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="embed_7189976285167275116" data-embed-id="embed_7189976285167275116" data-url="https://bicep.bandcamp.com/album/chroma-010">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3196984561/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Bicep</strong><br>
-                <small>📅 Wed, 04 Jun 2025 18:41:18 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bicep.bandcamp.com/album/chroma-010</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7189976285167275116')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_4807527680761045977" data-embed-id="embed_4807527680761045977" data-url="https://fourtet.bandcamp.com/track/into-dust-still-falling">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=932668332/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Four Tet</strong><br>
-                <small>📅 Tue, 17 Jun 2025 21:29:51 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://fourtet.bandcamp.com/track/into-dust-still...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4807527680761045977')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1848844103112242568" data-embed-id="embed_1848844103112242568" data-url="https://saigalaxy.bandcamp.com/album/all-day-cool-ep">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1846883811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Mon, 23 Jun 2025 10:46:03 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://saigalaxy.bandcamp.com/album/all-day-cool-...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1848844103112242568')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_5834227421537325092" data-embed-id="embed_5834227421537325092" data-url="https://bicep.bandcamp.com/album/takkuuk-original-soundtrack">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3643206626/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Bicep</strong><br>
-                <small>📅 Mon, 21 Jul 2025 15:13:19 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bicep.bandcamp.com/album/takkuuk-original-...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_5834227421537325092')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1649976871612256481" data-embed-id="embed_1649976871612256481" data-url="https://frimpong.bandcamp.com/album/the-blue-album">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1844457768/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 25 Jul 2025 08:43:23 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://frimpong.bandcamp.com/album/the-blue-album</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1649976871612256481')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_4631733887030217295" data-embed-id="embed_4631733887030217295" data-url="https://frimpong.bandcamp.com/album/the-black-album">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1944570706/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 25 Jul 2025 10:12:11 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://frimpong.bandcamp.com/album/the-black-albu...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4631733887030217295')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_7998059391689749367" data-embed-id="embed_7998059391689749367" data-url="https://fourtet.bandcamp.com/album/into-dust-still-falling">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3154964379/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Four Tet</strong><br>
-                <small>📅 Wed, 30 Jul 2025 13:51:27 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://fourtet.bandcamp.com/album/into-dust-still...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_7998059391689749367')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_8108708885203401115" data-embed-id="embed_8108708885203401115" data-url="https://filmmaker.bandcamp.com/album/dehumanization-ep">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4211885519/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Filmmaker</strong><br>
-                <small>📅 Thu, 31 Jul 2025 06:13:56 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/dehumanizatio...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8108708885203401115')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_1300792907760590326" data-embed-id="embed_1300792907760590326" data-url="https://filmmaker.bandcamp.com/album/dehumanization-instrumental-version">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3927174883/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
-            <div class="embed-info">
-                <strong>New release from Filmmaker</strong><br>
-                <small>📅 Fri, 01 Aug 2025 07:04:23 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/dehumanizatio...</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1300792907760590326')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="embed_2420639967098487436" data-embed-id="embed_2420639967098487436" data-url="https://yvesdemey.bandcamp.com/track/live-at-de-zaak-250515">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3222784221/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-2" data-page="2" id="track_3222784221" data-embed-id="track_3222784221">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3222784221/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Yves De Mey</strong><br>
-                <small>📅 Tue, 09 Sep 2025 14:15:56 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://yvesdemey.bandcamp.com/track/live-at-de-za...</small>
+                <small>📅 Tue, 09 Sep 2025 14:15:56 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2420639967098487436')">
+                <button class="action-btn listened-btn" onclick="markAsListened('track_3222784221')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="embed_8144712756802104891" data-embed-id="embed_8144712756802104891" data-url="https://johnnysaisquoi.bandcamp.com/album/love-on-ice">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3330134202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-2" data-page="2" id="album_1846883811" data-embed-id="album_1846883811">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1846883811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Music From Memory</strong><br>
-                <small>📅 Thu, 18 Sep 2025 08:22:44 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://johnnysaisquoi.bandcamp.com/album/love-on-...</small>
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 08 Aug 2025 08:58:05 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8144712756802104891')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1846883811')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_8653212042750889952" data-embed-id="embed_8653212042750889952" data-url="https://filmmaker.bandcamp.com/album/sanguinary">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=733722816/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-2" data-page="2" id="album_3927174883" data-embed-id="album_3927174883">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3927174883/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Filmmaker</strong><br>
-                <small>📅 Fri, 03 Oct 2025 05:22:46 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/sanguinary</small>
+                <small>📅 Fri, 01 Aug 2025 07:04:23 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8653212042750889952')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3927174883')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_4211885519" data-embed-id="album_4211885519">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4211885519/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Filmmaker</strong><br>
+                <small>📅 Thu, 31 Jul 2025 06:13:56 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_4211885519')">
+                    🎧 Marcar como escuchado
+                </button>
             </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_2488788405234628647" data-embed-id="embed_2488788405234628647" data-url="https://marcobosco.bandcamp.com/album/metalmadeira-ii">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=147918327/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-2" data-page="2" id="album_3154964379" data-embed-id="album_3154964379">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3154964379/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Four Tet</strong><br>
+                <small>📅 Wed, 30 Jul 2025 13:51:27 +0000 (UTC)</small>
             </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3154964379')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_181024544" data-embed-id="album_181024544">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=181024544/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Boy Harsher</strong><br>
+                <small>📅 Fri, 25 Jul 2025 10:39:26 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_181024544')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_1944570706" data-embed-id="album_1944570706">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1944570706/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 10 Oct 2025 07:17:43 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://marcobosco.bandcamp.com/album/metalmadeira...</small>
+                <small>📅 Fri, 25 Jul 2025 10:12:11 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_2488788405234628647')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1944570706')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_1953429343235922596" data-embed-id="embed_1953429343235922596" data-url="https://marcobosco.bandcamp.com/album/metalmadeira">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2140308470/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-2" data-page="2" id="album_1844457768" data-embed-id="album_1844457768">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1844457768/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 10 Oct 2025 08:52:27 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://marcobosco.bandcamp.com/album/metalmadeira</small>
+                <small>📅 Fri, 25 Jul 2025 08:43:23 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_1953429343235922596')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1844457768')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
-            </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_8280533706868792789" data-embed-id="embed_8280533706868792789" data-url="https://bicep.bandcamp.com/album/chroma-000">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4195161359/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-2" data-page="2" id="album_3643206626" data-embed-id="album_3643206626">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3643206626/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Bicep</strong><br>
-                <small>📅 Mon, 20 Oct 2025 16:12:35 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://bicep.bandcamp.com/album/chroma-000</small>
+                <small>📅 Fri, 25 Jul 2025 08:16:41 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8280533706868792789')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3643206626')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_3643206626" data-embed-id="album_3643206626">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3643206626/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Bicep</strong><br>
+                <small>📅 Mon, 21 Jul 2025 15:13:19 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3643206626')">
+                    🎧 Marcar como escuchado
+                </button>
             </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_8248762641198249105" data-embed-id="embed_8248762641198249105" data-url="https://filmmaker.bandcamp.com/album/stygian-trip">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=39153990/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item page-3" data-page="3" id="album_1846883811" data-embed-id="album_1846883811">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1846883811/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Mon, 23 Jun 2025 10:46:03 +0000 (UTC)</small>
             </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1846883811')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="track_932668332" data-embed-id="track_932668332">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=932668332/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Four Tet</strong><br>
+                <small>📅 Tue, 17 Jun 2025 21:29:51 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('track_932668332')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_3196984561" data-embed-id="album_3196984561">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3196984561/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Bicep</strong><br>
+                <small>📅 Wed, 04 Jun 2025 18:41:18 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3196984561')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_181024544" data-embed-id="album_181024544">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=181024544/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Boy Harsher</strong><br>
+                <small>📅 Wed, 28 May 2025 15:05:37 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_181024544')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_4139075821" data-embed-id="album_4139075821">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4139075821/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Four Tet</strong><br>
+                <small>📅 Wed, 21 May 2025 14:05:38 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_4139075821')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_2731969585" data-embed-id="album_2731969585">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2731969585/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Music From Memory</strong><br>
+                <small>📅 Fri, 16 May 2025 08:01:12 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2731969585')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_2045783063" data-embed-id="album_2045783063">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2045783063/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Bicep</strong><br>
+                <small>📅 Tue, 15 Apr 2025 10:38:09 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2045783063')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_526864440" data-embed-id="album_526864440">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=526864440/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Sat, 12 Apr 2025 09:03:08 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_526864440')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_526864440" data-embed-id="album_526864440">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=526864440/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Thu, 06 Mar 2025 08:41:49 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_526864440')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-3" data-page="3" id="album_1622948422" data-embed-id="album_1622948422">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1622948422/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Filmmaker</strong><br>
-                <small>📅 Thu, 23 Oct 2025 23:43:06 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://filmmaker.bandcamp.com/album/stygian-trip</small>
+                <small>📅 Thu, 06 Mar 2025 04:40:21 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8248762641198249105')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1622948422')">
                     🎧 Marcar como escuchado
                 </button>
-            </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
             </div>
         </div>
         
-        <div class="embed-item page-3" data-page="3" id="embed_8957321646761033143" data-embed-id="embed_8957321646761033143" data-url="https://lesyeuxorange.bandcamp.com/track/fly-by-night-les-yeux-orange-rework">
-            <div class="embed-container">
-                <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2690847199/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            </div>
+        <div class="embed-item page-4" data-page="4" id="album_2868506619" data-embed-id="album_2868506619">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2868506619/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Les Yeux Orange</strong><br>
-                <small>📅 Fri, 31 Oct 2025 16:07:03 +0000 (UTC)</small><br>
-                <small style="opacity: 0.6; font-size: 0.8em;">🔗 https://lesyeuxorange.bandcamp.com/track/fly-by-ni...</small>
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Fri, 21 Feb 2025 10:01:26 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_8957321646761033143')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2868506619')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
-            <div class="listened-overlay">
-                <div class="listened-badge">✓ Escuchado</div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="album_2659880965" data-embed-id="album_2659880965">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2659880965/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Filmmaker</strong><br>
+                <small>📅 Fri, 14 Feb 2025 05:32:20 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2659880965')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="track_1702551335" data-embed-id="track_1702551335">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1702551335/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Les Yeux Orange</strong><br>
+                <small>📅 Sat, 18 Jan 2025 11:10:38 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('track_1702551335')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-4" data-page="4" id="album_2868506619" data-embed-id="album_2868506619">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2868506619/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Soundway Records</strong><br>
+                <small>📅 Wed, 15 Jan 2025 14:04:07 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2868506619')">
+                    🎧 Marcar como escuchado
+                </button>
             </div>
         </div>
         
         </div>
 
-        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button><button class="page-btn " data-page="3">Página 3</button></div>
+        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button><button class="page-btn " data-page="3">Página 3</button><button class="page-btn " data-page="4">Página 4</button></div>
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_MustHave_Sellos';
-        const TOTAL_ITEMS = 26;
-        let currentPlayingIframe = null;
+        const TOTAL_ITEMS = 34;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let listenedCount = 0;
+            let hiddenCount = 0;
 
             listened.forEach(embedId => {
                 const element = document.querySelector(`[data-embed-id="${embedId}"]`);
                 if (element) {
                     element.classList.add('listened');
-                    const button = element.querySelector('.listened-btn');
-                    if (button) {
-                        button.disabled = true;
-                        button.textContent = '✓ Escuchado';
-                    }
-                    listenedCount++;
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                    }, 500);
+                    hiddenCount++;
                 }
             });
 
-            updateStats(listenedCount);
-            console.log(`📊 Cargados ${listenedCount} álbumes escuchados`);
+            updateStats(hiddenCount);
+
+            console.log('💾 Loaded listened:', listened);
         }
 
         // Actualizar estadísticas
@@ -827,32 +731,34 @@
             const pending = TOTAL_ITEMS - listenedCount;
             document.getElementById('listened-count').textContent = listenedCount;
             document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = TOTAL_ITEMS;
+            document.getElementById('visible-count').textContent = pending;
         }
 
         // Marcar como escuchado
         function markAsListened(embedId) {
             const element = document.getElementById(embedId);
-            if (!element) return;
-
             const button = element.querySelector('.listened-btn');
 
-            // Guardar en localStorage PRIMERO
+            // Deshabilitar botón
+            button.disabled = true;
+            button.textContent = '✅ Escuchado';
+
+            // Guardar en localStorage
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log(`💾 Guardado en localStorage:`, embedId);
+                console.log('✅ Marked as listened:', embedId);
             }
 
-            // Actualizar UI
-            button.disabled = true;
-            button.textContent = '✓ Escuchado';
-
-            // Oscurecer el embed
+            // Animar desaparición
             element.classList.add('listened');
 
-            updateStats(listened.length);
+            setTimeout(() => {
+                element.style.display = 'none';
+                updateStats(listened.length);
+            }, 500);
+
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
@@ -863,16 +769,14 @@
             }
 
             localStorage.removeItem(STORAGE_KEY);
-            console.log(`🗑️ localStorage limpiado`);
 
             // Mostrar todos los elementos
             document.querySelectorAll('.embed-item').forEach(item => {
                 item.classList.remove('listened');
+                item.style.display = '';
                 const button = item.querySelector('.listened-btn');
-                if (button) {
-                    button.disabled = false;
-                    button.textContent = '🎧 Marcar como escuchado';
-                }
+                button.disabled = false;
+                button.textContent = '🎧 Marcar como escuchado';
             });
 
             updateStats(0);
@@ -891,6 +795,10 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
+                    if (item.classList.contains('listened')) {
+                        return;
+                    }
+
                     if (item.dataset.page === page) {
                         item.classList.remove('hidden');
                     } else {
@@ -905,7 +813,7 @@
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {
             embedItems.forEach(item => {
-                if (item.dataset.page !== '1') {
+                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
                     item.classList.add('hidden');
                 }
             });
@@ -922,108 +830,35 @@
             }, 3000);
         }
 
-        // ========== MEJORADO: DETECCIÓN DE REPRODUCCIÓN ==========
+        // Cargar estado al iniciar la página
+        loadListenedState();
 
-        // Función mejorada para pausar otros reproductores
-        function pauseOtherPlayers(currentIframe) {
-            if (!currentIframe) return;
+        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
+        console.log('💾 Storage key:', STORAGE_KEY);
 
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {
             const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let pausedCount = 0;
-
             allIframes.forEach(iframe => {
                 if (iframe !== currentIframe) {
-                    // Método 1: Recargar iframe (más efectivo)
                     const src = iframe.src;
                     iframe.src = '';
-                    // Pequeño delay antes de recargar
-                    setTimeout(() => {
-                        iframe.src = src;
-                    }, 50);
-                    pausedCount++;
+                    iframe.src = src;
                 }
             });
-
-            if (pausedCount > 0) {
-                console.log(`⏸️ Pausados ${pausedCount} reproductores`);
-            }
-
-            currentPlayingIframe = currentIframe;
         }
 
-        // Detectar clicks en los embeds con mejor timing
-        function setupPlaybackDetection() {
-            document.querySelectorAll('.embed-item').forEach(embedItem => {
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {
+            embedItem.addEventListener('click', (e) => {
                 const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-
-                if (!iframe) return;
-
-                // Detectar mousedown (antes del click)
-                embedItem.addEventListener('mousedown', (e) => {
-                    // Solo si no es el botón de acción
-                    if (!e.target.classList.contains('action-btn')) {
-                        // Pausar inmediatamente
-                        pauseOtherPlayers(iframe);
-                    }
-                });
-
-                // También detectar clicks directamente
-                embedItem.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('action-btn')) {
-                        // Delay corto para asegurar que se ejecute después del click
-                        setTimeout(() => {
-                            pauseOtherPlayers(iframe);
-                        }, 150);
-                    }
-                });
-
-                // Detectar cuando el iframe está en foco
-                iframe.addEventListener('mouseenter', () => {
-                    iframe.dataset.hovered = 'true';
-                });
-
-                iframe.addEventListener('mouseleave', () => {
-                    iframe.dataset.hovered = 'false';
-                });
+                if (iframe && !e.target.classList.contains('action-btn')) {
+                    setTimeout(() => {
+                        stopOtherPlayers(iframe);
+                    }, 100);
+                }
             });
-
-            console.log('🎵 Detección de reproducción configurada');
-        }
-
-        // Prevenir múltiples reproductores al cargar
-        function preventAutoplay() {
-            // Esperar a que todos los iframes carguen
-            const iframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            let loadedCount = 0;
-
-            iframes.forEach(iframe => {
-                iframe.addEventListener('load', () => {
-                    loadedCount++;
-                    // Cuando todos hayan cargado, asegurar que solo uno pueda reproducir
-                    if (loadedCount === iframes.length) {
-                        console.log(`✅ ${iframes.length} embeds cargados y listos`);
-                    }
-                });
-            });
-        }
-
-        // Inicializar todo
-        function init() {
-            loadListenedState();
-            setupPlaybackDetection();
-            preventAutoplay();
-
-            console.log('💾 Storage key:', STORAGE_KEY);
-            console.log('📦 Total embeds:', TOTAL_ITEMS);
-            console.log('✅ Sistema de reproducción inicializado');
-        }
-
-        // Ejecutar cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        });
     </script>
 </body>
 </html>
