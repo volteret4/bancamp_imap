@@ -83,7 +83,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
 
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
             min-height: 100vh;
             padding: 20px;
         }}
@@ -94,7 +94,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         header {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -103,13 +103,13 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         h1 {{
-            color: #333;
+            color: #e0e0e0;
             font-size: 2.5em;
             margin-bottom: 10px;
         }}
 
         .subtitle {{
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.1em;
             margin-bottom: 15px;
         }}
@@ -117,7 +117,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         .back-link {{
             display: inline-block;
             margin-top: 15px;
-            color: #667eea;
+            color: #9d7dff;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -151,7 +151,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             padding: 15px;
             background: rgba(102, 126, 234, 0.1);
             border-radius: 10px;
-            color: #333;
+            color: #e0e0e0;
         }}
 
         .embeds-grid {{
@@ -162,7 +162,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .embed-item {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
@@ -187,7 +187,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
 
         .embed-info {{
             margin-top: 15px;
-            color: #555;
+            color: #c0c0c0;
             font-size: 0.9em;
         }}
 
@@ -235,9 +235,9 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .page-btn {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             border: 2px solid #667eea;
-            color: #667eea;
+            color: #9d7dff;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -461,6 +461,60 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
 
         console.log('💾 Los datos se guardan localmente en tu navegador');
         console.log('🔑 Storage key:', STORAGE_KEY);
+
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {{
+            const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            allIframes.forEach(iframe => {{
+                if (iframe !== currentIframe) {{
+                    // Recargar el iframe para detener la reproducción
+                    const src = iframe.src;
+                    iframe.src = '';
+                    iframe.src = src;
+                }}
+            }});
+        }}
+
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('iframe[src*="bandcamp.com"]').forEach(iframe => {{
+            iframe.addEventListener('load', () => {{
+                // Escuchar eventos de reproducción (esto es limitado por CORS,
+                // pero el reload funciona como fallback)
+                try {{
+                    iframe.contentWindow.addEventListener('play', () => {{
+                        stopOtherPlayers(iframe);
+                    }});
+                }} catch(e) {{
+                    // CORS bloqueado, usar método alternativo
+                    // Detectar click en el iframe
+                    iframe.addEventListener('mouseenter', () => {{
+                        iframe.dataset.hovered = 'true';
+                    }});
+
+                    iframe.addEventListener('mouseleave', () => {{
+                        iframe.dataset.hovered = 'false';
+                    }});
+                }}
+            }});
+
+            // Detectar clicks en el iframe (funciona mejor)
+            iframe.addEventListener('click', () => {{
+                stopOtherPlayers(iframe);
+            }});
+        }});
+
+        // Alternativa: detener al hacer click en cualquier embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {{
+            embedItem.addEventListener('click', (e) => {{
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+                if (iframe && !e.target.classList.contains('action-btn')) {{
+                    // Pequeño delay para que se ejecute después del click en play
+                    setTimeout(() => {{
+                        stopOtherPlayers(iframe);
+                    }}, 100);
+                }}
+            }});
+        }});
     </script>
 </body>
 </html>
@@ -505,7 +559,7 @@ def generate_index_html(genres_data, output_dir):
 
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
             min-height: 100vh;
             padding: 20px;
         }}
@@ -516,7 +570,7 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         header {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
@@ -526,13 +580,13 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         h1 {{
-            color: #333;
+            color: #e0e0e0;
             font-size: 3em;
             margin-bottom: 10px;
         }}
 
         .subtitle {{
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.2em;
         }}
 
@@ -543,7 +597,7 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         .genre-card {{
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
@@ -563,14 +617,33 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         .genre-card h2 {{
-            color: #667eea;
+            color: #9d7dff;
             margin-bottom: 10px;
             font-size: 1.5em;
         }}
 
         .count {{
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.1em;
+        }}
+
+        .tools-link {{
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #9d7dff 0%, #7c5ce0 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(157, 125, 255, 0.3);
+        }}
+
+        .tools-link:hover {{
+            background: linear-gradient(135deg, #b99dff 0%, #9d7dff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(157, 125, 255, 0.4);
         }}
 
         footer {{
@@ -596,6 +669,9 @@ def generate_index_html(genres_data, output_dir):
         <header>
             <h1>🎵 Mi Colección de Bandcamp</h1>
             <p class="subtitle">💿 {total_albums} álbumes en {len(genres_data)} género{"s" if len(genres_data) != 1 else ""}</p>
+            <div style="margin-top: 20px;">
+                <a href="sync_tools.html" class="tools-link">🔧 Sincronizar Colección</a>
+            </div>
         </header>
 
         <div class="genres-grid">
@@ -695,6 +771,14 @@ def main():
     # Generar index.html
     print(f"\n  Generando index.html...")
     generate_index_html(genres_data, args.output_dir)
+
+    # Copiar sync_tools.html si existe
+    sync_tools_path = os.path.join(os.path.dirname(__file__), 'sync_tools.html')
+    if os.path.exists(sync_tools_path):
+        import shutil
+        dest_path = os.path.join(args.output_dir, 'sync_tools.html')
+        shutil.copy2(sync_tools_path, dest_path)
+        print(f"  Copiando sync_tools.html...")
 
     print("\n" + "="*80)
     print(f"✅ Sitio generado en: {args.output_dir}")
