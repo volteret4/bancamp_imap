@@ -100,6 +100,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎵 {escape(genre)} - Bandcamp Collection</title>
+    <link rel="icon" type="image/png" href="images/bandcamp.png">
     <style>
         * {{
             margin: 0;
