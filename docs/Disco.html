@@ -237,12 +237,12 @@
     <div class="container">
         <header>
             <h1>🎵 Disco</h1>
-            <p class="subtitle">💿 <span id="visible-count">14</span> de 14 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">13</span> de 13 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">14</span>
+                    👂 Pendientes: <span id="pending-count">13</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -253,19 +253,6 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item page-1" data-page="1" id="album_897902113" data-embed-id="album_897902113">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=897902113/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Future Disco, who brought you A Thing</strong><br>
-                <small>📅 Thu, 22 May 2025 11:00:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_897902113')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
         <div class="embed-item page-1" data-page="1" id="album_1062620420" data-embed-id="album_1062620420">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1062620420/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
@@ -383,7 +370,7 @@
             </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="album_191028622" data-embed-id="album_191028622">
+        <div class="embed-item page-1" data-page="1" id="album_191028622" data-embed-id="album_191028622">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=191028622/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Future Disco, who brought you A Thing</strong><br>
@@ -444,7 +431,7 @@
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_Disco';
-        const TOTAL_ITEMS = 14;
+        const TOTAL_ITEMS = 13;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
