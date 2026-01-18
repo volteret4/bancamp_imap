@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎵 Metal Sellos - Bandcamp Collection</title>
+    <link rel="icon" type="image/png" href="images/bandcamp.png">
     <style>
         * {
             margin: 0;
@@ -13,7 +14,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,7 +25,7 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -33,13 +34,13 @@
         }
 
         h1 {
-            color: #333;
+            color: #e0e0e0;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.1em;
             margin-bottom: 15px;
         }
@@ -47,7 +48,7 @@
         .back-link {
             display: inline-block;
             margin-top: 15px;
-            color: #667eea;
+            color: #9d7dff;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -81,7 +82,7 @@
             padding: 15px;
             background: rgba(102, 126, 234, 0.1);
             border-radius: 10px;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .embeds-grid {
@@ -92,7 +93,7 @@
         }
 
         .embed-item {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
@@ -117,7 +118,7 @@
 
         .embed-info {
             margin-top: 15px;
-            color: #555;
+            color: #c0c0c0;
             font-size: 0.9em;
         }
 
@@ -165,9 +166,9 @@
         }
 
         .page-btn {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(30, 30, 45, 0.95);
             border: 2px solid #667eea;
-            color: #667eea;
+            color: #9d7dff;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -236,12 +237,12 @@
     <div class="container">
         <header>
             <h1>🎵 Metal Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">1</span> de 1 disco</p>
+            <p class="subtitle">💿 <span id="visible-count">3</span> de 3 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
-                    ✓ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">1</span>
+                    ✅ Escuchados: <span id="listened-count">0</span> |
+                    👂 Pendientes: <span id="pending-count">3</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -252,14 +253,40 @@
 
         <div class="embeds-grid" id="embeds-container">
             
-        <div class="embed-item " data-page="1" id="embed_4605973142581876868" data-embed-id="embed_4605973142581876868">
+        <div class="embed-item " data-page="1" id="album_2282815126" data-embed-id="album_2282815126">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2282815126/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Temporary Residence Ltd.</strong><br>
                 <small>📅 Fri, 31 Oct 2025 13:30:45 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('embed_4605973142581876868')">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_2282815126')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item " data-page="1" id="album_1376288746" data-embed-id="album_1376288746">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1376288746/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Temporary Residence Ltd.</strong><br>
+                <small>📅 Fri, 14 Nov 2025 12:09:11 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_1376288746')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item " data-page="1" id="album_410489260" data-embed-id="album_410489260">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=410489260/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Temporary Residence Ltd.</strong><br>
+                <small>📅 Thu, 04 Dec 2025 15:02:15 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_410489260')">
                     🎧 Marcar como escuchado
                 </button>
             </div>
@@ -274,7 +301,7 @@
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_Metal_Sellos';
-        const TOTAL_ITEMS = 1;
+        const TOTAL_ITEMS = 3;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
@@ -293,6 +320,8 @@
             });
 
             updateStats(hiddenCount);
+
+            console.log('💾 Loaded listened:', listened);
         }
 
         // Actualizar estadísticas
@@ -310,13 +339,14 @@
 
             // Deshabilitar botón
             button.disabled = true;
-            button.textContent = '✓ Escuchado';
+            button.textContent = '✅ Escuchado';
 
             // Guardar en localStorage
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {
                 listened.push(embedId);
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
+                console.log('✅ Marked as listened:', embedId);
             }
 
             // Animar desaparición
@@ -363,7 +393,6 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
-                    // No mostrar si está escuchado
                     if (item.classList.contains('listened')) {
                         return;
                     }
@@ -402,8 +431,32 @@
         // Cargar estado al iniciar la página
         loadListenedState();
 
-        console.log('💾 Los datos se guardan localmente en tu navegador');
-        console.log('🔑 Storage key:', STORAGE_KEY);
+        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
+        console.log('💾 Storage key:', STORAGE_KEY);
+
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {
+            const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            allIframes.forEach(iframe => {
+                if (iframe !== currentIframe) {
+                    const src = iframe.src;
+                    iframe.src = '';
+                    iframe.src = src;
+                }
+            });
+        }
+
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {
+            embedItem.addEventListener('click', (e) => {
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+                if (iframe && !e.target.classList.contains('action-btn')) {
+                    setTimeout(() => {
+                        stopOtherPlayers(iframe);
+                    }, 100);
+                }
+            });
+        });
     </script>
 </body>
 </html>
