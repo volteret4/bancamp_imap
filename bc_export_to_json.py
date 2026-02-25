@@ -123,6 +123,14 @@ def process_imap_folder_with_cache(mail, folder_name, genre, cache, mark_as_read
                 if cache.has(config.server, config.email, folder_name, message_id):
                     cached_data = cache.get(config.server, config.email, folder_name, message_id)
 
+                    # Reconstruir date_obj como datetime para que el sort funcione
+                    if cached_data.get('date_obj') and isinstance(cached_data['date_obj'], str):
+                        try:
+                            cached_data = cached_data.copy()
+                            cached_data['date_obj'] = datetime.fromisoformat(cached_data['date_obj'])
+                        except (ValueError, TypeError):
+                            cached_data['date_obj'] = None
+
                     # Usar datos del caché
                     embeds.append(cached_data)
                     cached_count += 1
@@ -179,9 +187,11 @@ def process_imap_folder_with_cache(mail, folder_name, genre, cache, mark_as_read
 
                         embeds.append(embed_data)
 
-                        # GUARDAR EN CACHÉ
+                        # GUARDAR EN CACHÉ (sin date_obj como datetime, usar string)
+                        cache_data = embed_data.copy()
+                        cache_data['date_obj'] = date_obj.isoformat() if date_obj else None
                         cache.add(config.server, config.email, folder_name,
-                                message_id, embed_data)
+                                message_id, cache_data)
 
                         print(f"       ✅ Embed obtenido y guardado en caché ({len(embeds)} total)")
 
