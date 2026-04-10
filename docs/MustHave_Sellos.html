@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎵 MustHave Sellos - Bandcamp Collection</title>
-    <link rel="icon" type="image/png" href="images/bandcamp.png">
     <style>
         * {
             margin: 0;
@@ -14,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -25,7 +24,7 @@
         }
 
         header {
-            background: rgba(30, 30, 45, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -34,21 +33,20 @@
         }
 
         h1 {
-            color: #e0e0e0;
+            color: #333;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
 
         .subtitle {
-            color: #b0b0b0;
+            color: #666;
             font-size: 1.1em;
-            margin-bottom: 15px;
         }
 
         .back-link {
             display: inline-block;
             margin-top: 15px;
-            color: #9d7dff;
+            color: #667eea;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -56,33 +54,6 @@
 
         .back-link:hover {
             color: #764ba2;
-        }
-
-        .reset-btn {
-            display: inline-block;
-            margin-left: 20px;
-            padding: 8px 16px;
-            background: #f44336;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .reset-btn:hover {
-            background: #da190b;
-            transform: translateY(-2px);
-        }
-
-        .stats {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 10px;
-            color: #e0e0e0;
         }
 
         .embeds-grid {
@@ -93,7 +64,7 @@
         }
 
         .embed-item {
-            background: rgba(30, 30, 45, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
@@ -110,15 +81,14 @@
             display: none;
         }
 
-        .embed-item.listened {
-            opacity: 0;
-            transform: scale(0.8);
+        .embed-item.removed {
+            opacity: 0.3;
             pointer-events: none;
         }
 
         .embed-info {
             margin-top: 15px;
-            color: #c0c0c0;
+            color: #555;
             font-size: 0.9em;
         }
 
@@ -141,17 +111,33 @@
             transition: all 0.3s;
         }
 
-        .listened-btn {
+        .mark-read-btn {
             background: #4CAF50;
             color: white;
         }
 
-        .listened-btn:hover {
+        .mark-read-btn:hover {
             background: #45a049;
             transform: translateY(-2px);
         }
 
-        .listened-btn:disabled {
+        .mark-read-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
@@ -166,9 +152,9 @@
         }
 
         .page-btn {
-            background: rgba(30, 30, 45, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             border: 2px solid #667eea;
-            color: #9d7dff;
+            color: #667eea;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -207,6 +193,10 @@
             border-left: 4px solid #4CAF50;
         }
 
+        .notification.error {
+            border-left: 4px solid #f44336;
+        }
+
         @keyframes slideIn {
             from {
                 transform: translateX(400px);
@@ -237,253 +227,86 @@
     <div class="container">
         <header>
             <h1>🎵 MustHave Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">11</span> de 11 discos</p>
-            <div class="stats">
-                <strong>📊 Estadísticas:</strong>
-                <div style="margin-top: 8px;">
-                    ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">11</span>
-                </div>
-            </div>
-            <div style="margin-top: 15px;">
-                <a href="index.html" class="back-link">← Volver al índice</a>
-                <button class="reset-btn" onclick="resetListened()">🔄 Restaurar todos</button>
-            </div>
+            <p class="subtitle">📀 4 discos</p>
+            <a href="index.html" class="back-link">← Volver al índice</a>
         </header>
 
-        <div class="embeds-grid" id="embeds-container">
+        <div class="embeds-grid">
             
-        <div class="embed-item page-1" data-page="1" id="album_3305923373" data-embed-id="album_3305923373">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3305923373/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 16 Jan 2026 12:09:20 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3305923373')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_1441290055" data-embed-id="album_1441290055">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1441290055/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Yves De Mey</strong><br>
-                <small>📅 Thu, 22 Jan 2026 09:04:36 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_1441290055')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_882450423" data-embed-id="album_882450423">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=882450423/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 23 Jan 2026 09:43:29 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_882450423')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_2028461131" data-embed-id="album_2028461131">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2028461131/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Les Yeux Orange</strong><br>
-                <small>📅 Fri, 23 Jan 2026 10:52:40 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2028461131')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3360806038" data-embed-id="album_3360806038">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3360806038/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Hania Rani</strong><br>
-                <small>📅 Fri, 30 Jan 2026 08:37:39 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3360806038')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_535487018" data-embed-id="album_535487018">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=535487018/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Fri, 30 Jan 2026 10:39:41 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_535487018')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_4160828434" data-embed-id="album_4160828434">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4160828434/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Filmmaker</strong><br>
-                <small>📅 Fri, 06 Feb 2026 06:50:50 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_4160828434')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_577825419" data-embed-id="album_577825419">
+        <div class="embed-item " data-page="1" id="embed_0">
             <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=577825419/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
                 <strong>New release from Soundway Records</strong><br>
-                <small>📅 Wed, 11 Feb 2026 11:03:37 +0000 (UTC)</small>
+                <small>📅 Fri, 20 Mar 2026 08:56:42 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_577825419')">
-                    🎧 Marcar como escuchado
+                <button class="action-btn mark-read-btn" onclick="markAsRead('embed_0', '57', 'Musica.MustHave.Sellos')">
+                    📖 Marcar como leído
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteEmail('embed_0', '57', 'Musica.MustHave.Sellos')">
+                    🗑️ Eliminar
                 </button>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="album_2789789631" data-embed-id="album_2789789631">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2789789631/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item " data-page="1" id="embed_1">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1106841262/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Music From Memory</strong><br>
-                <small>📅 Tue, 17 Feb 2026 08:39:29 +0000 (UTC)</small>
+                <strong>New release from Les Yeux Orange</strong><br>
+                <small>📅 Thu, 19 Mar 2026 10:35:14 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2789789631')">
-                    🎧 Marcar como escuchado
+                <button class="action-btn mark-read-btn" onclick="markAsRead('embed_1', '56', 'Musica.MustHave.Sellos')">
+                    📖 Marcar como leído
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteEmail('embed_1', '56', 'Musica.MustHave.Sellos')">
+                    🗑️ Eliminar
                 </button>
             </div>
         </div>
         
-        <div class="embed-item page-1" data-page="1" id="album_3960925262" data-embed-id="album_3960925262">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3960925262/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item " data-page="1" id="embed_2">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1106841262/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Tue, 17 Feb 2026 10:04:10 +0000 (UTC)</small>
+                <strong>New release from Les Yeux Orange</strong><br>
+                <small>📅 Fri, 06 Mar 2026 14:04:16 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3960925262')">
-                    🎧 Marcar como escuchado
+                <button class="action-btn mark-read-btn" onclick="markAsRead('embed_2', '55', 'Musica.MustHave.Sellos')">
+                    📖 Marcar como leído
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteEmail('embed_2', '55', 'Musica.MustHave.Sellos')">
+                    🗑️ Eliminar
                 </button>
             </div>
         </div>
         
-        <div class="embed-item page-2" data-page="2" id="album_3960925262" data-embed-id="album_3960925262">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3960925262/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+        <div class="embed-item " data-page="1" id="embed_3">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=618140986/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
             <div class="embed-info">
-                <strong>New release from Soundway Records</strong><br>
-                <small>📅 Tue, 17 Feb 2026 10:12:50 +0000 (UTC)</small>
+                <strong>New release from Loraine James</strong><br>
+                <small>📅 Tue, 03 Mar 2026 13:53:11 +0000 (UTC)</small>
             </div>
             <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3960925262')">
-                    🎧 Marcar como escuchado
+                <button class="action-btn mark-read-btn" onclick="markAsRead('embed_3', '54', 'Musica.MustHave.Sellos')">
+                    📖 Marcar como leído
+                </button>
+                <button class="action-btn delete-btn" onclick="deleteEmail('embed_3', '54', 'Musica.MustHave.Sellos')">
+                    🗑️ Eliminar
                 </button>
             </div>
         </div>
         
         </div>
 
-        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button></div>
+        
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
-        const STORAGE_KEY = 'bandcamp_listened_MustHave_Sellos';
-        const TOTAL_ITEMS = 11;
-
-        // Cargar estado guardado al iniciar
-        function loadListenedState() {
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
-
-            listened.forEach(embedId => {
-                const element = document.querySelector(`[data-embed-id="${embedId}"]`);
-                if (element) {
-                    element.classList.add('listened');
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                    hiddenCount++;
-                }
-            });
-
-            updateStats(hiddenCount);
-
-            console.log('💾 Loaded listened:', listened);
-        }
-
-        // Actualizar estadísticas
-        function updateStats(listenedCount) {
-            const pending = TOTAL_ITEMS - listenedCount;
-            document.getElementById('listened-count').textContent = listenedCount;
-            document.getElementById('pending-count').textContent = pending;
-            document.getElementById('visible-count').textContent = pending;
-        }
-
-        // Marcar como escuchado
-        function markAsListened(embedId) {
-            const element = document.getElementById(embedId);
-            const button = element.querySelector('.listened-btn');
-
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✅ Escuchado';
-
-            // Guardar en localStorage
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (!listened.includes(embedId)) {
-                listened.push(embedId);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log('✅ Marked as listened:', embedId);
-            }
-
-            // Animar desaparición
-            element.classList.add('listened');
-
-            setTimeout(() => {
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }, 500);
-
-            showNotification('¡Marcado como escuchado!', 'success');
-        }
-
-        // Resetear todos los escuchados
-        function resetListened() {
-            if (!confirm('¿Restaurar todos los discos? Aparecerán de nuevo los que marcaste como escuchados.')) {
-                return;
-            }
-
-            localStorage.removeItem(STORAGE_KEY);
-
-            // Mostrar todos los elementos
-            document.querySelectorAll('.embed-item').forEach(item => {
-                item.classList.remove('listened');
-                item.style.display = '';
-                const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
-            });
-
-            updateStats(0);
-            showNotification('Todos los discos restaurados', 'success');
-        }
+        // Configuración de conexión IMAP
+        const imapConfig = {"server": "disroot.org", "port": 993, "email": "frodobolson@disroot.org"};
 
         // Paginación
         const pageButtons = document.querySelectorAll('.page-btn');
@@ -497,10 +320,6 @@
                 button.classList.add('active');
 
                 embedItems.forEach(item => {
-                    if (item.classList.contains('listened')) {
-                        return;
-                    }
-
                     if (item.dataset.page === page) {
                         item.classList.remove('hidden');
                     } else {
@@ -515,13 +334,13 @@
         // Mostrar solo la primera página al cargar
         if (pageButtons.length > 0) {
             embedItems.forEach(item => {
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
+                if (item.dataset.page !== '1') {
                     item.classList.add('hidden');
                 }
             });
         }
 
-        // Notificaciones
+        // Funciones de notificación
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -532,35 +351,96 @@
             }, 3000);
         }
 
-        // Cargar estado al iniciar la página
-        loadListenedState();
+        // Función para marcar como leído
+        async function markAsRead(embedId, emailId, folder) {
+            const embedElement = document.getElementById(embedId);
+            const button = embedElement.querySelector('.mark-read-btn');
 
-        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
-        console.log('💾 Storage key:', STORAGE_KEY);
+            button.disabled = true;
+            button.textContent = '⏳ Procesando...';
 
-        // Función para detener otros reproductores de Bandcamp
-        function stopOtherPlayers(currentIframe) {
-            const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
-            allIframes.forEach(iframe => {
-                if (iframe !== currentIframe) {
-                    const src = iframe.src;
-                    iframe.src = '';
-                    iframe.src = src;
+            try {
+                // Aquí llamarías a tu API backend
+                // Por ahora simulamos la operación
+                const response = await fetch('/api/mark-read', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        server: imapConfig.server,
+                        port: imapConfig.port,
+                        email: imapConfig.email,
+                        emailId: emailId,
+                        folder: folder
+                    })
+                });
+
+                if (response.ok) {
+                    button.textContent = '✓ Leído';
+                    button.style.background = '#95d5b2';
+                    showNotification('Correo marcado como leído', 'success');
+                } else {
+                    throw new Error('Error al marcar como leído');
                 }
-            });
+            } catch (error) {
+                console.error('Error:', error);
+                button.disabled = false;
+                button.textContent = '📖 Marcar como leído';
+                showNotification('Error: ' + error.message + ' (API no disponible)', 'error');
+            }
         }
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {
-            embedItem.addEventListener('click', (e) => {
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {
+        // Función para eliminar
+        async function deleteEmail(embedId, emailId, folder) {
+            if (!confirm('¿Estás seguro de que quieres eliminar este correo? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            const embedElement = document.getElementById(embedId);
+            const button = embedElement.querySelector('.delete-btn');
+
+            button.disabled = true;
+            button.textContent = '⏳ Eliminando...';
+
+            try {
+                // Aquí llamarías a tu API backend
+                const response = await fetch('/api/delete-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        server: imapConfig.server,
+                        port: imapConfig.port,
+                        email: imapConfig.email,
+                        emailId: emailId,
+                        folder: folder
+                    })
+                });
+
+                if (response.ok) {
+                    embedElement.classList.add('removed');
+                    button.textContent = '✓ Eliminado';
+                    showNotification('Correo eliminado', 'success');
+
                     setTimeout(() => {
-                        stopOtherPlayers(iframe);
-                    }, 100);
+                        embedElement.style.display = 'none';
+                    }, 1000);
+                } else {
+                    throw new Error('Error al eliminar');
                 }
-            });
-        });
+            } catch (error) {
+                console.error('Error:', error);
+                button.disabled = false;
+                button.textContent = '🗑️ Eliminar';
+                showNotification('Error: ' + error.message + ' (API no disponible)', 'error');
+            }
+        }
+
+        // Aviso sobre el API
+        console.log('%c⚠️ NOTA: Los botones de acción requieren un servidor API backend', 'color: orange; font-size: 14px; font-weight: bold');
+        console.log('Para implementar la funcionalidad completa, necesitas crear un servidor que maneje las peticiones /api/mark-read y /api/delete-email');
     </script>
 </body>
 </html>
