@@ -1,127 +1,215 @@
-# 🎵 Bandcamp Collection para GitHub Pages
+# Bandcamp IMAP Collection
 
-Convierte tus correos de Bandcamp en una colección web estática y hermosa que puedes hostear gratis en GitHub Pages. Marca álbumes como "escuchados" y sincroniza tu colección automáticamente.
+Lee correos de Bandcamp desde IMAP, genera una web estática con los embeds de cada álbum organizados por género y la sirve con SSL a través de SWAG.
 
-![Theme](https://img.shields.io/badge/theme-dark-14141e)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Python](https://img.shields.io/badge/python-3.7+-green)
+## Cómo funciona
 
-## ✨ Características
-
-- 💾 **Persistencia local** usando localStorage
-- 🔄 **Sincronización inteligente** - Elimina escuchados, añade nuevos
-- 🔒 **Privado** - Tus datos nunca salen del navegador
-
-## 🚀 Inicio Rápido
-
-### 1. Usa tus datos reales
-
-```bash
-# Exporta correos
-python3 bc_export_to_json.py --interactive \
-  --folders "INBOX/Rock:Rock" "INBOX/Jazz:Jazz"
-
-# Genera el sitio
-python3 bc_static_generator.py --input bandcamp_data.json
-
-# Preview local
-cd docs && python3 -m http.server 8000
+```
+IMAP (correos de Bandcamp)
+        ↓
+bc_export_to_json.py   →  bc_data.json   (caché en .bandcamp_cache.json)
+        ↓
+bc_static_generator.py →  docs/*.html
+        ↓
+server.py (Flask, puerto 8765)
+        ↓
+SWAG / Nginx  (SSL, subdominio público)
 ```
 
-### 2. Publica en GitHub
+La web incluye un botón flotante **"Actualizar colección"** que dispara el pipeline completo sin tocar el terminal. Un timer systemd lo ejecuta también automáticamente cada lunes.
+
+---
+
+## Requisitos previos
+
+- Python ≥ 3.10 con venv en `~/Scripts/python_venv` (incluye Flask)
+- Docker con [SWAG](https://docs.linuxserver.io/general/swag) corriendo
+- Cuenta de correo con acceso IMAP habilitado
+  - Gmail: usar una [App Password](https://myaccount.google.com/apppasswords), no la contraseña normal
+- DNS apuntando al servidor para el subdominio que elijas
+
+---
+
+## Instalación
+
+### 1. Clonar el repositorio
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/tu-usuario/tu-repo.git
-git push -u origin main
+git clone https://github.com/tuusuario/bandcamp_imap_mails
+cd bandcamp_imap_mails
 ```
 
-Luego en GitHub: **Settings → Pages → Source: main → Folder: /docs**
-
-Tu sitio estará en: `https://tu-usuario.github.io/tu-repo/`
-
-## 🔄 Sincronización
-
-### ¿Qué hace?
-
-- ➖ Elimina álbumes que ya escuchaste
-- ➕ Añade nuevos del correo
-- 🎯 Mantiene tu colección limpia
-
-### Cómo sincronizar
-
-1. **Exporta localStorage** desde tu colección web:
-   - Ve a `tu-sitio.github.io/sync_tools.html`
-   - Click en **"📥 Exportar localStorage"**
-   - Descargas `browser_data.json`
-
-2. **Ejecuta sincronización**:
+### 2. Crear el archivo de credenciales
 
 ```bash
-python3 bc_sync.py --localStorage-file browser_data.json \
-  --interactive --folders "INBOX/Rock:Rock"
+cp .env.example .env
+nano .env
 ```
 
-3. **Regenera y publica**:
+Valores a rellenar:
 
 ```bash
-python3 bc_static_generator.py --input bandcamp_data_synced.json
-git add docs/ && git commit -m "Sync" && git push
+# Credenciales IMAP
+IMAP_SERVER=imap.gmail.com
+IMAP_PORT=993
+IMAP_EMAIL=tu@gmail.com
+IMAP_PASSWORD=xxxx_xxxx_xxxx_xxxx   # App Password de Google
+
+# Carpetas IMAP → género (separadas por espacio, con comillas si tienen espacios)
+# Formato: "Ruta/IMAP:Nombre del género"
+IMAP_FOLDERS="Bandcamp/Rock:Rock Bandcamp/Electronic:Electronic Bandcamp/Jazz:Jazz"
+
+# Álbumes por página en la web
+ITEMS_PER_PAGE=10
+
+# Token para el botón de actualización manual (invéntate uno)
+UPDATE_TOKEN=mi_token_secreto_aqui
+
+# Puerto local del servidor
+PORT=8765
 ```
 
-## 📦 Scripts Incluidos
+> `.env` está en `.gitignore` — nunca se sube al repositorio.
 
-- `bc_export_to_json.py` - Exporta correos IMAP a JSON
-- `bc_static_generator.py` - Genera sitio HTML estático
-- `bc_sync.py` - Sincroniza localStorage con nuevos correos
-- `generate_demo.py` - Demo rápida
-- `setup.sh` - Menú interactivo de instalación
+### 3. Primera actualización manual
 
-## 🎨 Personalización
-
-### Cambiar colores
-
-Edita `bc_static_generator.py`:
-
-```python
-background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
-```
-
-### Álbumes por página
+Comprueba que el pipeline funciona antes de instalar los servicios:
 
 ```bash
-python3 bc_static_generator.py --input bandcamp_data.json --items-per-page 20
+bash update.sh
 ```
 
-## 📋 Requisitos
+Debe generar `bc_data.json` y los archivos en `docs/`.
 
-- Python 3.7+
-- Git
-- Cuenta de GitHub
-- Cuenta de correo con IMAP (Gmail, Outlook, etc.)
-
-## 💡 Tips
-
-### Gmail
-
-Usa **Contraseña de aplicación**:
-
-1. Google → Seguridad
-2. Verificación en 2 pasos (actívala)
-3. Contraseñas de aplicaciones
-4. Genera una para "Correo"
-
-### Organización
-
-Crea carpetas en tu correo:
-
-- `INBOX/Rock`
-- `INBOX/Electronic`
-- `INBOX/Jazz`
+### 4. Instalar los servicios systemd
 
 ```bash
-python3 bc_export_to_json.py --interactive \
-  --folders "INBOX/Rock:Rock" "INBOX/Electronic:Electronic"
+sudo cp bandcamp.service        /etc/systemd/system/
+sudo cp bandcamp-update.service /etc/systemd/system/
+sudo cp bandcamp-update.timer   /etc/systemd/system/
+
+sudo systemctl daemon-reload
+
+# Servidor web (arranca ahora y al reiniciar)
+sudo systemctl enable --now bandcamp.service
+
+# Timer semanal (lunes 06:00)
+sudo systemctl enable --now bandcamp-update.timer
+```
+
+Verifica que está corriendo:
+
+```bash
+systemctl status bandcamp.service
+curl -s http://127.0.0.1:8765/api/status
+```
+
+### 5. Configurar SWAG
+
+Averigua la IP del host desde dentro del contenedor:
+
+```bash
+docker inspect swag | grep -i gateway
+# Normalmente: 172.17.0.1
+```
+
+Edita `bandcamp.subdomain.conf` si la IP es diferente, luego cópialo al volumen de SWAG:
+
+```bash
+sudo cp bandcamp.subdomain.conf \
+    /path/to/swag/config/nginx/proxy-confs/bandcamp.subdomain.conf
+
+docker restart swag
+```
+
+La web quedará en `https://bandcamp.tudominio.com`.
+
+---
+
+## Uso diario
+
+### Actualización manual desde la web
+
+Usa el botón **"Actualizar colección"** en la esquina inferior derecha de cualquier página. Muestra el estado en tiempo real y recarga automáticamente al terminar.
+
+### Actualización manual desde el terminal
+
+```bash
+bash update.sh
+```
+
+### Ver logs
+
+```bash
+# Logs del servidor web en vivo
+journalctl -u bandcamp.service -f
+
+# Logs de la última actualización automática
+journalctl -u bandcamp-update.service --no-pager
+```
+
+### Administrar el timer
+
+```bash
+# Ver cuándo se ejecutará la próxima vez
+systemctl list-timers bandcamp-update.timer
+
+# Forzar la actualización ahora (sin esperar al lunes)
+sudo systemctl start bandcamp-update.service
+```
+
+---
+
+## Estructura del proyecto
+
+```
+bandcamp_imap_mails/
+├── server.py                  # Servidor Flask (sirve docs/ + API de actualización)
+├── update.sh                  # Pipeline: IMAP → JSON → HTML
+├── bc_export_to_json.py       # Descarga correos IMAP y exporta a JSON
+├── bc_static_generator.py     # Genera HTML estático desde el JSON
+├── bc_cache_system.py         # Caché de correos ya procesados
+├── bc_imap_generator.py       # Utilidades IMAP y extracción de embeds
+├── docs/                      # HTML generado (servido por Flask y SWAG)
+│   ├── index.html
+│   ├── *.html                 # Una página por género
+│   └── images/
+├── .bandcamp_cache.json       # Caché local (gitignored)
+├── bc_data.json               # JSON intermedio (gitignored)
+├── .env                       # Credenciales (gitignored)
+├── .env.example               # Plantilla de credenciales
+├── bandcamp.service           # Systemd: servidor web
+├── bandcamp-update.service    # Systemd: servicio de actualización
+├── bandcamp-update.timer      # Systemd: timer semanal (lunes 06:00)
+└── bandcamp.subdomain.conf    # Nginx config para SWAG
+```
+
+---
+
+## Solución de problemas
+
+**El servidor no arranca**
+```bash
+journalctl -u bandcamp.service -n 50
+# Comprueba que .env existe y que la ruta del venv es correcta en bandcamp.service
+```
+
+**Error de conexión IMAP**
+```bash
+bash update.sh
+# Lee el mensaje — suele ser contraseña incorrecta o App Password no generada
+```
+
+**SWAG devuelve 502 Bad Gateway**
+```bash
+# El servidor local no está corriendo o la IP del host es incorrecta
+systemctl status bandcamp.service
+docker inspect swag | grep -i gateway
+# Actualiza $upstream_app en bandcamp.subdomain.conf y reinicia SWAG
+```
+
+**El botón de actualización devuelve 403**
+```bash
+# UPDATE_TOKEN en .env no coincide con el que cargó el servidor
+sudo systemctl restart bandcamp.service
 ```

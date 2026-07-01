@@ -1,0 +1,12 @@
+[Unit]
+Description=Actualización semanal de Bandcamp Collection
+After=network.target
+
+[Service]
+Type=oneshot
+User=huan
+WorkingDirectory=/home/huan/gits/bandcamp_imap_mails
+EnvironmentFile=/home/huan/gits/bandcamp_imap_mails/.env
+ExecStart=/bin/bash /home/huan/gits/bandcamp_imap_mails/update.sh
+StandardOutput=journal
+StandardError=journal

@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer semanal para actualizar Bandcamp Collection
+
+[Timer]
+# Cada lunes a las 06:00
+OnCalendar=Mon *-*-* 06:00:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

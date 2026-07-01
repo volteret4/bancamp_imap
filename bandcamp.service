@@ -1,0 +1,15 @@
+[Unit]
+Description=Bandcamp Collection Server
+After=network.target
+
+[Service]
+Type=simple
+User=huan
+WorkingDirectory=/home/huan/gits/bandcamp_imap_mails
+EnvironmentFile=/home/huan/gits/bandcamp_imap_mails/.env
+ExecStart=/home/huan/Scripts/python_venv/bin/python /home/huan/gits/bandcamp_imap_mails/server.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
