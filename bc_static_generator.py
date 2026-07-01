@@ -101,7 +101,22 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎵 {escape(genre)} - Bandcamp Collection</title>
     <link rel="icon" type="image/png" href="images/bandcamp.png">
+    <link rel="stylesheet" href="theme-palettes.css">
     <style>
+        :root, [data-theme="og"] {{
+            --bg: #14141e;
+            --surface: rgba(30, 30, 45, 0.95);
+            --surface-2: #2d1b4e;
+            --border: #667eea;
+            --text: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --accent: #9d7dff;
+            --accent-2: #667eea;
+            --success: #4CAF50;
+            --warning: #f4a742;
+            --danger: #f44336;
+        }}
+
         * {{
             margin: 0;
             padding: 0;
@@ -110,7 +125,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
 
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
             min-height: 100vh;
             padding: 20px;
         }}
@@ -121,7 +136,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         header {{
-            background: rgba(30, 30, 45, 0.95);
+            background: var(--surface);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -130,13 +145,13 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         h1 {{
-            color: #e0e0e0;
+            color: var(--text);
             font-size: 2.5em;
             margin-bottom: 10px;
         }}
 
         .subtitle {{
-            color: #b0b0b0;
+            color: var(--text-muted);
             font-size: 1.1em;
             margin-bottom: 15px;
         }}
@@ -144,7 +159,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         .back-link {{
             display: inline-block;
             margin-top: 15px;
-            color: #9d7dff;
+            color: var(--accent);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -158,7 +173,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             display: inline-block;
             margin-left: 20px;
             padding: 8px 16px;
-            background: #f44336;
+            background: var(--danger);
             color: white;
             border: none;
             border-radius: 8px;
@@ -178,7 +193,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             padding: 15px;
             background: rgba(102, 126, 234, 0.1);
             border-radius: 10px;
-            color: #e0e0e0;
+            color: var(--text);
         }}
 
         .embeds-grid {{
@@ -189,7 +204,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .embed-item {{
-            background: rgba(30, 30, 45, 0.95);
+            background: var(--surface);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
@@ -238,7 +253,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .listened-btn {{
-            background: #4CAF50;
+            background: var(--success);
             color: white;
         }}
 
@@ -262,9 +277,9 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .page-btn {{
-            background: rgba(30, 30, 45, 0.95);
-            border: 2px solid #667eea;
-            color: #9d7dff;
+            background: var(--surface);
+            border: 2px solid var(--accent-2);
+            color: var(--accent);
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -273,12 +288,12 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .page-btn:hover {{
-            background: #667eea;
+            background: var(--accent-2);
             color: white;
         }}
 
         .page-btn.active {{
-            background: #667eea;
+            background: var(--accent-2);
             color: white;
         }}
 
@@ -300,7 +315,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .notification.success {{
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid var(--success);
         }}
 
         @keyframes slideIn {{
@@ -515,6 +530,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             }});
         }});
     </script>
+    <script src="theme-picker.js"></script>
 </body>
 </html>
 """
@@ -549,7 +565,22 @@ def generate_index_html(genres_data, output_dir):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎵 Mi Colección de Bandcamp</title>
+    <link rel="stylesheet" href="theme-palettes.css">
     <style>
+        :root, [data-theme="og"] {{
+            --bg: #14141e;
+            --surface: rgba(30, 30, 45, 0.95);
+            --surface-2: #2d1b4e;
+            --border: #667eea;
+            --text: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --accent: #9d7dff;
+            --accent-2: #667eea;
+            --success: #4CAF50;
+            --warning: #f4a742;
+            --danger: #f44336;
+        }}
+
         * {{
             margin: 0;
             padding: 0;
@@ -558,7 +589,7 @@ def generate_index_html(genres_data, output_dir):
 
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #14141e 0%, #2d1b4e 100%);
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
             min-height: 100vh;
             padding: 20px;
         }}
@@ -569,7 +600,7 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         header {{
-            background: rgba(30, 30, 45, 0.95);
+            background: var(--surface);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
@@ -579,13 +610,13 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         h1 {{
-            color: #e0e0e0;
+            color: var(--text);
             font-size: 3em;
             margin-bottom: 10px;
         }}
 
         .subtitle {{
-            color: #b0b0b0;
+            color: var(--text-muted);
             font-size: 1.2em;
         }}
 
@@ -596,7 +627,7 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         .genre-card {{
-            background: rgba(30, 30, 45, 0.95);
+            background: var(--surface);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
@@ -616,13 +647,13 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         .genre-card h2 {{
-            color: #9d7dff;
+            color: var(--accent);
             margin-bottom: 10px;
             font-size: 1.5em;
         }}
 
         .count {{
-            color: #b0b0b0;
+            color: var(--text-muted);
             font-size: 1.1em;
         }}
 
@@ -684,6 +715,7 @@ def generate_index_html(genres_data, output_dir):
             </p>
         </footer>
     </div>
+    <script src="theme-picker.js"></script>
 </body>
 </html>
 """
