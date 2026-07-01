@@ -12,11 +12,18 @@ fi
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
 
+VENV_PYTHON="$HOME/Scripts/python_venv/bin/python"
+if [ -x "$VENV_PYTHON" ]; then
+    PYTHON="$VENV_PYTHON"
+else
+    PYTHON="python3"
+fi
+
 log "=== Iniciando actualización de colección Bandcamp ==="
 
 # Exportar correos IMAP a JSON
 log "Paso 1/2: Exportando correos desde IMAP..."
-~/Scripts/python_venv/bin/python bc_export_to_json.py \
+"$PYTHON" bc_export_to_json.py \
     --server "${IMAP_SERVER}" \
     --port   "${IMAP_PORT:-993}" \
     --email  "${IMAP_EMAIL}" \
@@ -26,7 +33,7 @@ log "Paso 1/2: Exportando correos desde IMAP..."
 
 # Regenerar HTML estático
 log "Paso 2/2: Generando HTML estático..."
-~/Scripts/python_venv/bin/python bc_static_generator.py \
+"$PYTHON" bc_static_generator.py \
     --input bc_data.json \
     --output-dir docs \
     --items-per-page "${ITEMS_PER_PAGE:-10}"
