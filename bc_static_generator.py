@@ -103,7 +103,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     <link rel="icon" type="image/png" href="images/bandcamp.png">
     <link rel="stylesheet" href="theme-palettes.css">
     <style>
-        :root, [data-theme="og"] {{
+        [data-theme="og"], :root:not([data-theme]) {{
             --bg: #14141e;
             --surface: rgba(30, 30, 45, 0.95);
             --surface-2: #2d1b4e;
@@ -567,7 +567,7 @@ def generate_index_html(genres_data, output_dir):
     <title>🎵 Mi Colección de Bandcamp</title>
     <link rel="stylesheet" href="theme-palettes.css">
     <style>
-        :root, [data-theme="og"] {{
+        [data-theme="og"], :root:not([data-theme]) {{
             --bg: #14141e;
             --surface: rgba(30, 30, 45, 0.95);
             --surface-2: #2d1b4e;
