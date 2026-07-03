@@ -7,10 +7,13 @@ from datetime import datetime
 from pathlib import Path
 from flask import Flask, send_from_directory, jsonify, request, abort
 
+import bc_db
+
 app = Flask(__name__)
 
 BASE_DIR = Path(__file__).parent
 DOCS_DIR = BASE_DIR / 'docs'
+DATA_JSON = BASE_DIR / 'bc_data.json'
 UPDATE_TOKEN = os.environ.get('UPDATE_TOKEN', '')
 UPDATE_SCRIPT = BASE_DIR / 'update.sh'
 
@@ -29,6 +32,7 @@ VARS_SPEC = [
     {"name": "IMAP_FOLDERS", "secret": False, "help": "Carpetas IMAP a escanear (separadas por espacio)"},
     {"name": "ITEMS_PER_PAGE", "secret": False, "default": "10", "help": "Álbumes por página en el HTML generado"},
     {"name": "UPDATE_TOKEN", "secret": True, "help": "Token del botón 'Actualizar colección' (requiere reiniciar el contenedor)"},
+    {"name": "GH_PAT", "secret": True, "help": "Token de GitHub (fine-grained, contents:write sobre este repo) para publicar docs/ automáticamente"},
 ]
 _HAS_SECRETS = any(v.get("secret") for v in VARS_SPEC)
 
@@ -205,6 +209,26 @@ def api_update():
 def api_status():
     with _lock:
         return jsonify(dict(_state))
+
+
+@app.route('/api/listened', methods=['POST'])
+def api_listened():
+    d = request.get_json(silent=True) or {}
+    embed_id = d.get('id')
+    if not embed_id:
+        return jsonify({'ok': False, 'error': 'id requerido'}), 400
+    bc_db.mark_listened(embed_id)
+    # Regenera docs/ ya mismo (no solo en el próximo cron) para que desaparezca
+    # de verdad, reutilizando el mismo generador que update.sh.
+    if DATA_JSON.exists():
+        items_per_page = os.environ.get('ITEMS_PER_PAGE', '10')
+        subprocess.run(
+            ['python3', 'bc_static_generator.py',
+             '--input', str(DATA_JSON), '--output-dir', str(DOCS_DIR),
+             '--items-per-page', items_per_page],
+            cwd=str(BASE_DIR), capture_output=True, text=True, timeout=60,
+        )
+    return jsonify({'ok': True})
 
 
 @app.route('/', defaults={'path': 'index.html'})

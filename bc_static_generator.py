@@ -14,6 +14,8 @@ from collections import defaultdict
 import argparse
 from datetime import datetime
 
+import bc_db
+
 
 def extract_bandcamp_id(embed_code):
     """
@@ -41,6 +43,14 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     Genera un archivo HTML estático para un género específico.
     USA ALBUM_ID DE BANDCAMP como identificador único.
     """
+    # Descarta los ya marcados como escuchados (servidor, vía /api/listened)
+    # antes de ordenar/paginar, para que la paginación no quede con huecos.
+    already_listened = bc_db.listened_ids()
+    embeds = [
+        e for e in embeds
+        if extract_bandcamp_id(e.get('embed')) not in already_listened
+    ]
+
     # Ordenar embeds por fecha (más reciente primero)
     embeds_sorted = sorted(
         embeds,
@@ -404,7 +414,8 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             document.getElementById('visible-count').textContent = pending;
         }}
 
-        // Marcar como escuchado
+        // Marcar como escuchado (servidor — SQLite — es la fuente de verdad;
+        // localStorage se mantiene solo para el feedback visual inmediato)
         function markAsListened(embedId) {{
             const element = document.getElementById(embedId);
             const button = element.querySelector('.listened-btn');
@@ -413,7 +424,13 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             button.disabled = true;
             button.textContent = '✅ Escuchado';
 
-            // Guardar en localStorage
+            fetch('/api/listened', {{
+                method: 'POST',
+                headers: {{'Content-Type': 'application/json'}},
+                body: JSON.stringify({{id: embedId}}),
+            }}).catch(err => console.error('No se pudo guardar en el servidor:', err));
+
+            // Guardar en localStorage (feedback local, redundante con el servidor)
             const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
             if (!listened.includes(embedId)) {{
                 listened.push(embedId);
