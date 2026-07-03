@@ -14,6 +14,110 @@ DOCS_DIR = BASE_DIR / 'docs'
 UPDATE_TOKEN = os.environ.get('UPDATE_TOKEN', '')
 UPDATE_SCRIPT = BASE_DIR / 'update.sh'
 
+# ── Panel de configuración (⚙) ───────────────────────────────────────────────
+# Mismo patrón que el resto de apps. update.sh hace "source .env" en cada
+# ejecución (no via env_file de Docker), así que los cambios en IMAP_* aquí
+# aplican en la siguiente actualización sin reiniciar el contenedor; solo
+# UPDATE_TOKEN (leído una vez al arrancar Flask) necesita reinicio de verdad.
+SETTINGS_ENV_PATH = BASE_DIR / ".env"
+SETTINGS_PASSWORD = os.environ.get("SETTINGS_PASSWORD", "")
+VARS_SPEC = [
+    {"name": "IMAP_SERVER", "secret": False, "help": "Host del servidor IMAP"},
+    {"name": "IMAP_PORT", "secret": False, "default": "993", "help": "Puerto IMAP (normalmente 993)"},
+    {"name": "IMAP_EMAIL", "secret": False, "help": "Cuenta de correo a leer"},
+    {"name": "IMAP_PASSWORD", "secret": True, "help": "Contraseña / contraseña de aplicación IMAP"},
+    {"name": "IMAP_FOLDERS", "secret": False, "help": "Carpetas IMAP a escanear (separadas por espacio)"},
+    {"name": "ITEMS_PER_PAGE", "secret": False, "default": "10", "help": "Álbumes por página en el HTML generado"},
+    {"name": "UPDATE_TOKEN", "secret": True, "help": "Token del botón 'Actualizar colección' (requiere reiniciar el contenedor)"},
+]
+_HAS_SECRETS = any(v.get("secret") for v in VARS_SPEC)
+
+
+def _read_env_file(path):
+    values = {}
+    if not os.path.exists(path):
+        return values
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            s = line.strip()
+            if not s or s.startswith("#") or "=" not in s:
+                continue
+            k, v = s.split("=", 1)
+            v = v.strip()
+            if len(v) >= 2 and v[0] == v[-1] and v[0] in ('"', "'"):
+                v = v[1:-1]
+            values[k.strip()] = v
+    return values
+
+
+def _write_env_file(path, updates):
+    lines = []
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    seen = set()
+    out = []
+    for line in lines:
+        s = line.strip()
+        if s and not s.startswith("#") and "=" in s:
+            k = s.split("=", 1)[0].strip()
+            if k in updates:
+                out.append(f"{k}={updates[k]}\n")
+                seen.add(k)
+                continue
+        out.append(line)
+    for k, v in updates.items():
+        if k not in seen:
+            if out and not out[-1].endswith("\n"):
+                out[-1] += "\n"
+            out.append(f"{k}={v}\n")
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(out)
+
+
+def _current_value(spec):
+    file_vals = _read_env_file(SETTINGS_ENV_PATH)
+    if spec["name"] in file_vals:
+        return file_vals[spec["name"]]
+    return os.environ.get(spec["name"], spec.get("default", ""))
+
+
+def _check_auth(password):
+    if not SETTINGS_PASSWORD:
+        return not _HAS_SECRETS
+    return password == SETTINGS_PASSWORD
+
+
+@app.route("/api/settings", methods=["POST"])
+def api_settings():
+    d = request.get_json(silent=True) or {}
+    password = d.get("password") or ""
+    requires = bool(SETTINGS_PASSWORD) or _HAS_SECRETS
+    authorized = _check_auth(password)
+    if requires and not authorized:
+        error = "Contraseña incorrecta" if password else None
+        if not SETTINGS_PASSWORD:
+            error = "Este servicio tiene credenciales pero no hay SETTINGS_PASSWORD configurada. Añádela al .env y reinicia el contenedor."
+        return jsonify({"requires_password": True, "authorized": False, "error": error})
+    vars_out = [
+        {"name": v["name"], "value": _current_value(v), "secret": v["secret"], "help": v.get("help", "")}
+        for v in VARS_SPEC
+    ]
+    return jsonify({"requires_password": requires, "authorized": True, "vars": vars_out})
+
+
+@app.route("/api/settings/save", methods=["POST"])
+def api_settings_save():
+    d = request.get_json(silent=True) or {}
+    if not _check_auth(d.get("password") or ""):
+        return jsonify({"error": "Contraseña incorrecta"}), 403
+    known = {v["name"] for v in VARS_SPEC}
+    updates = {k: v for k, v in (d.get("values") or {}).items() if k in known}
+    if not updates:
+        return jsonify({"error": "Nada que guardar"}), 400
+    _write_env_file(SETTINGS_ENV_PATH, updates)
+    return jsonify({"ok": True, "message": "Guardado. IMAP_* aplican en la próxima actualización; UPDATE_TOKEN necesita reiniciar el contenedor."})
+
 _state = {'running': False, 'last_update': None, 'last_status': None}
 _lock = threading.Lock()
 
@@ -64,7 +168,8 @@ UPDATE_WIDGET = '''<div id="bc-update-widget" style="position:fixed;bottom:20px;
   poll();
   setInterval(poll, 60000);
 })();
-</script>'''
+</script>
+<script src="/settings-panel.js"></script>'''
 
 
 def _run_update_bg():
