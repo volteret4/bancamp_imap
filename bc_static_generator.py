@@ -180,9 +180,12 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         }}
 
         .reset-btn {{
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin-left: 20px;
             padding: 8px 16px;
+            min-height: 44px;
             background: var(--danger);
             color: white;
             border: none;
@@ -218,6 +221,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
+            min-width: 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
         }}
@@ -237,10 +241,17 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             pointer-events: none;
         }}
 
+        .embed-item iframe,
+        .embed-item embed {{
+            max-width: 100%;
+        }}
+
         .embed-info {{
             margin-top: 15px;
             color: #c0c0c0;
             font-size: 0.9em;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }}
 
         .embed-actions {{
@@ -253,6 +264,7 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         .action-btn {{
             flex: 1;
             min-width: 150px;
+            min-height: 44px;
             padding: 10px 15px;
             border: none;
             border-radius: 8px;
@@ -260,6 +272,10 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             font-weight: 500;
             font-size: 0.9em;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }}
 
         .listened-btn {{
@@ -291,6 +307,10 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             border: 2px solid var(--accent-2);
             color: var(--accent);
             padding: 10px 20px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 25px;
             cursor: pointer;
             font-weight: 500;
@@ -346,10 +366,40 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
 
             h1 {{
                 font-size: 2em;
+                overflow-wrap: break-word;
             }}
 
             .action-btn {{
                 min-width: 100%;
+            }}
+        }}
+
+        @media (max-width: 480px) {{
+            body {{
+                padding: 12px;
+            }}
+
+            header {{
+                padding: 20px;
+            }}
+
+            h1 {{
+                font-size: 1.5em;
+            }}
+
+            .embed-item {{
+                padding: 15px;
+            }}
+
+            .reset-btn {{
+                margin-left: 0;
+                margin-top: 10px;
+            }}
+
+            .notification {{
+                left: 16px;
+                right: 16px;
+                max-width: calc(100% - 32px);
             }}
         }}
     </style>
@@ -648,6 +698,7 @@ def generate_index_html(genres_data, output_dir):
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
+            min-width: 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }}
@@ -667,6 +718,7 @@ def generate_index_html(genres_data, output_dir):
             color: var(--accent);
             margin-bottom: 10px;
             font-size: 1.5em;
+            overflow-wrap: break-word;
         }}
 
         .count {{
@@ -675,9 +727,12 @@ def generate_index_html(genres_data, output_dir):
         }}
 
         .tools-link {{
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 20px;
             padding: 12px 24px;
+            min-height: 44px;
             background: linear-gradient(135deg, #9d7dff 0%, #7c5ce0 100%);
             color: white;
             text-decoration: none;
@@ -703,10 +758,33 @@ def generate_index_html(genres_data, output_dir):
         @media (max-width: 768px) {{
             h1 {{
                 font-size: 2em;
+                overflow-wrap: break-word;
             }}
 
             .genres-grid {{
                 grid-template-columns: 1fr;
+            }}
+        }}
+
+        @media (max-width: 480px) {{
+            body {{
+                padding: 12px;
+            }}
+
+            header {{
+                padding: 20px;
+            }}
+
+            h1 {{
+                font-size: 1.5em;
+            }}
+
+            .genre-card {{
+                padding: 20px;
+            }}
+
+            .tools-link {{
+                width: 100%;
             }}
         }}
     </style>
