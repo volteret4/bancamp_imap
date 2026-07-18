@@ -29,7 +29,7 @@ VARS_SPEC = [
     {"name": "IMAP_PORT", "secret": False, "default": "993", "help": "Puerto IMAP (normalmente 993)"},
     {"name": "IMAP_EMAIL", "secret": False, "help": "Cuenta de correo a leer"},
     {"name": "IMAP_PASSWORD", "secret": True, "help": "Contraseña / contraseña de aplicación IMAP"},
-    {"name": "IMAP_FOLDERS", "secret": False, "help": "Carpetas IMAP a escanear (separadas por espacio)"},
+    {"name": "IMAP_FOLDERS", "secret": False, "help": "Carpetas IMAP a escanear, formato \"ruta:género\" separadas por \"|\" (los nombres de carpeta pueden llevar espacios)"},
     {"name": "ITEMS_PER_PAGE", "secret": False, "default": "10", "help": "Álbumes por página en el HTML generado"},
     {"name": "UPDATE_TOKEN", "secret": True, "help": "Token del botón 'Actualizar colección' (requiere reiniciar el contenedor)"},
     {"name": "GH_PAT", "secret": True, "help": "Token de GitHub (fine-grained, contents:write sobre este repo) para publicar docs/ automáticamente"},
@@ -54,6 +54,16 @@ def _read_env_file(path):
     return values
 
 
+def _shell_quote_env_value(v):
+    # update.sh hace "source .env"; sin comillas, un valor con espacios (p.ej.
+    # nombres de carpeta IMAP) se parte en varias "palabras" y bash intenta
+    # ejecutar la segunda como comando. Comillas simples evitan además que
+    # $VARS o backticks dentro del valor se expandan al hacer source.
+    if v == "":
+        return "''"
+    return "'" + v.replace("'", "'\\''") + "'"
+
+
 def _write_env_file(path, updates):
     lines = []
     if os.path.exists(path):
@@ -66,7 +76,7 @@ def _write_env_file(path, updates):
         if s and not s.startswith("#") and "=" in s:
             k = s.split("=", 1)[0].strip()
             if k in updates:
-                out.append(f"{k}={updates[k]}\n")
+                out.append(f"{k}={_shell_quote_env_value(updates[k])}\n")
                 seen.add(k)
                 continue
         out.append(line)
@@ -74,7 +84,7 @@ def _write_env_file(path, updates):
         if k not in seen:
             if out and not out[-1].endswith("\n"):
                 out[-1] += "\n"
-            out.append(f"{k}={v}\n")
+            out.append(f"{k}={_shell_quote_env_value(v)}\n")
     with open(path, "w", encoding="utf-8") as f:
         f.writelines(out)
 

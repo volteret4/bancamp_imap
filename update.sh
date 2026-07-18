@@ -23,13 +23,18 @@ log "=== Iniciando actualización de colección Bandcamp ==="
 
 # Exportar correos IMAP a JSON
 log "Paso 1/2: Exportando correos desde IMAP..."
+# IMAP_FOLDERS va separado por "|" (no por espacio: los nombres de carpeta
+# pueden llevar espacios, p.ej. "Musica.Synth Pop:Musica.Synth Pop"), así que
+# no se puede expandir directo con IFS - se parte a un array explícito.
+IFS='|' read -ra _IMAP_FOLDER_ARR <<< "${IMAP_FOLDERS}"
+
 "$PYTHON" bc_export_to_json.py \
     --server "${IMAP_SERVER}" \
     --port   "${IMAP_PORT:-993}" \
     --email  "${IMAP_EMAIL}" \
     --password "${IMAP_PASSWORD}" \
     --output bc_data.json \
-    --folders ${IMAP_FOLDERS}
+    --folders "${_IMAP_FOLDER_ARR[@]}"
 
 # Regenerar HTML estático
 log "Paso 2/2: Generando HTML estático..."
