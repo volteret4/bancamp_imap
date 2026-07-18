@@ -70,6 +70,7 @@
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
+            min-width: 0;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -89,6 +90,7 @@
             color: var(--accent);
             margin-bottom: 10px;
             font-size: 1.5em;
+            overflow-wrap: break-word;
         }
 
         .count {
@@ -97,9 +99,12 @@
         }
 
         .tools-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 20px;
             padding: 12px 24px;
+            min-height: 44px;
             background: linear-gradient(135deg, #9d7dff 0%, #7c5ce0 100%);
             color: white;
             text-decoration: none;
@@ -125,10 +130,33 @@
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
+                overflow-wrap: break-word;
             }
 
             .genres-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .genre-card {
+                padding: 20px;
+            }
+
+            .tools-link {
+                width: 100%;
             }
         }
     </style>
@@ -137,7 +165,7 @@
     <div class="container">
         <header>
             <h1>🎵 Mi Colección de Bandcamp</h1>
-            <p class="subtitle">💿 15 álbumes en 2 géneros</p>
+            <p class="subtitle">💿 1 álbumes en 1 género</p>
             <div style="margin-top: 20px;">
                 <a href="sync_tools.html" class="tools-link">🔧 Sincronizar Colección</a>
             </div>
@@ -148,14 +176,7 @@
         <div class="genre-card">
             <a href="MustHave_Sellos.html" class="genre-link">
                 <h2>🎵 MustHave Sellos</h2>
-                <p class="count">💿 11 discos</p>
-            </a>
-        </div>
-        
-        <div class="genre-card">
-            <a href="Soul_Funk_Sellos.html" class="genre-link">
-                <h2>🎵 Soul Funk Sellos</h2>
-                <p class="count">💿 4 discos</p>
+                <p class="count">💿 1 disco</p>
             </a>
         </div>
         
