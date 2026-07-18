@@ -9,12 +9,51 @@ import os
 import re
 import json
 from pathlib import Path
-from html import escape
+from html import escape, unescape
 from collections import defaultdict
 import argparse
 from datetime import datetime
 
 import bc_db
+
+# Coincide exactamente con el bloque que genera generate_static_genre_html
+# más abajo — se usa para recuperar los embeds ya publicados de una página
+# existente antes de regenerarla.
+_EMBED_ITEM_RE = re.compile(
+    r'<div class="embed-item[^"]*"[^>]*data-embed-id="(?P<id>[^"]+)">'
+    r'\s*(?P<embed>.*?)\s*'
+    r'<div class="embed-info">\s*<strong>(?P<subject>.*?)</strong><br>\s*'
+    r'<small>📅 (?P<date>.*?)</small>',
+    re.DOTALL,
+)
+
+
+def _load_existing_embeds(filepath):
+    """
+    Extrae los embeds ya publicados en un HTML generado por esta misma
+    función en una ejecución anterior. Necesario porque cada corrida de
+    bc_export_to_json.py solo trae los correos NUEVOS no leídos (los ya
+    procesados se marcan \\Seen y no reaparecen); sin esto, regenerar la
+    página de un género con solo los embeds de HOY borraría el histórico
+    acumulado en ejecuciones previas.
+    """
+    if not os.path.exists(filepath):
+        return {}
+    try:
+        html_text = Path(filepath).read_text(encoding="utf-8")
+    except OSError:
+        return {}
+
+    recovered = {}
+    for m in _EMBED_ITEM_RE.finditer(html_text):
+        bandcamp_id = m.group("id")
+        recovered[bandcamp_id] = {
+            "embed": m.group("embed").strip(),
+            "subject": unescape(m.group("subject")),
+            "date": unescape(m.group("date")),
+            "date_obj": datetime.min,
+        }
+    return recovered
 
 
 def extract_bandcamp_id(embed_code):
@@ -43,6 +82,18 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     Genera un archivo HTML estático para un género específico.
     USA ALBUM_ID DE BANDCAMP como identificador único.
     """
+    safe_genre = re.sub(r'[^\w\s-]', '', genre).strip().replace(' ', '_')
+    filename = f"{safe_genre}.html"
+
+    # Fusiona con lo ya publicado en el archivo existente (ver
+    # _load_existing_embeds): cada corrida solo trae los correos NUEVOS no
+    # leídos, así que sin esto se perdería el histórico acumulado.
+    merged_by_id = _load_existing_embeds(os.path.join(output_dir, filename))
+    for e in embeds:
+        bandcamp_id = extract_bandcamp_id(e.get('embed')) or f"embed_{id(e)}"
+        merged_by_id[bandcamp_id] = e
+    embeds = list(merged_by_id.values())
+
     # Descarta los ya marcados como escuchados (servidor, vía /api/listened)
     # antes de ordenar/paginar, para que la paginación no quede con huecos.
     already_listened = bc_db.listened_ids()
@@ -57,10 +108,6 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
         key=lambda x: x.get('date_obj') or datetime.min,
         reverse=True
     )
-
-    # Sanitizar el nombre del archivo
-    safe_genre = re.sub(r'[^\w\s-]', '', genre).strip().replace(' ', '_')
-    filename = f"{safe_genre}.html"
 
     total_items = len(embeds_sorted)
     total_pages = (total_items + items_per_page - 1) // items_per_page

@@ -228,20 +228,42 @@ def process_imap_folder_with_cache(mail, folder_name, genre, cache, mark_as_read
     return embeds
 
 
+def _embed_dedup_key(embed):
+    return embed.get('message_id') or embed.get('cache_key') or embed.get('url')
+
+
 def export_to_json(embeds_by_genre, output_file):
     """
     Exporta los embeds a un archivo JSON.
     VERSIÓN CORREGIDA: Maneja datetime correctamente
+
+    Cada ejecución solo trae los correos NUEVOS no leídos (los ya
+    procesados se marcan \\Seen y no vuelven a aparecer), así que este
+    archivo se FUSIONA con lo que ya hubiera antes en lugar de
+    sobreescribirse: si no, bc_static_generator.py regenera cada página de
+    género solo con los embeds de esta ejecución y borra el histórico
+    acumulado de ejecuciones anteriores.
     """
     print(f"\n💾 Exportando a JSON...")
+
+    existing_by_genre = {}
+    if os.path.exists(output_file):
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                existing_by_genre = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            existing_by_genre = {}
 
     # Preparar datos para JSON
     export_data = {}
 
-    for genre, embeds in embeds_by_genre.items():
-        export_data[genre] = []
+    for genre in set(list(existing_by_genre.keys()) + list(embeds_by_genre.keys())):
+        by_key = {}
 
-        for embed in embeds:
+        for embed in existing_by_genre.get(genre, []):
+            by_key[_embed_dedup_key(embed)] = embed
+
+        for embed in embeds_by_genre.get(genre, []):
             # Crear copia limpia
             embed_copy = {}
 
@@ -256,7 +278,9 @@ def export_to_json(embeds_by_genre, output_file):
                 else:
                     embed_copy[key] = str(value)
 
-            export_data[genre].append(embed_copy)
+            by_key[_embed_dedup_key(embed_copy)] = embed_copy
+
+        export_data[genre] = list(by_key.values())
 
     # Guardar a JSON con manejo de errores
     try:
