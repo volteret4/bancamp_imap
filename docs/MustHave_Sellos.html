@@ -302,12 +302,12 @@
     <div class="container">
         <header>
             <h1>🎵 MustHave Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">11</span> de 11 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">13</span> de 13 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">11</span>
+                    👂 Pendientes: <span id="pending-count">13</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -461,6 +461,32 @@
             </div>
         </div>
         
+        <div class="embed-item page-2" data-page="2" id="album_3726479165" data-embed-id="album_3726479165">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3726479165/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Four Tet</strong><br>
+                <small>📅 Thu, 30 Jul 2026 23:02:57 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3726479165')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item page-2" data-page="2" id="album_573103413" data-embed-id="album_573103413">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=573103413/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Filmmaker</strong><br>
+                <small>📅 Fri, 07 Aug 2026 00:01:09 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_573103413')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
         </div>
 
         <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button></div>
@@ -470,7 +496,7 @@
 
     <script>
         const STORAGE_KEY = 'bandcamp_listened_MustHave_Sellos';
-        const TOTAL_ITEMS = 11;
+        const TOTAL_ITEMS = 13;
 
         // Cargar estado guardado al iniciar
         function loadListenedState() {
