@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 World Sellos - Bandcamp Collection</title>
+    <link rel="icon" type="image/png" href="images/bandcamp.png">
+    <link rel="stylesheet" href="theme-palettes.css">
+    <style>
+        [data-theme="og"], :root:not([data-theme]) {
+            --bg: #14141e;
+            --surface: rgba(30, 30, 45, 0.95);
+            --surface-2: #2d1b4e;
+            --border: #667eea;
+            --text: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --accent: #9d7dff;
+            --accent-2: #667eea;
+            --success: #4CAF50;
+            --warning: #f4a742;
+            --danger: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--text);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .reset-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+            padding: 8px 16px;
+            min-height: 44px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            color: var(--text);
+        }
+
+        .embeds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .embed-item {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+        }
+
+        .embed-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .embed-item.hidden {
+            display: none;
+        }
+
+        .embed-item.listened {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .embed-item iframe,
+        .embed-item embed {
+            max-width: 100%;
+        }
+
+        .embed-info {
+            margin-top: 15px;
+            color: #c0c0c0;
+            font-size: 0.9em;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .embed-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            min-height: 44px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .listened-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .listened-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .listened-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            background: var(--surface);
+            border: 2px solid var(--accent-2);
+            color: var(--accent);
+            padding: 10px 20px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background: var(--accent-2);
+            color: white;
+        }
+
+        .page-btn.active {
+            background: var(--accent-2);
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .embeds-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2em;
+                overflow-wrap: break-word;
+            }
+
+            .action-btn {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .embed-item {
+                padding: 15px;
+            }
+
+            .reset-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .notification {
+                left: 16px;
+                right: 16px;
+                max-width: calc(100% - 32px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 World Sellos</h1>
+            <p class="subtitle">💿 <span id="visible-count">2</span> de 2 discos</p>
+            <div class="stats">
+                <strong>📊 Estadísticas:</strong>
+                <div style="margin-top: 8px;">
+                    ✅ Escuchados: <span id="listened-count">0</span> |
+                    👂 Pendientes: <span id="pending-count">2</span>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="index.html" class="back-link">← Volver al índice</a>
+                <button class="reset-btn" onclick="resetListened()">🔄 Restaurar todos</button>
+            </div>
+        </header>
+
+        <div class="embeds-grid" id="embeds-container">
+            
+        <div class="embed-item " data-page="1" id="album_3422555017" data-embed-id="album_3422555017">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3422555017/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Canela En Surco</strong><br>
+                <small>📅 Mon, 18 Nov 2024 10:55:54 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_3422555017')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        <div class="embed-item " data-page="1" id="album_201759861" data-embed-id="album_201759861">
+            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=201759861/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
+            <div class="embed-info">
+                <strong>New release from Hot Casa Records</strong><br>
+                <small>📅 Thu, 10 Oct 2024 23:36:33 +0000 (UTC)</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('album_201759861')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+        
+        </div>
+
+        
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        const STORAGE_KEY = 'bandcamp_listened_World_Sellos';
+        const TOTAL_ITEMS = 2;
+
+        // Cargar estado guardado al iniciar
+        function loadListenedState() {
+            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            let hiddenCount = 0;
+
+            listened.forEach(embedId => {
+                const element = document.querySelector(`[data-embed-id="${embedId}"]`);
+                if (element) {
+                    element.classList.add('listened');
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                    }, 500);
+                    hiddenCount++;
+                }
+            });
+
+            updateStats(hiddenCount);
+
+            console.log('💾 Loaded listened:', listened);
+        }
+
+        // Actualizar estadísticas
+        function updateStats(listenedCount) {
+            const pending = TOTAL_ITEMS - listenedCount;
+            document.getElementById('listened-count').textContent = listenedCount;
+            document.getElementById('pending-count').textContent = pending;
+            document.getElementById('visible-count').textContent = pending;
+        }
+
+        // Marcar como escuchado (servidor — SQLite — es la fuente de verdad;
+        // localStorage se mantiene solo para el feedback visual inmediato)
+        function markAsListened(embedId) {
+            const element = document.getElementById(embedId);
+            const button = element.querySelector('.listened-btn');
+
+            // Deshabilitar botón
+            button.disabled = true;
+            button.textContent = '✅ Escuchado';
+
+            fetch('/api/listened', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({id: embedId}),
+            }).catch(err => console.error('No se pudo guardar en el servidor:', err));
+
+            // Guardar en localStorage (feedback local, redundante con el servidor)
+            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            if (!listened.includes(embedId)) {
+                listened.push(embedId);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
+                console.log('✅ Marked as listened:', embedId);
+            }
+
+            // Animar desaparición
+            element.classList.add('listened');
+
+            setTimeout(() => {
+                element.style.display = 'none';
+                updateStats(listened.length);
+            }, 500);
+
+            showNotification('¡Marcado como escuchado!', 'success');
+        }
+
+        // Resetear todos los escuchados
+        function resetListened() {
+            if (!confirm('¿Restaurar todos los discos? Aparecerán de nuevo los que marcaste como escuchados.')) {
+                return;
+            }
+
+            localStorage.removeItem(STORAGE_KEY);
+
+            // Mostrar todos los elementos
+            document.querySelectorAll('.embed-item').forEach(item => {
+                item.classList.remove('listened');
+                item.style.display = '';
+                const button = item.querySelector('.listened-btn');
+                button.disabled = false;
+                button.textContent = '🎧 Marcar como escuchado';
+            });
+
+            updateStats(0);
+            showNotification('Todos los discos restaurados', 'success');
+        }
+
+        // Paginación
+        const pageButtons = document.querySelectorAll('.page-btn');
+        const embedItems = document.querySelectorAll('.embed-item');
+
+        pageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const page = button.dataset.page;
+
+                pageButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                embedItems.forEach(item => {
+                    if (item.classList.contains('listened')) {
+                        return;
+                    }
+
+                    if (item.dataset.page === page) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Mostrar solo la primera página al cargar
+        if (pageButtons.length > 0) {
+            embedItems.forEach(item => {
+                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Notificaciones
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification show ${type}`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Cargar estado al iniciar la página
+        loadListenedState();
+
+        console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
+        console.log('💾 Storage key:', STORAGE_KEY);
+
+        // Función para detener otros reproductores de Bandcamp
+        function stopOtherPlayers(currentIframe) {
+            const allIframes = document.querySelectorAll('iframe[src*="bandcamp.com"]');
+            allIframes.forEach(iframe => {
+                if (iframe !== currentIframe) {
+                    const src = iframe.src;
+                    iframe.src = '';
+                    iframe.src = src;
+                }
+            });
+        }
+
+        // Detectar cuando se reproduce un embed
+        document.querySelectorAll('.embed-item').forEach(embedItem => {
+            embedItem.addEventListener('click', (e) => {
+                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+                if (iframe && !e.target.classList.contains('action-btn')) {
+                    setTimeout(() => {
+                        stopOtherPlayers(iframe);
+                    }, 100);
+                }
+            });
+        });
+    </script>
+    <script src="theme-picker.js"></script>
+</body>
+</html>
