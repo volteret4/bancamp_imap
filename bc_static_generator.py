@@ -9,33 +9,23 @@ import os
 import re
 import json
 from pathlib import Path
-from html import escape, unescape
+from html import escape
 from collections import defaultdict
 import argparse
 from datetime import datetime
 
 import bc_db
 
-# Coincide exactamente con el bloque que genera generate_static_genre_html
-# más abajo — se usa para recuperar los embeds ya publicados de una página
-# existente antes de regenerarla.
-_EMBED_ITEM_RE = re.compile(
-    r'<div class="embed-item[^"]*"[^>]*data-embed-id="(?P<id>[^"]+)">'
-    r'\s*(?P<embed>.*?)\s*'
-    r'<div class="embed-info">\s*<strong>(?P<subject>.*?)</strong><br>\s*'
-    r'<small>📅 (?P<date>.*?)</small>',
-    re.DOTALL,
-)
-
 
 def _load_existing_embeds(filepath):
     """
-    Extrae los embeds ya publicados en un HTML generado por esta misma
-    función en una ejecución anterior. Necesario porque cada corrida de
-    bc_export_to_json.py solo trae los correos NUEVOS no leídos (los ya
-    procesados se marcan \\Seen y no reaparecen); sin esto, regenerar la
-    página de un género con solo los embeds de HOY borraría el histórico
-    acumulado en ejecuciones previas.
+    Recupera los embeds ya publicados en un HTML generado por esta misma
+    función, leyendo el "const allPagesData = {...}" que ella misma incrusta
+    (mismo mecanismo que freshrss_html_generator.py). Necesario porque cada
+    corrida de bc_export_to_json.py solo trae los correos NUEVOS no leídos
+    (los ya procesados se marcan \\Seen y no reaparecen); sin esto,
+    regenerar la página de un género con solo los embeds de HOY borraría el
+    histórico acumulado en ejecuciones previas.
     """
     if not os.path.exists(filepath):
         return {}
@@ -44,15 +34,27 @@ def _load_existing_embeds(filepath):
     except OSError:
         return {}
 
+    marker = "const allPagesData = "
+    idx = html_text.find(marker)
+    if idx == -1:
+        return {}
+    start = idx + len(marker)
+    try:
+        pages_data, _ = json.JSONDecoder().raw_decode(html_text, start)
+    except (json.JSONDecodeError, ValueError):
+        return {}
+
     recovered = {}
-    for m in _EMBED_ITEM_RE.finditer(html_text):
-        bandcamp_id = m.group("id")
-        recovered[bandcamp_id] = {
-            "embed": m.group("embed").strip(),
-            "subject": unescape(m.group("subject")),
-            "date": unescape(m.group("date")),
-            "date_obj": datetime.min,
-        }
+    for items in pages_data.values():
+        for item in items:
+            bandcamp_id = item.get("id")
+            if bandcamp_id:
+                recovered[bandcamp_id] = {
+                    "embed": item.get("embed", ""),
+                    "subject": item.get("subject", ""),
+                    "date": item.get("date", ""),
+                    "date_obj": datetime.min,
+                }
     return recovered
 
 
@@ -112,11 +114,17 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     total_items = len(embeds_sorted)
     total_pages = (total_items + items_per_page - 1) // items_per_page
 
-    # Generar los embeds HTML con botón de "Escuchado"
-    embeds_html = ""
+    # Datos por página (JSON, incrustado en el HTML como allPagesData) en vez
+    # de renderizar el HTML de todos los embeds de una vez: con colecciones
+    # grandes (p.ej. Jazz, más de mil discos) eso metía todos los <iframe> de
+    # Bandcamp en el DOM al cargar la página -- visibles o no vía CSS, el
+    # navegador los cargaba todos a la vez y la pestaña acababa colgándose.
+    # Ahora el JS solo renderiza (y por tanto solo carga) los <iframe> de la
+    # página actual; cambiar de página reemplaza el contenido en vez de
+    # acumularlo. Mismo patrón que ya usa freshrss_html_generator.py.
+    pages_data = defaultdict(list)
     for i, embed_data in enumerate(embeds_sorted):
         page_num = (i // items_per_page) + 1
-        page_class = f"page-{page_num}" if total_pages > 1 else ""
 
         # CRÍTICO: Usar album_id de Bandcamp
         embed_id = extract_bandcamp_id(embed_data['embed'])
@@ -126,29 +134,14 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             embed_id = f"embed_{i}"
             print(f"  ⚠️  No se encontró album_id para: {embed_data.get('subject', 'Sin título')[:50]}")
 
-        embeds_html += f"""
-        <div class="embed-item {page_class}" data-page="{page_num}" id="{embed_id}" data-embed-id="{embed_id}">
-            {embed_data['embed']}
-            <div class="embed-info">
-                <strong>{escape(embed_data.get('subject', 'Sin título'))}</strong><br>
-                <small>📅 {escape(embed_data.get('date', 'Fecha desconocida'))}</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('{embed_id}')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        """
+        pages_data[str(page_num)].append({
+            "id": embed_id,
+            "embed": embed_data['embed'],
+            "subject": embed_data.get('subject', 'Sin título'),
+            "date": embed_data.get('date', 'Fecha desconocida'),
+        })
 
-    # Generar controles de paginación
-    pagination_html = ""
-    if total_pages > 1:
-        pagination_html = '<div class="pagination">'
-        for page in range(1, total_pages + 1):
-            active = "active" if page == 1 else ""
-            pagination_html += f'<button class="page-btn {active}" data-page="{page}">Página {page}</button>'
-        pagination_html += '</div>'
+    pages_data_json = json.dumps(pages_data, ensure_ascii=False)
 
     # HTML completo con localStorage usando album_id de Bandcamp
     html = f"""<!DOCTYPE html>
@@ -374,6 +367,18 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             color: white;
         }}
 
+        .page-btn:disabled {{
+            opacity: 0.4;
+            cursor: default;
+        }}
+
+        .page-info {{
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            padding: 0 4px;
+        }}
+
         .notification {{
             position: fixed;
             top: 20px;
@@ -469,57 +474,139 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             </div>
         </header>
 
-        <div class="embeds-grid" id="embeds-container">
-            {embeds_html}
-        </div>
-
-        {pagination_html}
+        <div id="pagination-top" class="pagination"></div>
+        <div class="embeds-grid" id="embeds-container"></div>
+        <div id="pagination-bottom" class="pagination"></div>
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
+        // Datos incrustados directamente en el HTML, uno por página -- cada
+        // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
+        // de la página que toca, en vez de tenerlos todos en el DOM a la
+        // vez. Mismo patrón que freshrss_html_generator.py.
+        const allPagesData = {pages_data_json};
+        const TOTAL_PAGES = {total_pages};
+        const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_{safe_genre}';
         const TOTAL_ITEMS = {total_items};
 
-        // Cargar estado guardado al iniciar
+        let currentPage = 1;
+        let listenedItems = new Set();
+
+        // Cargar estado guardado al iniciar (solo para ocultar, en esta
+        // misma sesión sin recargar, lo que se acaba de marcar -- el
+        // servidor ya excluye los escuchados de allPagesData en cada
+        // regeneración, así que tras un reload esto ya no hace falta)
         function loadListenedState() {{
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
+            try {{
+                listenedItems = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+            }} catch (e) {{
+                listenedItems = new Set();
+            }}
+            updateStats();
+            console.log('💾 Loaded listened:', listenedItems.size);
+        }}
 
-            listened.forEach(embedId => {{
-                const element = document.querySelector(`[data-embed-id="${{embedId}}"]`);
-                if (element) {{
-                    element.classList.add('listened');
-                    setTimeout(() => {{
-                        element.style.display = 'none';
-                    }}, 500);
-                    hiddenCount++;
-                }}
-            }});
-
-            updateStats(hiddenCount);
-
-            console.log('💾 Loaded listened:', listened);
+        function saveListenedState() {{
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(listenedItems)));
         }}
 
         // Actualizar estadísticas
-        function updateStats(listenedCount) {{
-            const pending = TOTAL_ITEMS - listenedCount;
-            document.getElementById('listened-count').textContent = listenedCount;
+        function updateStats() {{
+            const pending = TOTAL_ITEMS - listenedItems.size;
+            document.getElementById('listened-count').textContent = listenedItems.size;
             document.getElementById('pending-count').textContent = pending;
             document.getElementById('visible-count').textContent = pending;
+        }}
+
+        function escapeHtml(text) {{
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }}
+
+        function renderEmbedItem(item) {{
+            return `
+        <div class="embed-item" id="${{item.id}}" data-embed-id="${{item.id}}">
+            ${{item.embed}}
+            <div class="embed-info">
+                <strong>${{escapeHtml(item.subject)}}</strong><br>
+                <small>📅 ${{escapeHtml(item.date)}}</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('${{item.id}}')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+            `;
+        }}
+
+        function loadPage(pageNum) {{
+            if (pageNum < 1 || pageNum > TOTAL_PAGES) return;
+
+            const container = document.getElementById('embeds-container');
+            const pageItems = (allPagesData[String(pageNum)] || [])
+                .filter(item => !listenedItems.has(item.id));
+
+            container.innerHTML = pageItems.map(renderEmbedItem).join('');
+            currentPage = pageNum;
+            renderPagination();
+
+            window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
+
+        function renderPagination() {{
+            const html = createPaginationButtons();
+            document.getElementById('pagination-top').innerHTML = html;
+            document.getElementById('pagination-bottom').innerHTML = html;
+        }}
+
+        function createPaginationButtons() {{
+            if (TOTAL_PAGES <= 1) return '';
+
+            let html = '';
+            html += currentPage > 1
+                ? `<button class="page-btn" onclick="changePage(${{currentPage - 1}})">← Anterior</button>`
+                : `<button class="page-btn" disabled>← Anterior</button>`;
+
+            let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
+            let endPage = Math.min(TOTAL_PAGES, startPage + MAX_PAGE_BUTTONS - 1);
+            if (endPage - startPage < MAX_PAGE_BUTTONS - 1) {{
+                startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
+            }}
+
+            if (startPage > 1) {{
+                html += `<button class="page-btn" onclick="changePage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="page-info">…</span>`;
+            }}
+            for (let i = startPage; i <= endPage; i++) {{
+                html += i === currentPage
+                    ? `<button class="page-btn active">${{i}}</button>`
+                    : `<button class="page-btn" onclick="changePage(${{i}})">${{i}}</button>`;
+            }}
+            if (endPage < TOTAL_PAGES) {{
+                if (endPage < TOTAL_PAGES - 1) html += `<span class="page-info">…</span>`;
+                html += `<button class="page-btn" onclick="changePage(${{TOTAL_PAGES}})">${{TOTAL_PAGES}}</button>`;
+            }}
+
+            html += currentPage < TOTAL_PAGES
+                ? `<button class="page-btn" onclick="changePage(${{currentPage + 1}})">Siguiente →</button>`
+                : `<button class="page-btn" disabled>Siguiente →</button>`;
+            return html;
+        }}
+
+        function changePage(pageNum) {{
+            if (pageNum >= 1 && pageNum <= TOTAL_PAGES) loadPage(pageNum);
         }}
 
         // Marcar como escuchado (servidor — SQLite — es la fuente de verdad;
         // localStorage se mantiene solo para el feedback visual inmediato)
         function markAsListened(embedId) {{
-            const element = document.getElementById(embedId);
-            const button = element.querySelector('.listened-btn');
-
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✅ Escuchado';
+            listenedItems.add(embedId);
+            saveListenedState();
 
             fetch('/api/listened', {{
                 method: 'POST',
@@ -527,80 +614,24 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
                 body: JSON.stringify({{id: embedId}}),
             }}).catch(err => console.error('No se pudo guardar en el servidor:', err));
 
-            // Guardar en localStorage (feedback local, redundante con el servidor)
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (!listened.includes(embedId)) {{
-                listened.push(embedId);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log('✅ Marked as listened:', embedId);
-            }}
-
-            // Animar desaparición
-            element.classList.add('listened');
-
-            setTimeout(() => {{
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }}, 500);
-
+            updateStats();
             showNotification('¡Marcado como escuchado!', 'success');
+            loadPage(currentPage);
         }}
 
-        // Resetear todos los escuchados
+        // Resetear todos los escuchados de esta sesión/localStorage. Ojo:
+        // no revierte lo ya confirmado en el servidor (bc_db no soporta
+        // "desmarcar"), así que tras la próxima regeneración los que ya se
+        // enviaron al servidor no volverán a aparecer.
         function resetListened() {{
             if (!confirm('¿Restaurar todos los discos? Aparecerán de nuevo los que marcaste como escuchados.')) {{
                 return;
             }}
-
-            localStorage.removeItem(STORAGE_KEY);
-
-            // Mostrar todos los elementos
-            document.querySelectorAll('.embed-item').forEach(item => {{
-                item.classList.remove('listened');
-                item.style.display = '';
-                const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
-            }});
-
-            updateStats(0);
+            listenedItems.clear();
+            saveListenedState();
+            updateStats();
+            loadPage(currentPage);
             showNotification('Todos los discos restaurados', 'success');
-        }}
-
-        // Paginación
-        const pageButtons = document.querySelectorAll('.page-btn');
-        const embedItems = document.querySelectorAll('.embed-item');
-
-        pageButtons.forEach(button => {{
-            button.addEventListener('click', () => {{
-                const page = button.dataset.page;
-
-                pageButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                embedItems.forEach(item => {{
-                    if (item.classList.contains('listened')) {{
-                        return;
-                    }}
-
-                    if (item.dataset.page === page) {{
-                        item.classList.remove('hidden');
-                    }} else {{
-                        item.classList.add('hidden');
-                    }}
-                }});
-
-                window.scrollTo({{ top: 0, behavior: 'smooth' }});
-            }});
-        }});
-
-        // Mostrar solo la primera página al cargar
-        if (pageButtons.length > 0) {{
-            embedItems.forEach(item => {{
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {{
-                    item.classList.add('hidden');
-                }}
-            }});
         }}
 
         // Notificaciones
@@ -613,9 +644,6 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
                 notification.classList.remove('show');
             }}, 3000);
         }}
-
-        // Cargar estado al iniciar la página
-        loadListenedState();
 
         console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
         console.log('💾 Storage key:', STORAGE_KEY);
@@ -632,16 +660,29 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
             }});
         }}
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {{
-            embedItem.addEventListener('click', (e) => {{
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {{
-                    setTimeout(() => {{
-                        stopOtherPlayers(iframe);
-                    }}, 100);
-                }}
-            }});
+        // Detectar cuando se reproduce un embed -- delegado en el contenedor
+        // (no en cada .embed-item) porque loadPage() los crea/destruye en
+        // cada cambio de página, así que un listener por item se perdería.
+        document.getElementById('embeds-container').addEventListener('click', (e) => {{
+            const embedItem = e.target.closest('.embed-item');
+            if (!embedItem) return;
+            const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+            if (iframe && !e.target.classList.contains('action-btn')) {{
+                setTimeout(() => {{
+                    stopOtherPlayers(iframe);
+                }}, 100);
+            }}
+        }});
+
+        loadListenedState();
+        loadPage(1);
+
+        document.addEventListener('keydown', (e) => {{
+            if (e.key === 'ArrowLeft') {{
+                changePage(currentPage - 1);
+            }} else if (e.key === 'ArrowRight') {{
+                changePage(currentPage + 1);
+            }}
         }});
     </script>
     <script src="theme-picker.js"></script>
