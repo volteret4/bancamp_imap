@@ -653,13 +653,19 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    return filename
+    return filename, total_items
 
 
 def generate_index_html(genres_data, output_dir):
     """
     Genera un index.html con enlaces a todos los géneros.
     """
+    # Géneros sin pendientes (todo marcado como escuchado) no tienen sentido
+    # en el índice con "0 discos" -- era justo el otro síntoma reportado
+    # ("si lo dejo a cero, no desaparece"). Se filtran aquí y no solo del
+    # HTML para que el "X álbumes en Y géneros" de abajo tampoco los cuente.
+    genres_data = {g: d for g, d in genres_data.items() if d['count'] > 0}
+
     genres_html = ""
     total_albums = sum(data['count'] for data in genres_data.values())
 
@@ -933,13 +939,16 @@ def main():
             continue
 
         print(f"  Generando {genre}... ({len(embeds)} discos)")
-        filename = generate_static_genre_html(
+        filename, pending_count = generate_static_genre_html(
             genre, embeds, args.output_dir, args.items_per_page
         )
 
         genres_data[genre] = {
             'filename': filename,
-            'count': len(embeds)
+            # Pendientes reales (tras excluir los ya marcados como
+            # escuchados), no el total en bruto escaneado alguna vez --
+            # si no, el índice nunca reflejaba lo que de verdad quedaba.
+            'count': pending_count
         }
 
     # Generar index.html
