@@ -614,9 +614,15 @@ def generate_static_genre_html(genre, embeds, output_dir, items_per_page=10):
                 body: JSON.stringify({{id: embedId}}),
             }}).catch(err => console.error('No se pudo guardar en el servidor:', err));
 
+            // Quitar solo este elemento, no volver a renderizar la página
+            // entera: container.innerHTML = ... destruiría y recrearía
+            // TODOS los <iframe> de la página actual (recargándolos todos),
+            // no solo el que se acaba de marcar.
+            const element = document.getElementById(embedId);
+            if (element) element.remove();
+
             updateStats();
             showNotification('¡Marcado como escuchado!', 'success');
-            loadPage(currentPage);
         }}
 
         // Resetear todos los escuchados de esta sesión/localStorage. Ojo:
