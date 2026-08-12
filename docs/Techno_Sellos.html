@@ -221,6 +221,18 @@
             color: white;
         }
 
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .page-info {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            padding: 0 4px;
+        }
+
         .notification {
             position: fixed;
             top: 20px;
@@ -302,12 +314,12 @@
     <div class="container">
         <header>
             <h1>🎵 Techno Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">40</span> de 40 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">13</span> de 13 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">40</span>
+                    👂 Pendientes: <span id="pending-count">13</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -316,577 +328,139 @@
             </div>
         </header>
 
-        <div class="embeds-grid" id="embeds-container">
-            
-        <div class="embed-item page-1" data-page="1" id="track_3196846941" data-embed-id="track_3196846941">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3196846941/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 07 Aug 2026 10:17:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_3196846941')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3990673783" data-embed-id="album_3990673783">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3990673783/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 17 Jul 2026 08:13:03 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3990673783')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3056789088" data-embed-id="album_3056789088">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3056789088/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 10 Jul 2026 09:25:23 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3056789088')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="track_3504014933" data-embed-id="track_3504014933">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=3504014933/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 03 Jul 2026 08:17:14 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_3504014933')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3665467909" data-embed-id="album_3665467909">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3665467909/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 02 Jul 2026 23:27:04 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3665467909')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_177716218" data-embed-id="album_177716218">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=177716218/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Mango Hill Records</strong><br>
-                <small>📅 Fri, 10 Apr 2026 04:04:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_177716218')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3585984894" data-embed-id="album_3585984894">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3585984894/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 18 Jun 2026 22:50:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3585984894')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="track_534002466" data-embed-id="track_534002466">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=534002466/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lovemonk</strong><br>
-                <small>📅 Thu, 11 Jun 2026 09:10:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_534002466')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-1" data-page="1" id="album_3210130243" data-embed-id="album_3210130243">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3210130243/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 30 Apr 2026 17:22:44 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3210130243')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_3745551964" data-embed-id="album_3745551964">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3745551964/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Wed, 20 May 2026 14:19:01 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3745551964')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_947858033" data-embed-id="album_947858033">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=947858033/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 15 May 2026 09:13:28 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_947858033')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_2486881524" data-embed-id="album_2486881524">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2486881524/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Wed, 11 Mar 2026 12:40:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2486881524')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="track_2473777214" data-embed-id="track_2473777214">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2473777214/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 01 May 2026 07:16:14 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_2473777214')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_3658367550" data-embed-id="album_3658367550">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3658367550/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lovemonk</strong><br>
-                <small>📅 Fri, 03 Apr 2026 11:26:44 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3658367550')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_4260573208" data-embed-id="album_4260573208">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4260573208/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 17 Apr 2026 09:07:09 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_4260573208')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_3067178330" data-embed-id="album_3067178330">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3067178330/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from PoleGroup</strong><br>
-                <small>📅 Tue, 31 Mar 2026 11:46:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3067178330')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_621835557" data-embed-id="album_621835557">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=621835557/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lovemonk</strong><br>
-                <small>📅 Wed, 25 Mar 2026 13:15:15 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_621835557')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-2" data-page="2" id="album_2126902047" data-embed-id="album_2126902047">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2126902047/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Mango Hill Records</strong><br>
-                <small>📅 Sat, 04 Apr 2026 02:39:52 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2126902047')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_3554242289" data-embed-id="album_3554242289">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3554242289/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Mango Hill Records</strong><br>
-                <small>📅 Fri, 03 Apr 2026 17:29:05 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3554242289')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_736431741" data-embed-id="album_736431741">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=736431741/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Mango Hill Records</strong><br>
-                <small>📅 Fri, 03 Apr 2026 16:51:54 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_736431741')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_403326780" data-embed-id="album_403326780">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=403326780/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Mango Hill Records</strong><br>
-                <small>📅 Fri, 03 Apr 2026 16:51:25 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_403326780')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_75092556" data-embed-id="album_75092556">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=75092556/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 03 Apr 2026 09:17:45 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_75092556')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_3856536970" data-embed-id="album_3856536970">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3856536970/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lovemonk</strong><br>
-                <small>📅 Tue, 17 Mar 2026 16:51:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3856536970')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_3706640810" data-embed-id="album_3706640810">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3706640810/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 12 Mar 2026 17:30:17 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3706640810')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="track_2100453128" data-embed-id="track_2100453128">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=2100453128/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 06 Mar 2026 08:33:10 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_2100453128')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_4083576469" data-embed-id="album_4083576469">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=4083576469/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 05 Mar 2026 22:51:28 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_4083576469')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-3" data-page="3" id="album_777047202" data-embed-id="album_777047202">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=777047202/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Wed, 18 Feb 2026 15:13:23 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_777047202')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_3239437319" data-embed-id="album_3239437319">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3239437319/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 16 Jan 2026 09:54:00 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3239437319')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_2162241410" data-embed-id="album_2162241410">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2162241410/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 06 Feb 2026 11:46:24 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2162241410')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_987143387" data-embed-id="album_987143387">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=987143387/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Tue, 20 Jan 2026 14:14:56 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_987143387')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_1067685157" data-embed-id="album_1067685157">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1067685157/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Fri, 16 Jan 2026 09:53:43 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_1067685157')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_1174037158" data-embed-id="album_1174037158">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1174037158/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Tue, 16 Dec 2025 14:14:06 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_1174037158')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_3708646143" data-embed-id="album_3708646143">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3708646143/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from PoleGroup</strong><br>
-                <small>📅 Tue, 02 Dec 2025 13:04:27 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3708646143')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="track_1357137988" data-embed-id="track_1357137988">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=1357137988/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Lovemonk</strong><br>
-                <small>📅 Thu, 18 Dec 2025 13:20:45 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('track_1357137988')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_3899538892" data-embed-id="album_3899538892">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3899538892/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 05 Dec 2025 09:21:14 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_3899538892')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-4" data-page="4" id="album_361003825" data-embed-id="album_361003825">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=361003825/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 04 Dec 2025 23:33:56 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_361003825')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="album_83999924" data-embed-id="album_83999924">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=83999924/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from ARTS</strong><br>
-                <small>📅 Fri, 21 Nov 2025 10:40:07 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_83999924')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="album_355273155" data-embed-id="album_355273155">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=355273155/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Wed, 12 Nov 2025 14:13:11 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_355273155')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="album_2925803421" data-embed-id="album_2925803421">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2925803421/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Perc Trax</strong><br>
-                <small>📅 Fri, 07 Nov 2025 08:22:08 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2925803421')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item page-5" data-page="5" id="album_2493780310" data-embed-id="album_2493780310">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2493780310/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Semantica Records</strong><br>
-                <small>📅 Thu, 06 Nov 2025 22:18:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2493780310')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        </div>
-
-        <div class="pagination"><button class="page-btn active" data-page="1">Página 1</button><button class="page-btn " data-page="2">Página 2</button><button class="page-btn " data-page="3">Página 3</button><button class="page-btn " data-page="4">Página 4</button><button class="page-btn " data-page="5">Página 5</button></div>
+        <div id="pagination-top" class="pagination"></div>
+        <div class="embeds-grid" id="embeds-container"></div>
+        <div id="pagination-bottom" class="pagination"></div>
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
+        // Datos incrustados directamente en el HTML, uno por página -- cada
+        // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
+        // de la página que toca, en vez de tenerlos todos en el DOM a la
+        // vez. Mismo patrón que freshrss_html_generator.py.
+        const allPagesData = {"1": [{"id": "album_3239437319", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3239437319/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Semantica Records", "date": "Fri, 16 Jan 2026 09:54:00 +0000 (UTC)"}, {"id": "album_2162241410", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=2162241410/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Semantica Records", "date": "Fri, 06 Feb 2026 11:46:24 +0000 (UTC)"}, {"id": "album_987143387", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=987143387/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Perc Trax", "date": "Tue, 20 Jan 2026 14:14:56 +0000 (UTC)"}, {"id": "album_1067685157", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1067685157/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Semantica Records", "date": "Fri, 16 Jan 2026 09:53:43 +0000 (UTC)"}, {"id": "album_1174037158", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1174037158/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Perc Trax", "date": "Tue, 16 Dec 2025 14:14:06 +0000 (UTC)"}, {"id": "album_3708646143", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3708646143/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from PoleGroup", "date": "Tue, 02 Dec 2025 13:04:27 +0000 (UTC)"}, {"id": "track_1357137988", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/track=1357137988/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Lovemonk", "date": "Thu, 18 Dec 2025 13:20:45 +0000 (UTC)"}, {"id": "album_3899538892", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3899538892/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Perc Trax", "date": "Fri, 05 Dec 2025 09:21:14 +0000 (UTC)"}, {"id": "album_361003825", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=361003825/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Semantica Records", "date": "Thu, 04 Dec 2025 23:33:56 +0000 (UTC)"}], "2": [{"id": "album_83999924", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=83999924/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from ARTS", "date": "Fri, 21 Nov 2025 10:40:07 +0000 (UTC)"}, {"id": "album_355273155", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=355273155/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Perc Trax", "date": "Wed, 12 Nov 2025 14:13:11 +0000 (UTC)"}, {"id": "album_2925803421", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=2925803421/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Perc Trax", "date": "Fri, 07 Nov 2025 08:22:08 +0000 (UTC)"}, {"id": "album_2493780310", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=2493780310/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Semantica Records", "date": "Thu, 06 Nov 2025 22:18:35 +0000 (UTC)"}]};
+        const TOTAL_PAGES = 2;
+        const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_Techno_Sellos';
-        const TOTAL_ITEMS = 40;
+        const TOTAL_ITEMS = 13;
 
-        // Cargar estado guardado al iniciar
+        let currentPage = 1;
+        let listenedItems = new Set();
+
+        // Cargar estado guardado al iniciar (solo para ocultar, en esta
+        // misma sesión sin recargar, lo que se acaba de marcar -- el
+        // servidor ya excluye los escuchados de allPagesData en cada
+        // regeneración, así que tras un reload esto ya no hace falta)
         function loadListenedState() {
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
+            try {
+                listenedItems = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+            } catch (e) {
+                listenedItems = new Set();
+            }
+            updateStats();
+            console.log('💾 Loaded listened:', listenedItems.size);
+        }
 
-            listened.forEach(embedId => {
-                const element = document.querySelector(`[data-embed-id="${embedId}"]`);
-                if (element) {
-                    element.classList.add('listened');
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                    hiddenCount++;
-                }
-            });
-
-            updateStats(hiddenCount);
-
-            console.log('💾 Loaded listened:', listened);
+        function saveListenedState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(listenedItems)));
         }
 
         // Actualizar estadísticas
-        function updateStats(listenedCount) {
-            const pending = TOTAL_ITEMS - listenedCount;
-            document.getElementById('listened-count').textContent = listenedCount;
+        function updateStats() {
+            const pending = TOTAL_ITEMS - listenedItems.size;
+            document.getElementById('listened-count').textContent = listenedItems.size;
             document.getElementById('pending-count').textContent = pending;
             document.getElementById('visible-count').textContent = pending;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderEmbedItem(item) {
+            return `
+        <div class="embed-item" id="${item.id}" data-embed-id="${item.id}">
+            ${item.embed}
+            <div class="embed-info">
+                <strong>${escapeHtml(item.subject)}</strong><br>
+                <small>📅 ${escapeHtml(item.date)}</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('${item.id}')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+            `;
+        }
+
+        function loadPage(pageNum) {
+            if (pageNum < 1 || pageNum > TOTAL_PAGES) return;
+
+            const container = document.getElementById('embeds-container');
+            const pageItems = (allPagesData[String(pageNum)] || [])
+                .filter(item => !listenedItems.has(item.id));
+
+            container.innerHTML = pageItems.map(renderEmbedItem).join('');
+            currentPage = pageNum;
+            renderPagination();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPagination() {
+            const html = createPaginationButtons();
+            document.getElementById('pagination-top').innerHTML = html;
+            document.getElementById('pagination-bottom').innerHTML = html;
+        }
+
+        function createPaginationButtons() {
+            if (TOTAL_PAGES <= 1) return '';
+
+            let html = '';
+            html += currentPage > 1
+                ? `<button class="page-btn" onclick="changePage(${currentPage - 1})">← Anterior</button>`
+                : `<button class="page-btn" disabled>← Anterior</button>`;
+
+            let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
+            let endPage = Math.min(TOTAL_PAGES, startPage + MAX_PAGE_BUTTONS - 1);
+            if (endPage - startPage < MAX_PAGE_BUTTONS - 1) {
+                startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="changePage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="page-info">…</span>`;
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                html += i === currentPage
+                    ? `<button class="page-btn active">${i}</button>`
+                    : `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+            }
+            if (endPage < TOTAL_PAGES) {
+                if (endPage < TOTAL_PAGES - 1) html += `<span class="page-info">…</span>`;
+                html += `<button class="page-btn" onclick="changePage(${TOTAL_PAGES})">${TOTAL_PAGES}</button>`;
+            }
+
+            html += currentPage < TOTAL_PAGES
+                ? `<button class="page-btn" onclick="changePage(${currentPage + 1})">Siguiente →</button>`
+                : `<button class="page-btn" disabled>Siguiente →</button>`;
+            return html;
+        }
+
+        function changePage(pageNum) {
+            if (pageNum >= 1 && pageNum <= TOTAL_PAGES) loadPage(pageNum);
         }
 
         // Marcar como escuchado (servidor — SQLite — es la fuente de verdad;
         // localStorage se mantiene solo para el feedback visual inmediato)
         function markAsListened(embedId) {
-            const element = document.getElementById(embedId);
-            const button = element.querySelector('.listened-btn');
-
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✅ Escuchado';
+            listenedItems.add(embedId);
+            saveListenedState();
 
             fetch('/api/listened', {
                 method: 'POST',
@@ -894,80 +468,30 @@
                 body: JSON.stringify({id: embedId}),
             }).catch(err => console.error('No se pudo guardar en el servidor:', err));
 
-            // Guardar en localStorage (feedback local, redundante con el servidor)
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (!listened.includes(embedId)) {
-                listened.push(embedId);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log('✅ Marked as listened:', embedId);
-            }
+            // Quitar solo este elemento, no volver a renderizar la página
+            // entera: container.innerHTML = ... destruiría y recrearía
+            // TODOS los <iframe> de la página actual (recargándolos todos),
+            // no solo el que se acaba de marcar.
+            const element = document.getElementById(embedId);
+            if (element) element.remove();
 
-            // Animar desaparición
-            element.classList.add('listened');
-
-            setTimeout(() => {
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }, 500);
-
+            updateStats();
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
-        // Resetear todos los escuchados
+        // Resetear todos los escuchados de esta sesión/localStorage. Ojo:
+        // no revierte lo ya confirmado en el servidor (bc_db no soporta
+        // "desmarcar"), así que tras la próxima regeneración los que ya se
+        // enviaron al servidor no volverán a aparecer.
         function resetListened() {
             if (!confirm('¿Restaurar todos los discos? Aparecerán de nuevo los que marcaste como escuchados.')) {
                 return;
             }
-
-            localStorage.removeItem(STORAGE_KEY);
-
-            // Mostrar todos los elementos
-            document.querySelectorAll('.embed-item').forEach(item => {
-                item.classList.remove('listened');
-                item.style.display = '';
-                const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
-            });
-
-            updateStats(0);
+            listenedItems.clear();
+            saveListenedState();
+            updateStats();
+            loadPage(currentPage);
             showNotification('Todos los discos restaurados', 'success');
-        }
-
-        // Paginación
-        const pageButtons = document.querySelectorAll('.page-btn');
-        const embedItems = document.querySelectorAll('.embed-item');
-
-        pageButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const page = button.dataset.page;
-
-                pageButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                embedItems.forEach(item => {
-                    if (item.classList.contains('listened')) {
-                        return;
-                    }
-
-                    if (item.dataset.page === page) {
-                        item.classList.remove('hidden');
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-
-        // Mostrar solo la primera página al cargar
-        if (pageButtons.length > 0) {
-            embedItems.forEach(item => {
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
-                    item.classList.add('hidden');
-                }
-            });
         }
 
         // Notificaciones
@@ -980,9 +504,6 @@
                 notification.classList.remove('show');
             }, 3000);
         }
-
-        // Cargar estado al iniciar la página
-        loadListenedState();
 
         console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
         console.log('💾 Storage key:', STORAGE_KEY);
@@ -999,16 +520,29 @@
             });
         }
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {
-            embedItem.addEventListener('click', (e) => {
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {
-                    setTimeout(() => {
-                        stopOtherPlayers(iframe);
-                    }, 100);
-                }
-            });
+        // Detectar cuando se reproduce un embed -- delegado en el contenedor
+        // (no en cada .embed-item) porque loadPage() los crea/destruye en
+        // cada cambio de página, así que un listener por item se perdería.
+        document.getElementById('embeds-container').addEventListener('click', (e) => {
+            const embedItem = e.target.closest('.embed-item');
+            if (!embedItem) return;
+            const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+            if (iframe && !e.target.classList.contains('action-btn')) {
+                setTimeout(() => {
+                    stopOtherPlayers(iframe);
+                }, 100);
+            }
+        });
+
+        loadListenedState();
+        loadPage(1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changePage(currentPage - 1);
+            } else if (e.key === 'ArrowRight') {
+                changePage(currentPage + 1);
+            }
         });
     </script>
     <script src="theme-picker.js"></script>

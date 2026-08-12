@@ -221,6 +221,18 @@
             color: white;
         }
 
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .page-info {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            padding: 0 4px;
+        }
+
         .notification {
             position: fixed;
             top: 20px;
@@ -302,12 +314,12 @@
     <div class="container">
         <header>
             <h1>🎵 Soul Funk Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">7</span> de 7 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">0</span> de 0 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">7</span>
+                    👂 Pendientes: <span id="pending-count">0</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -316,148 +328,139 @@
             </div>
         </header>
 
-        <div class="embeds-grid" id="embeds-container">
-            
-        <div class="embed-item " data-page="1" id="album_1120434085" data-embed-id="album_1120434085">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1120434085/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Fri, 16 Jan 2026 09:13:36 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_1120434085')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_2361990377" data-embed-id="album_2361990377">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2361990377/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Thu, 05 Feb 2026 20:28:31 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2361990377')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_2617682813" data-embed-id="album_2617682813">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2617682813/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from Favorite Recordings</strong><br>
-                <small>📅 Fri, 13 Feb 2026 11:08:41 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2617682813')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_2924584191" data-embed-id="album_2924584191">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2924584191/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Thu, 23 Jul 2026 07:22:35 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_2924584191')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_621893885" data-embed-id="album_621893885">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=621893885/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Tue, 21 Jul 2026 10:15:55 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_621893885')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_378497327" data-embed-id="album_378497327">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=378497327/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Tue, 21 Jul 2026 09:24:50 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_378497327')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        <div class="embed-item " data-page="1" id="album_736747483" data-embed-id="album_736747483">
-            <iframe style="border: 0; width: 400px; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=736747483/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/" seamless></iframe>
-            <div class="embed-info">
-                <strong>New release from NuNorthern Soul</strong><br>
-                <small>📅 Fri, 31 Jul 2026 05:30:34 +0000 (UTC)</small>
-            </div>
-            <div class="embed-actions">
-                <button class="action-btn listened-btn" onclick="markAsListened('album_736747483')">
-                    🎧 Marcar como escuchado
-                </button>
-            </div>
-        </div>
-        
-        </div>
-
-        
+        <div id="pagination-top" class="pagination"></div>
+        <div class="embeds-grid" id="embeds-container"></div>
+        <div id="pagination-bottom" class="pagination"></div>
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
+        // Datos incrustados directamente en el HTML, uno por página -- cada
+        // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
+        // de la página que toca, en vez de tenerlos todos en el DOM a la
+        // vez. Mismo patrón que freshrss_html_generator.py.
+        const allPagesData = {};
+        const TOTAL_PAGES = 0;
+        const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_Soul_Funk_Sellos';
-        const TOTAL_ITEMS = 7;
+        const TOTAL_ITEMS = 0;
 
-        // Cargar estado guardado al iniciar
+        let currentPage = 1;
+        let listenedItems = new Set();
+
+        // Cargar estado guardado al iniciar (solo para ocultar, en esta
+        // misma sesión sin recargar, lo que se acaba de marcar -- el
+        // servidor ya excluye los escuchados de allPagesData en cada
+        // regeneración, así que tras un reload esto ya no hace falta)
         function loadListenedState() {
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            let hiddenCount = 0;
+            try {
+                listenedItems = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+            } catch (e) {
+                listenedItems = new Set();
+            }
+            updateStats();
+            console.log('💾 Loaded listened:', listenedItems.size);
+        }
 
-            listened.forEach(embedId => {
-                const element = document.querySelector(`[data-embed-id="${embedId}"]`);
-                if (element) {
-                    element.classList.add('listened');
-                    setTimeout(() => {
-                        element.style.display = 'none';
-                    }, 500);
-                    hiddenCount++;
-                }
-            });
-
-            updateStats(hiddenCount);
-
-            console.log('💾 Loaded listened:', listened);
+        function saveListenedState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(listenedItems)));
         }
 
         // Actualizar estadísticas
-        function updateStats(listenedCount) {
-            const pending = TOTAL_ITEMS - listenedCount;
-            document.getElementById('listened-count').textContent = listenedCount;
+        function updateStats() {
+            const pending = TOTAL_ITEMS - listenedItems.size;
+            document.getElementById('listened-count').textContent = listenedItems.size;
             document.getElementById('pending-count').textContent = pending;
             document.getElementById('visible-count').textContent = pending;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderEmbedItem(item) {
+            return `
+        <div class="embed-item" id="${item.id}" data-embed-id="${item.id}">
+            ${item.embed}
+            <div class="embed-info">
+                <strong>${escapeHtml(item.subject)}</strong><br>
+                <small>📅 ${escapeHtml(item.date)}</small>
+            </div>
+            <div class="embed-actions">
+                <button class="action-btn listened-btn" onclick="markAsListened('${item.id}')">
+                    🎧 Marcar como escuchado
+                </button>
+            </div>
+        </div>
+            `;
+        }
+
+        function loadPage(pageNum) {
+            if (pageNum < 1 || pageNum > TOTAL_PAGES) return;
+
+            const container = document.getElementById('embeds-container');
+            const pageItems = (allPagesData[String(pageNum)] || [])
+                .filter(item => !listenedItems.has(item.id));
+
+            container.innerHTML = pageItems.map(renderEmbedItem).join('');
+            currentPage = pageNum;
+            renderPagination();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderPagination() {
+            const html = createPaginationButtons();
+            document.getElementById('pagination-top').innerHTML = html;
+            document.getElementById('pagination-bottom').innerHTML = html;
+        }
+
+        function createPaginationButtons() {
+            if (TOTAL_PAGES <= 1) return '';
+
+            let html = '';
+            html += currentPage > 1
+                ? `<button class="page-btn" onclick="changePage(${currentPage - 1})">← Anterior</button>`
+                : `<button class="page-btn" disabled>← Anterior</button>`;
+
+            let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGE_BUTTONS / 2));
+            let endPage = Math.min(TOTAL_PAGES, startPage + MAX_PAGE_BUTTONS - 1);
+            if (endPage - startPage < MAX_PAGE_BUTTONS - 1) {
+                startPage = Math.max(1, endPage - MAX_PAGE_BUTTONS + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="changePage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="page-info">…</span>`;
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                html += i === currentPage
+                    ? `<button class="page-btn active">${i}</button>`
+                    : `<button class="page-btn" onclick="changePage(${i})">${i}</button>`;
+            }
+            if (endPage < TOTAL_PAGES) {
+                if (endPage < TOTAL_PAGES - 1) html += `<span class="page-info">…</span>`;
+                html += `<button class="page-btn" onclick="changePage(${TOTAL_PAGES})">${TOTAL_PAGES}</button>`;
+            }
+
+            html += currentPage < TOTAL_PAGES
+                ? `<button class="page-btn" onclick="changePage(${currentPage + 1})">Siguiente →</button>`
+                : `<button class="page-btn" disabled>Siguiente →</button>`;
+            return html;
+        }
+
+        function changePage(pageNum) {
+            if (pageNum >= 1 && pageNum <= TOTAL_PAGES) loadPage(pageNum);
         }
 
         // Marcar como escuchado (servidor — SQLite — es la fuente de verdad;
         // localStorage se mantiene solo para el feedback visual inmediato)
         function markAsListened(embedId) {
-            const element = document.getElementById(embedId);
-            const button = element.querySelector('.listened-btn');
-
-            // Deshabilitar botón
-            button.disabled = true;
-            button.textContent = '✅ Escuchado';
+            listenedItems.add(embedId);
+            saveListenedState();
 
             fetch('/api/listened', {
                 method: 'POST',
@@ -465,80 +468,30 @@
                 body: JSON.stringify({id: embedId}),
             }).catch(err => console.error('No se pudo guardar en el servidor:', err));
 
-            // Guardar en localStorage (feedback local, redundante con el servidor)
-            const listened = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            if (!listened.includes(embedId)) {
-                listened.push(embedId);
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(listened));
-                console.log('✅ Marked as listened:', embedId);
-            }
+            // Quitar solo este elemento, no volver a renderizar la página
+            // entera: container.innerHTML = ... destruiría y recrearía
+            // TODOS los <iframe> de la página actual (recargándolos todos),
+            // no solo el que se acaba de marcar.
+            const element = document.getElementById(embedId);
+            if (element) element.remove();
 
-            // Animar desaparición
-            element.classList.add('listened');
-
-            setTimeout(() => {
-                element.style.display = 'none';
-                updateStats(listened.length);
-            }, 500);
-
+            updateStats();
             showNotification('¡Marcado como escuchado!', 'success');
         }
 
-        // Resetear todos los escuchados
+        // Resetear todos los escuchados de esta sesión/localStorage. Ojo:
+        // no revierte lo ya confirmado en el servidor (bc_db no soporta
+        // "desmarcar"), así que tras la próxima regeneración los que ya se
+        // enviaron al servidor no volverán a aparecer.
         function resetListened() {
             if (!confirm('¿Restaurar todos los discos? Aparecerán de nuevo los que marcaste como escuchados.')) {
                 return;
             }
-
-            localStorage.removeItem(STORAGE_KEY);
-
-            // Mostrar todos los elementos
-            document.querySelectorAll('.embed-item').forEach(item => {
-                item.classList.remove('listened');
-                item.style.display = '';
-                const button = item.querySelector('.listened-btn');
-                button.disabled = false;
-                button.textContent = '🎧 Marcar como escuchado';
-            });
-
-            updateStats(0);
+            listenedItems.clear();
+            saveListenedState();
+            updateStats();
+            loadPage(currentPage);
             showNotification('Todos los discos restaurados', 'success');
-        }
-
-        // Paginación
-        const pageButtons = document.querySelectorAll('.page-btn');
-        const embedItems = document.querySelectorAll('.embed-item');
-
-        pageButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const page = button.dataset.page;
-
-                pageButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
-                embedItems.forEach(item => {
-                    if (item.classList.contains('listened')) {
-                        return;
-                    }
-
-                    if (item.dataset.page === page) {
-                        item.classList.remove('hidden');
-                    } else {
-                        item.classList.add('hidden');
-                    }
-                });
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-
-        // Mostrar solo la primera página al cargar
-        if (pageButtons.length > 0) {
-            embedItems.forEach(item => {
-                if (item.dataset.page !== '1' && !item.classList.contains('listened')) {
-                    item.classList.add('hidden');
-                }
-            });
         }
 
         // Notificaciones
@@ -551,9 +504,6 @@
                 notification.classList.remove('show');
             }, 3000);
         }
-
-        // Cargar estado al iniciar la página
-        loadListenedState();
 
         console.log('🔑 Usando album_id/track_id de Bandcamp como identificador único');
         console.log('💾 Storage key:', STORAGE_KEY);
@@ -570,16 +520,29 @@
             });
         }
 
-        // Detectar cuando se reproduce un embed
-        document.querySelectorAll('.embed-item').forEach(embedItem => {
-            embedItem.addEventListener('click', (e) => {
-                const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
-                if (iframe && !e.target.classList.contains('action-btn')) {
-                    setTimeout(() => {
-                        stopOtherPlayers(iframe);
-                    }, 100);
-                }
-            });
+        // Detectar cuando se reproduce un embed -- delegado en el contenedor
+        // (no en cada .embed-item) porque loadPage() los crea/destruye en
+        // cada cambio de página, así que un listener por item se perdería.
+        document.getElementById('embeds-container').addEventListener('click', (e) => {
+            const embedItem = e.target.closest('.embed-item');
+            if (!embedItem) return;
+            const iframe = embedItem.querySelector('iframe[src*="bandcamp.com"]');
+            if (iframe && !e.target.classList.contains('action-btn')) {
+                setTimeout(() => {
+                    stopOtherPlayers(iframe);
+                }, 100);
+            }
+        });
+
+        loadListenedState();
+        loadPage(1);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changePage(currentPage - 1);
+            } else if (e.key === 'ArrowRight') {
+                changePage(currentPage + 1);
+            }
         });
     </script>
     <script src="theme-picker.js"></script>
