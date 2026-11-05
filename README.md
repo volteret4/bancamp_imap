@@ -1,8 +1,50 @@
 # Bandcamp IMAP Collection
 
+Convierte los correos de Bandcamp de tu buzón en una web con el reproductor de cada disco, organizada por género.
+
+## Para qué sirve
+
+Bandcamp avisa por correo de lo nuevo de los artistas y sellos que sigues. Esto los saca del buzón y los deja listos para escuchar en una sola web, sin abrir cada correo.
+
+[Versión pública de prueba](https://volteret4.github.io/bancamp_imap/).
+
+## Instalación individual
+
+Necesitas Docker y un buzón con IMAP.
+
+```bash
+git clone https://github.com/volteret4/bancamp_imap.git
+```
+
+```bash
+cd bancamp_imap && cp .env.example .env
+```
+
+Edita `.env` con tu buzón y tus carpetas, y arranca:
+
+```bash
+docker build -t bandcamp .
+```
+
+```bash
+docker run -d --name bandcamp --restart unless-stopped --user "$(id -u):$(id -g)" --env-file .env -v "$PWD:/app" -p 8765:8765 bandcamp
+```
+
+Se abre en <http://localhost:8765>. Para leer el buzón por primera vez:
+
+```bash
+docker exec bandcamp bash update.sh
+```
+
+## Instalación desde REPEAT-ONE
+
+Este módulo forma parte de [REPEAT-ONE](https://volteret4.github.io/repeat-one-web/), que permite elegir qué módulos instalar: [ver la instalación](https://github.com/volteret4/repeat-one-web#instalación). Allí se llama `bandcamp`.
+
+## Documentación detallada
+
 Lee correos de Bandcamp desde IMAP, genera una web estática con los embeds de cada álbum organizados por género y la sirve con SSL a través de SWAG.
 
-## Cómo funciona
+### Cómo funciona
 
 ```
 IMAP (correos de Bandcamp)
@@ -20,7 +62,7 @@ La web incluye un botón flotante **"Actualizar colección"** que dispara el pip
 
 ---
 
-## Requisitos previos
+### Requisitos previos
 
 - Python ≥ 3.10 con venv en `~/Scripts/python_venv` (incluye Flask)
 - Docker con [SWAG](https://docs.linuxserver.io/general/swag) corriendo
@@ -30,16 +72,16 @@ La web incluye un botón flotante **"Actualizar colección"** que dispara el pip
 
 ---
 
-## Instalación
+### Instalación
 
-### 1. Clonar el repositorio
+#### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/tuusuario/bandcamp_imap_mails
 cd bandcamp_imap_mails
 ```
 
-### 2. Crear el archivo de credenciales
+#### 2. Crear el archivo de credenciales
 
 ```bash
 cp .env.example .env
@@ -71,7 +113,7 @@ PORT=8765
 
 > `.env` está en `.gitignore` — nunca se sube al repositorio.
 
-### 3. Primera actualización manual
+#### 3. Primera actualización manual
 
 Comprueba que el pipeline funciona antes de instalar los servicios:
 
@@ -81,7 +123,7 @@ bash update.sh
 
 Debe generar `bc_data.json` y los archivos en `docs/`.
 
-### 4. Instalar los servicios systemd
+#### 4. Instalar los servicios systemd
 
 ```bash
 sudo cp bandcamp.service        /etc/systemd/system/
@@ -104,7 +146,7 @@ systemctl status bandcamp.service
 curl -s http://127.0.0.1:8765/api/status
 ```
 
-### 5. Configurar SWAG
+#### 5. Configurar SWAG
 
 Averigua la IP del host desde dentro del contenedor:
 
@@ -126,19 +168,19 @@ La web quedará en `https://bandcamp.tudominio.com`.
 
 ---
 
-## Uso diario
+### Uso diario
 
-### Actualización manual desde la web
+#### Actualización manual desde la web
 
 Usa el botón **"Actualizar colección"** en la esquina inferior derecha de cualquier página. Muestra el estado en tiempo real y recarga automáticamente al terminar.
 
-### Actualización manual desde el terminal
+#### Actualización manual desde el terminal
 
 ```bash
 bash update.sh
 ```
 
-### Ver logs
+#### Ver logs
 
 ```bash
 # Logs del servidor web en vivo
@@ -148,7 +190,7 @@ journalctl -u bandcamp.service -f
 journalctl -u bandcamp-update.service --no-pager
 ```
 
-### Administrar el timer
+#### Administrar el timer
 
 ```bash
 # Ver cuándo se ejecutará la próxima vez
@@ -160,7 +202,7 @@ sudo systemctl start bandcamp-update.service
 
 ---
 
-## Estructura del proyecto
+### Estructura del proyecto
 
 ```
 bandcamp_imap_mails/
@@ -186,7 +228,7 @@ bandcamp_imap_mails/
 
 ---
 
-## Solución de problemas
+### Solución de problemas
 
 **El servidor no arranca**
 ```bash
