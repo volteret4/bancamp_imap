@@ -170,6 +170,10 @@
             <div style="margin-top: 20px;">
                 <a href="sync_tools.html" class="tools-link">🔧 Sincronizar Colección</a>
             </div>
+            <script>
+            // En GitHub Pages no hay servidor con el que sincronizar.
+            if (location.hostname.endsWith('github.io')) document.querySelector('.tools-link').parentElement.remove();
+            </script>
         </header>
 
         <div class="genres-grid">
