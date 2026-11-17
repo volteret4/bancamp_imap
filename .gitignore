@@ -2,3 +2,4 @@ __pycache__/
 .env
 bc_data.json
 data/
+datos/
