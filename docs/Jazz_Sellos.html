@@ -315,12 +315,12 @@
     <div class="container">
         <header>
             <h1>🎵 Jazz Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">0</span> de 0 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">1</span> de 1 disco</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">0</span>
+                    👂 Pendientes: <span id="pending-count">1</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -341,11 +341,11 @@
         // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
         // de la página que toca, en vez de tenerlos todos en el DOM a la
         // vez. Mismo patrón que freshrss_html_generator.py.
-        const allPagesData = {};
-        const TOTAL_PAGES = 0;
+        const allPagesData = {"1": [{"id": "album_986771538", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=986771538/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Light in the Attic Records", "date": "Tue, 03 Nov 2026 20:24:04 +0000 (UTC)"}]};
+        const TOTAL_PAGES = 1;
         const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_Jazz_Sellos';
-        const TOTAL_ITEMS = 0;
+        const TOTAL_ITEMS = 1;
 
         let currentPage = 1;
         let listenedItems = new Set();

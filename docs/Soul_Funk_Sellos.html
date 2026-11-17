@@ -315,12 +315,12 @@
     <div class="container">
         <header>
             <h1>🎵 Soul Funk Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">0</span> de 0 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">9</span> de 9 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">0</span>
+                    👂 Pendientes: <span id="pending-count">9</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -341,11 +341,11 @@
         // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
         // de la página que toca, en vez de tenerlos todos en el DOM a la
         // vez. Mismo patrón que freshrss_html_generator.py.
-        const allPagesData = {};
-        const TOTAL_PAGES = 0;
+        const allPagesData = {"1": [{"id": "album_2380669916", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=2380669916/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from NuNorthern Soul", "date": "Sun, 15 Nov 2026 07:49:03 +0000 (UTC)"}, {"id": "album_1015820456", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1015820456/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Lovemonk", "date": "Fri, 13 Nov 2026 10:37:19 +0000 (UTC)"}, {"id": "album_3840640412", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3840640412/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from NuNorthern Soul", "date": "Fri, 13 Nov 2026 05:07:39 +0000 (UTC)"}, {"id": "album_1599363581", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1599363581/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Favorite Recordings", "date": "Wed, 11 Nov 2026 11:24:24 +0000 (UTC)"}, {"id": "album_4273643403", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=4273643403/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Favorite Recordings", "date": "Wed, 11 Nov 2026 10:04:22 +0000 (UTC)"}, {"id": "album_697830944", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=697830944/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Lovemonk", "date": "Fri, 06 Nov 2026 11:58:09 +0000 (UTC)"}, {"id": "album_882304597", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=882304597/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Lovemonk", "date": "Fri, 06 Nov 2026 09:14:31 +0000 (UTC)"}, {"id": "album_1683351189", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1683351189/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Lovemonk", "date": "Fri, 30 Oct 2026 14:28:57 +0000 (UTC)"}, {"id": "track_1263429565", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/track=1263429565/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Mango Hill Records", "date": "Thu, 29 Oct 2026 17:18:51 +0000 (UTC)"}]};
+        const TOTAL_PAGES = 1;
         const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_Soul_Funk_Sellos';
-        const TOTAL_ITEMS = 0;
+        const TOTAL_ITEMS = 9;
 
         let currentPage = 1;
         let listenedItems = new Set();

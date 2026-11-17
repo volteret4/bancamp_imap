@@ -315,12 +315,12 @@
     <div class="container">
         <header>
             <h1>🎵 MustHave Sellos</h1>
-            <p class="subtitle">💿 <span id="visible-count">0</span> de 0 discos</p>
+            <p class="subtitle">💿 <span id="visible-count">3</span> de 3 discos</p>
             <div class="stats">
                 <strong>📊 Estadísticas:</strong>
                 <div style="margin-top: 8px;">
                     ✅ Escuchados: <span id="listened-count">0</span> |
-                    👂 Pendientes: <span id="pending-count">0</span>
+                    👂 Pendientes: <span id="pending-count">3</span>
                 </div>
             </div>
             <div style="margin-top: 15px;">
@@ -341,11 +341,11 @@
         // loadPage() solo renderiza (y por tanto solo carga) los <iframe>
         // de la página que toca, en vez de tenerlos todos en el DOM a la
         // vez. Mismo patrón que freshrss_html_generator.py.
-        const allPagesData = {};
-        const TOTAL_PAGES = 0;
+        const allPagesData = {"1": [{"id": "album_1812074434", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=1812074434/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Soundway Records", "date": "Fri, 06 Nov 2026 09:46:46 +0000 (UTC)"}, {"id": "album_3421442645", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3421442645/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Filmmaker", "date": "Sat, 31 Oct 2026 22:59:54 +0000 (UTC)"}, {"id": "album_3847831791", "embed": "<iframe style=\"border: 0; width: 400px; height: 120px;\" src=\"https://bandcamp.com/EmbeddedPlayer/album=3847831791/size=large/bgcol=333333/linkcol=9a64ff/tracklist=false/artwork=small/transparent=true/\" seamless></iframe>", "subject": "New release from Soundway Records", "date": "Fri, 30 Oct 2026 14:24:23 +0000 (UTC)"}]};
+        const TOTAL_PAGES = 1;
         const MAX_PAGE_BUTTONS = 15;
         const STORAGE_KEY = 'bandcamp_listened_MustHave_Sellos';
-        const TOTAL_ITEMS = 0;
+        const TOTAL_ITEMS = 3;
 
         let currentPage = 1;
         let listenedItems = new Set();
